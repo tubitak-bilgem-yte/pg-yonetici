@@ -3,6 +3,8 @@
 topnav:
 - title: Topnav
   items:
+    - title: News
+      url: /news
     - title: GitHub
       external_url: https://github.com/berkanyiildirim/pg-yonetici/
 
