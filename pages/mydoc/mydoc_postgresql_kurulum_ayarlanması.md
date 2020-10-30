@@ -1,6 +1,6 @@
 ---
 title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
-tags: [kurulum, ayarlama]
+tags: [PostgreSQL]
 keywords: postgres, kurulum, ayarlama
 last_updated: October 30, 2020
 summary: "PostgreSQL Veritabanı Kurulumu ve Ayarlanması"
@@ -28,7 +28,7 @@ yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/p
 | postgresql11-libs.x86_64| PostgreSQL istemcileri ve sunucu tarafından paylaşılan ortak kütüphaneler |
 | postgresql11-server.x86_64 | PostgreSQL sunucusu |
 
-### PostgreSQL Sunucunun Kurulumu:
+### PostgreSQL Sunucunun Kurulumu
 
 ```sh
 yum install postgresql11-server postgresql11-contrib
