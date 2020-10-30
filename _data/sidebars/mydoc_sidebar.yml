@@ -33,7 +33,7 @@ entries:
     folderitems:
 
     - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
-      url: /mydoc_release_notes_60.html
+      url: /mydoc_postgresql_kurulum_ayarlanması.html
       output: web, pdf
 
   - title: PostgreSQL Veritabanı İstemcileri
