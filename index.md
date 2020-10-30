@@ -1,414 +1,127 @@
 ---
 title: "PostgreSQL Veritabanı Yönetim Dökümantasyonu"
 keywords: Giriş
-tags: [Giriş]
+tags: [postgresql]
 sidebar: mydoc_sidebar
 permalink: index.html
 summary: PostgreSQL Veritabanı Yönetim Dökümantasyonu
 ---
 
-{% include note.html content="If you're cloning this theme, you're probably writing documentation of some kind. I have a blog on technical writing here called <a alt='technical writing blog' href='http://idratherbewriting.com'>I'd Rather Be Writing</a>. If you'd like to stay updated with the latest trends, best practices, and other methods for writing documentation, consider <a href='https://tinyletter.com/tomjoht'>subscribing</a>. I also have a site on <a href='http://idratherbewriting.com/learnapidoc'>writing API documentation</a>." %}
+![postgres giriş](/images/postgres_giris.png)
 
-## Build the Theme
+## PostgreSQL Nedir?
 
-Follow these instructions to build the theme.
+PostgreSQL, tüm dünyada popüler olan açık kaynak kodlu, platform bağımsız gelişmiş bir nesne ilişkisel (ORDBMS) veritabanı yönetim sistemidir.
 
-### 1. Download the theme
+Yüksek performanslı, kararlı ve güvenilirdir. Modern kurumsal veritabanı kabiliyet ve özelliklerine sahiptir.
 
-First, download or clone the theme from the [Github repo](https://github.com/tomjoht/documentation-theme-jekyll). Most likely you won't be pulling in updates once you start customizing the theme, so downloading the theme (instead of cloning it) probably makes the most sense. In Github, click the **Clone or download** button, and then click **Download ZIP**.
+PostgreSQL’in, 1977 yılında başlayan 20 yılı akademik, son 20 yılı endüstride geçen 40 yıllık bir geçmişi olan en eski açık kaynak kodlu yazılımlardan biridir.
 
-### 2. Install Jekyll
+PostgreSQL, tüm dünyada kamuda önemli devlet hizmetleri sunan uygulama sistemlerinde (CERN, NASA, Fransa, İngiltere,G.Kore, vb.) finans ve Telekom sektörlerinde iş kritik uygulamalarda, dünyada önde gelen üreticilerin ürünlerinde (Apple, Microsoft, IBM,Amazon, vb.), araştırma merkezleri ve üniversitelerde, küçük ölçekli projelerden çok büyük ölçekli kurumsal altyapılarda güvenilerek kullanılmaktadır.
 
-If you've never installed or run a Jekyll site locally on your computer, follow these instructions to install Jekyll:
+PostgreSQL, önde gelen ticari veritabanı ürünleri ile rekabet edecek kurumsal veritabanı özelliklerinin yanı sıra günümüzdijital dönüşüm projeleri ve teknolojileri ile uyumlu birçok yeni ve yenilikçi özelliğe sahip-tir (Örneğin; dizi şeklindeki veri tipleri,paralel sorgular, JSON veri tipini desteklemesi ve üzerinde sorgu çalıştırabilmesi).
 
-* [Install Jekyll on Mac][mydoc_install_jekyll_on_mac]
-* [Install Jekyll on Windows][mydoc_install_jekyll_on_windows]
+PostgreSQL, veritabanı ve sistem yöneticileri, yazılım mimarları ve geliştiricileri için çekici gelen yenilikçi birçok özellik sunar.
 
-### 3. Install Bundler
+PostgreSQL’in öğrenmesi, kurulumu, konfigürasyonu, yönetimi, izlemesi ve bakımı kolaydır. Post-greSQL ekosisteminde birçok yönetim, izleme açık kaynaklı ve ticari araç vardır.
 
-In case you haven't installed Bundler, install it:
+PostgreSQL’in çok aktif ve güçlü geliştirici komünitesi vardır. Her yıl bir majör sürü
 
-```
-gem install bundler
-```
+## PostgreSQL Tarihçesi
 
-You'll want [Bundler](http://bundler.io/) to make sure all the Ruby gems needed work well with your project. Bundler sorts out dependencies and installs missing gems or matches up gems with the right versions based on gem dependencies.
+![postgresql_tarihce](/images/postgresql_tarihce.png)
 
-### 4. Option 1: Build the Theme (*without* the github-pages gem) {#option1}
+* **1977-1985 Ingres**: PostgreSQL’in, 1977 yılında başlayan 20 yılı akademik, son 20 yılı endüstride geçen 40 yıllık bir geçmişi vardır. Berkeley Kaliforniya Üniversitesinde Micheal Stonebraker, Ingres adıyla ilişkisel modeli baz alan bir araştırma projesi olarak ilişkisel veritabanı yönetim sistemini geliştirdi.
 
-Use this option if you're not planning to publish your Jekyll site using [Github Pages](https://pages.github.com/).
+* **1986-1994 Postgres**: 1985’den itibaren Micheal Stonebraker, kompleks veri yapılarını ve nesne ilişkisel modeli destekleyen postgres veritabanı yönetim sistemini geliştirdi.
 
-Bundler's Gemfile specifies how project dependencies are managed. Although this project includes a Gemfile, this theme doesn't have any dependencies beyond core Jekyll. The Gemfile is used to list gems needed for publishing on Github Pages. **If you're not planning to have Github Pages build your Jekyll project, delete these two files from the theme's root directory:**
+* **1994-1995 Postgre95**: 1995’te Andrew Yu ve Jolly Chen tarafından SQL sorgu dili geliştirilerek, önceki POSTQUEL ile değiştirildi ve geliştirilmiş bu versiyona Postgres95 adı verildi.
 
-* Gemfile
-* Gemfile.lock
+* **1996 – Günümüz PostgreSQL**: Birçok geliştiricinin Postgres95 üzerinde yoğun çalışması ile birçok yeni özellik eklenmesi ve iyileştirmelerin ardından ilk açık kaynak versiyonu 1997 yılında yayınladı ve endüstride kullanılmaya başlandı. Açık kaynak versiyonunun adı Postgre95 değiştirilerek PostgreSQL oldu.
 
-If you've never run Jekyll on your computer (you can check with `jekyll --version`), you may need to install the jekyll gem:
+## PostgreSQL Güçlüdür, Avantajlıdır, Güzeldir
 
-```
-gem install jekyll
-```
+* PostgreSQL’in özellikleri ve kabiliyetleri, mevcut ticari veritabanları ile rekabet edebilecek yenilikçi özelliklere sahiptir.
+* Ekonomiktir, lisans ücreti yoktur, size üretici bağımsızlığı sağlar. Kurumsal veritabanı özelliklerine lisans ücreti ödemeden sahip olursunuz. PostgreSQL’i istediğiniz kadar sunucuya kurabilir ve dağıtımını yapabilirsiniz.
+* Türkçe’ye yerelleştirilmiştir ve Türkçe desteği vardır.
+* Platform bağımsızdır. PostgreSQL’i kullanmak için geliştirme ortamınızı veya sistemlerinizi değiştirmenize gerek yoktur. Tüm modern  işletim sistemleri (Linux, Unix, Windows, Mac OS, vb.) ve işlemciler (x86, x86_64, IA64, vb.) üzerinde [çalışır](http://buildfarm.postgresql.org).
+* Yüksek güvenliklidir. Yüksek erişilebilirdir. Genişleyebilir mimariye sahiptir. Her işlem ve veri büyüklüğüne göre ölçeklenebilir, esnektir, genişleyebilir veya daraltılabilir.
+* Yüksek performanslıdır. Çok büyük veri operasyonları ve yüksek anlık işlem yükleri karşısında sağlamdır.
+* Güvenilirdir, ACID tam uyumludur, sistem sorunlarının etkilerine karşı toleranslıdır.
+* SQL Standartlarına (ANSI-SQL 2008/2011) en çok uyum gösteren veri tabanıdır. Ticari veritabanlarından PostgreSQL’e geçiş kolay ve maliyet etkindir. Farklı uygulama sistemleri ve veritabanları ile entegre çalışabilir.
+* Öğrenmesi ve kurması kolaydır. Güncel, detaylı, herkese açık ve erişimi kolay yaygın dokümantasyonu vardır. Yönetimi, yedeklemesi, bakımı ve izlemesi kolaydır. Hata mesajları ve log sistemi açıktır, anlaşılırdır. PostgreSQL veritabanı yönetim ve izleme görevleri otomatize edilebilir ve ticari veritabanlarına göre yönetim işleri daha az zaman alır. Planlı bakımlarda düşük kesinti süreleri sağlar. Hata yapmaya engel olan güvenli bir yapısı vardır.
+* PostgreSQL’in çok gelişmiş bir sorgu planlayıcısı vardır. Geliştirici dostudur. Farklı yazılım geliştirme platform ve dillerini destekler ve uyumlu çalışır. Geliştiricilerin işini kolaylaştıran çok geniş bir eklenti havuzu vardır. Tüm modern programlama dilleri için sürücülere sahiptir. Coğrafi veri yapılarını ve yeni NoSQL yapısal olmayan veri türlerini (JSON, JSONB, XML, vb.) destekler. Kaynak kodu kullanılarak özelleşmiş açık veya kapalı kodlu çözümler geliştirilebilir.
+* Aktif bir topluluk tarafından desteklenmektedir. Tüm dünyadan geliştiricisi bulunan ve çekirdek geliştiricilerin yer aldığı topluluk soru ve sorunlara hızlı geri dönüşlerle çözüm sağlar. Hemen her yıl ticari ürünleri kıskandıran yenilikçi ve güncel özellikler içeren yeni sürümü yayınlanır.
 
-Now run jekyll serve (first change directories (`cd`) to where you downloaded the project):
+## PostgreSQL Lisansı
 
-```
-jekyll serve
-```
+*“Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.”*
 
-### 4. Option 2: Build the Theme (*with* the github-pages gem) {#option2}
+***"Bu yazılımı ve belgelerini herhangi bir amaç için, ücretsiz ve yazılı bir anlaşma olmaksızın kullanma, kopyalama, değiştirme ve dağıtma izni verilir.”***
 
-If you *are* in fact publishing on Github Pages, leave the Gemfile and Gemfile.lock files in the theme.The Gemfile tells Jekyll to use the github-pages gem. **However, note that you cannot use the normal `jekyll serve` command with this gem due to dependency conflicts between the latest version of Jekyll and Github Pages** (which are noted [briefly here](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/)).
+## PostgreSQL’in Kabiliyetleri Nelerdir?
 
-You need Bundler to resolve these dependency conflicts. Use Bundler to install all the needed Ruby gems:
+PostgreSQL kurumsal veritabanı yönetimi sistemlerinde olmazsa olmaz başlıca özellikler olan standartlara uyumluluk, yüksek erişilebilirlik, yüksek hacimli veri ve işlemler karşısında sağlamlık ve güvenilirlik, yüksek performans, güvenlik, genişleyebilirlik, kolay yönetim ve bakım, hızlı sorun giderme, planlı bakımlarda düşük kesinti süreleri gibi özelliklere sahiptir. Her yıl çıkan majör sürümleri ile birçok gelişmiş yeni ve yenilikçi özelliği de bünyesine katmaya devam etmektedir.
 
-```
-bundle update
-```
+![postgres_ozellikleri](/images/postgres_ozellikleri.png)
 
-Then *always* use this command to build Jekyll:
+### Yüksek Erişilebilirlik ve Kümeleme
 
-```
-bundle exec jekyll serve
-```
+* Yüksek erişilebilir (High Available) mimariye sahiptir. Sunduğu servis kalitesi ile plansız kesinti ve arıza sürelerini minimuma indirir. Yük dengeleme ve yüksek erişilebilirlik için warm standby/hot standby/streaming ve logical (versiyon 10 ile birlikte) replikasyonu destekler
+* PostgreSQL, yük dengeleme ve kümeleme yapıları ile veritabanı sunucuları arasındaki iş yüklerinin dengelenmesini sağlar. Sunucuların herhangi birinde aşırı yüklenme önlenirken, kaynak kullanımı optimize edilir, verimlilik en üst düzeye çıkar ve yanıt süreleri en aza iner.
+* PostgreSQL’de Multi-Master Replikasyonu ile birden çok sunucu master statüsüne sahip olabilirken, farklı lokasyonlarda dağıtık işyükünü yönetimini, yük dengeleme, kümelemeyi destekler. Multi-Master Replikasyonu dinamik veri toplanması için veri yönetimi tasarımı kolaylığı sağlar. Logical Replikasyon, veritabanı veya tablo başına yapılandırılabilir. Tablo replikasyonu ile farklı yerlerden herhangi bir işlemi sorunsuz bir şekilde bir lokasyonda birleştirmek mümkündür.
+* Natif Asenkron Çoğaltma (Native Asynchronous Replication), Tam/Artırımlı Yedekleme (Full/Incremental Backup) ve kurtarma modları, veri yeniden senkronizasyon mekanizmalarının kolaylığı gibi özellikler ile PostgreSQL, Disaster Recovery Center (DRC) hazırlığının tam özellik setini destekleyerek, daha fazla maliyet / araç eklemeden veritabanınızın herhangi bir felaketten kurtarılmasını sağlar.
 
-If you want to shorten this long command, you can put this code in a file such as jekyll.sh (on a Mac) and then simply type `. jekyll.sh` to build Jekyll.
+### Yüksek Performans
 
-## Running the site in Docker
+* ANSI C programlama dilinde yazılmıştır ve kendisini kanıtlamış yüksek performansı vardır. PostgreSQL, yüksek veri  okuma-yazma  iş  yüklerini istikrarlı ve sağlam şekilde yaparken, veri bütünlüğünü ve güvenliğini korur. Günümüzün ağır ve yüksek hacimli işlem ve sorgu yüklerinde ticari veritabanlarına göre daha düşük kaynakla yüksek performas sunar.
+* PostgreSQL’de tablo ve satır seviyelerinde kilitleme (table/row level locking) yapabilirsiniz. Daha fazla kilitlemeyi/engellemeyi önleyen daha granüler kilitler kullanabilir, bu şekilde eşzamanlılık artar ve engelleme süresi azalır. PostgreSQL birçok farklı tip indeksleme yöntemi sunar; B-tree, Hash, GiST (Generalized Search Tree), SP-GiST, GIN (generalized inverted index) ve BRIN. PostgreSQL, kısmi, biricik ve çok sütunlu indeksleri destekler. Ayrıca ifadeler ve operatör sınıfları üzerinde de indekslemeyi destekler.
+* PostgreSQL,  performansı  artırmak ve analiz etmek için çeşitli komutlar sağlar. EXPLAIN komutu, bir SQL ifadesinin yürütme planını gösterir. ANALYZE komutu, tablo ve sütunlardaki istatistikleri toplamak için kullanılır. VACUUM komutu, kullanılmayan sabit disk alanını geri kazanmak amacıyla kullanılır. CLUSTER komutu, verileri sabit diskte fiziksel olarak düzenlemek için kullanılır. Tüm bu komutlar veritabanı iş yüküne göre yapılandırılabilir.
+* Tablo kalıtımı (table inheritance) ve kısıtlama çıkarma (constraint exclusion) özelliklerine sahiptir. Tablo kalıtımı ile  aynı  yapıya  sahip tablolar kolayca oluşturulur. Bu tablolar, belirli bir ölçüt temelinde veri alt kümelerini depolamak için kullanılabilir ve belirli senaryolarda bilginin çok hızlı bir şekilde alınması sağlanır.
 
-You can also use Docker to directly build and run the site on your local machine. Just clone the repo and run the following from your working dir:
-```
-docker-compose build --no-cache && docker-compose up
-```
-The site should now be running at [http://localhost:4000/](http://localhost:4000/).
+### Ölçeklenebilirlik
 
-This is perhaps the easiest way to see how your site would actually look.
+* PostgreSQL ölçeklenebilir yapıya sahiptir. Basit tek sunuculu küçük uygulamalardan, yüksek işlem kapasitesi gereken çok sunuculu, çok büyük hacimli veri yoğun iş kritik uygulamaların hepsine çözüm sunma kabiliyeti vardır. Küçük başlayıp, istenilen ölçeğe kolayca  çıkarılabilir. Senkron ve asenkron streaming replikasyon özelliğine sahiptir.
+* Dikey ölçeklemeye (scale up) göre çok daha uygun maliyetli olan, yatay ölçekleme (scale out) ile maliyeti azaltılır.
+* PostgreSQL, büyük tabloların bölümlenmesini (table partitioning) destekler. Büyük tabloların bölümlenmesi veritabanının performansını artırır. PostgreSQL tablespaces yapısını destekler.
+* PostgreSQL’in günümüzün devasa hızda veri büyümesi ve büyüklüğü yönetim ihtiyaçlarına karşı PostgreSQL Natif Bölümleme (Native Partitioning) özelliği vardır.
+* Veriler, farklı kısıtlamalara göre bölümlere ayrılabilir ve toplu sonuçlar için sorgulanabilir. İsteğe bağlı bölüm (On-demand  partition), daha önce yapılandırılmış olan tüm kuralları değiştirmeden, tek bir sorgu çalıştırarak kolayca eklenebilir.
 
-## Configure the sidebar
+![postgres_giris_olceklenebilirlik](/images/postgres_giris_olceklenebilirlik.png)
 
-There are several products in this theme. Each product uses a different sidebar. This is the essence of what makes this theme unique -- different sidebars for different product documentation. The idea is that when users are reading documentation for a specific product, the sidebar navigation should be specific to that product. (You can read more of my thoughts on why multiple sidebars are important in this [blog post](http://idratherbewriting.com/2016/03/23/release-of-documentation-theme-for-jekyll-50/).)
+### Güvenlik
 
-The top navigation usually remains the same, because it allows users to navigate across products. But the sidebar navigation adapts to the product.
+* PostgreSQL’de güvenlik, yalnızca bir özellik değildir, temel yapılarından biridir. Her minör ve majör sürümü yeni güvenlik özellikleri ve güncellemeleri ile gelir.
+* Kimlik doğrulama, yetkilendirme, denetim, veri güvenliği, veri şifreleme, satır (row) seviyesinde güvenlik gibi birçok güvenlik yapısı vardır.
+* Trust, Password, LDAP, GSSAPI, SSPI, Kerberos, kimlik tabanlı (ident-based), RADIUS, sertifika, PAM, SCRAM (versiyon 11’le birlikte) kimlik doğrulaması gibi çeşitli kimlik doğrulama yöntemlerini destekler.
+* PostgreSQL, veritabanı nesne erişimini veritabanı, tablo, görünüm(view), fonksiyon, sıra ve sütun dâhil olmak üzere çeşitli düzeylerde kontrol edebilir ve kullanıcılara yetkilendirebilir. Bu PostgreSQL’in veritabanı nesneleri üzerinde çok farklı seviyelerde yetkilendirme kontrolüne sahip olmasını sağlar.
+* Verileri şifrelemek için donanım şifreleme yöntemlerini, pgcrypto uzantısını veyauygulama arayüzü (API) kullanabilir. PostgreSQL ile veri seviyesinde şifreleme için AES, 3DES gibi farklı şifreleme algoritmaları kullanabilirsiniz.
+* PostgreSQL istemci sunucu iletişiminde SSL kullanır.
+* PostgreSQL’in en katı güvenlik standartlarına (PCI Data Security Standard) tam uyumluluk için altyapısı vardır.
 
-In each page's frontmatter, you must specify the sidebar you want that page to use. Here's an example of the page frontmatter showing the sidebar property:
+![postgres_giris_guvenlik](/images/postgres_giris_guvenlik.png)
 
-<pre>
----
-title: Alerts
-tags: [formatting]
-keywords: notes, tips, cautions, warnings, admonitions
-last_updated: July 3, 2016
-summary: "You can insert notes, tips, warnings, and important alerts in your content. These notes are stored as shortcodes made available through the linksrefs.hmtl include."
-<span class="red">sidebar: mydoc_sidebar</span>
-permalink: mydoc_alerts
----
-</pre>
+### Gelişmiş Özellikler
 
-The `sidebar: mydoc_sidebar` refers to the \_data/sidebars/mydoc_sidebar.yml file.
+* Türkçe dâhil 20’den fazla dile yerelleştirilmiştir.Tam metin aramasını destekler. Diğer veritabanları gibi tetikleyicileri ve fonksiyonları destekler.
+* Veritabanı motoru paralel işleme (paralel sorgu, paralel veri tarama, vb.) yapabilir. PostgreSQL belirli türde sorguları birden çok çekirdek ve işlemciye dağıtabilir. Paralel işlemin gelişmiş gücü ile mevcut kaynakların maksimize edilmesi sırasında sorgu yürütme süresi düşer.
+* Hot-backup, Point-in-Time Recovery (PITR) özelliklerine sahiptir.
+* Çoklu Sürüm Eşzamanlılık Kontrolü (MVCC) kullanarak veri tutarlılığını korur. Bir veritabanı sorgulanırken, her işlem, bir süre önce olduğu gibi, verilerin bir anlık görüntüsünü (bir veritabanı sürümü) görür. İşlemlerin tutarsız verileri görüntülemesini engeller ve eşzamanlı işlemlerde işlem yalıtımı sağlar. Okuyucular yazarları, yazarlar okuyucuları engellemez.
+* PostgreSQL, sistem çökmesi veya arıza durumunda kurtarma sağlayan, gerçekleşmeden önce her ekleme/güncelleme/silme işleminin  kaydını yapan, (Oracle REDO kayıtlarına benzer) bir Write Ahead Logging (WAL) mekanizmasına sahiptir.
+* Çok zengin SQL yapılarını destekler. İlişkilendirilmiş ve ilgisiz alt sorguları destekler. Ortak tablo ifadesini (CTE), window fonksiyonlarını ve özyinelemeli sorguları destekler. PostgreSQL’e her sürümde yeni SQL özellikleri eklenmektedir.
+* PostgreSQL kolayca genişletilebilecek şekilde tasarlanmıştır. Veritabanına yüklenen uzantılar, yerleşik özellikler gibi çalışır. İlk kurulumla gelen eklentileri contrib dizini altında görebilirsiniz.
+* İhtiyaç duyabileceğiniz eklentileri, PostgreSQL komünite sayfasındaki [eklenti kataloğunda](https://www.postgresql.org/download/products/6-postgresql-extensions) arayabilirsiniz.
+* Veri ambarı olarak konfigüre edebilir ve yüksek hacimli veri yönetimi için kullanabilirsiniz. PostgreSQL’den türetilmiş Greenplum ve Citus Data veritabanları ile gerçek zamanlı analitik uygulamaları, paralel sorgu işlemelerine yönelik veritabanı sistemleri kurabilirsiniz.
 
-Note that your sidebar can only have 2 levels (expand the **Tag archives** option to see an example of the second level). Given that each product has its own sidebar, this depth should be sufficient (it's really like 3 levels). Deeper nesting goes against usability recommendations.
+### Diğer Veritabanlarından Göç
 
-You can optionally turn off the sidebar on any page (e.g. landing pages). To turn off the sidebar for a page, you should set the page frontmatter tag as `hide_sidebar: true`.
-
-If you don't declare a sidebar, the `home_sidebar` file gets used as the default because this is the default specified in the config file:
-
-```yaml
--
-  scope:
-    path: ""
-    type: "pages"
-  values:
-    layout: "page"
-    comments: true
-    search: true
-    sidebar: home_sidebar
-    topnav: topnav
-```
-
-If you want to set different sidebar defaults based on different folders for your pages, specify your defaults like this:
-
-```
--
-  scope:
-    path: "pages/mydoc"
-    type: "pages"
-  values:
-    layout: "page"
-    comments: true
-    search: true
-    sidebar: mydoc_sidebar
-    topnav: topnav
-```
-
-This would load the `mydoc_sidebar` for each file in **pages/mydoc**. You could set different defaults for different path scopes.
-
-For more detail on the sidebar, see [Sidebar navigation][mydoc_sidebar_navigation].
-
-## Top navigation
-
-The top navigation works just like the sidebar. You can specify which topnav data file should load by adding a `topnav` property in your page, like this:
-
-```yaml
-topnav: topnav
-```
-
-Here the topnav refers to the `_data/topnav.yml` file.
-
-Because most topnav options will be the same, the `_config.yml` file specifies the topnav file as a default:
-
-```yaml
--
-  scope:
-    path: ""
-    type: "pages"
-  values:
-    layout: "page"
-    comments: true
-    search: true
-    sidebar: home_sidebar
-    topnav: topnav
-```
-
-## Sidebar syntax
-
-The sidebar data file uses a specific YAML syntax that you must follow. Follow the sample pattern shown in the theme, specically looking at `mydoc_sidebar.yml` as an example: Here's a code sample showing all levels:
-
-```yaml
-entries:
-- title: sidebar
-  product: Jekyll Doc Theme
-  version: 6.0
-  folders:
-  - title: Overview
-    output: web, pdf
-    folderitems:
-
-    - title: Get started
-      url: /index.html
-      output: web, pdf
-      type: homepage
-
-    - title: Introduction
-      url: /mydoc_introduction.html
-      output: web, pdf
-
-  - title: Release Notes
-    output: web, pdf
-    folderitems:
-
-    - title: 6.0 Release notes
-      url: /mydoc_release_notes_60.html
-      output: web, pdf
-
-    - title: 5.0 Release notes
-      url: /mydoc_release_notes_50.html
-      output: web, pdf
-
-  - title: Tag archives
-    output: web
-    folderitems:
-
-    - title: Tag archives overview
-      url: /mydoc_tag_archives_overview.html
-      output: web
-
-      subfolders:
-      - title: Tag archive pages
-        output: web
-        subfolderitems:
+* PostgreSQL’in mimarisi, hem ilişkisel hem de ilişkisel olmayan modellerden herhangi bir mevcut veritabanı sisteminden geçişi destekleyecek kadar esnektir.
+* PostgreSQL’in mimarisi, hem ilişkisel hem de ilişkisel olmayan modellerden herhangi bir mevcut veritabanı sisteminden geçişi destekleyecek kadar esnektir.
+* Yabancı Veri Paketleyici eklentileri ile harici veri kaynaklarına bağlanarak üzerinde sorgu çalıştırabilir, veri aktarabilir/alabilir ve yerel veri tabloları üzerinde yapılan sorguların sonuçları ile birleştirebilir, veri entegrasyonu yapabilirsiniz. Genel, spesifik (Oracle, MySQL, PostgreSQL, MS SQL Server, DB2, Teradata), NoSQL (Cassandra, MongoDB, Redis, Neo4j), dosya (XML, CSV, düz metin), coğrafi bilgi sistemleri gibi farklı yapılarda harici veri kaynaklarına ve farklı veritabanlarına [erişebilirsiniz](http://wiki.postgresql.org/wiki/Foreign_data_wrappers).
+* SQL standartlarını ile uyumlu olması, özellikle ticari ilişkisel veritabanlarından PostgreSQL’e göçü kolaylaştırmaktadır. Diğer veritabanlarından PostgreSQL’e göç için geliştirilmiş açık kaynak kodlu ve ticari araçlar mevcuttur.
 
-        - title: Formatting pages
-          url: /tag_formatting.html
-          output: web
-
-        - title: Navigation pages
-          url: /tag_navigation.html
-          output: web
-
-        - title: Content types pages
-          url: /tag_content_types.html
-          output: web
-```
-
-Each `folder` or `subfolder` must contain a `title` and `output` property. Each `folderitem` or `subfolderitem` must contain a `title`, `url`, and `output` property.
-
-The two outputs available are `web` and `pdf`. (Even if you aren't publishing PDF, you still need to specify `output: web`).
-
-The YAML syntax depends on exact spacing, so make sure you follow the pattern shown in the sample sidebars. See my [YAML tutorial](mydoc_yaml_tutorial) for more details about how YAML works.
-
-{% include note.html content="If you have just one character of spacing off, Jekyll won't build due to the YAML syntax error. You'll see an error message in your console that says \"Error ... did not find expected key while parsing a block mapping at line 22 column 5. Error: Run jekyll build --trace for more information.\" If you encounter this, it usually refers to incorrect indentation or spacing in the YAML file. See the example mydoc_sidebar.yml file to see where your formatting went wrong." %}
-
-Each level must have at least one topic before the next level starts. You can't have a second level that contains multiple third levels without having at least one standalone topic in the second level. If you need a hierarchy that has a folder that contains other folders and no loose topics, use a blank `-` item like this:
+## PostgreSQL Veritabanı Limitleri
 
-```yaml
-entries:
-- title: sidebar
-  product: Jekyll Doc Theme
-  version: 6.0
-  folders:
-  - title: Overview
-    output: web, pdf
-    folderitems:
-
-    -
-
-  - title: Release Notes
-    output: web, pdf
-    folderitems:
-
-    - title: 6.0 Release notes
-      url: /mydoc_release_notes_60.html
-      output: web, pdf
-
-    - title: 5.0 Release notes
-      url: /mydoc_release_notes_50.html
-      output: web, pdf
-
-  - title: Installation
-    output: web, pdf
-    folderitems:
-
-    - title: About Ruby, Gems, Bundler, etc.
-      url: /mydoc_about_ruby_gems_etc.html
-      output: web, pdf
-
-    - title: Install Jekyll on Mac
-      url: /mydoc_install_jekyll_on_mac.html
-      output: web, pdf
-
-    - title: Install Jekyll on Windows
-      url: /mydoc_install_jekyll_on_windows.html
-      output: web, pdf
-```
-
-To accommodate the title page and table of contents in PDF outputs, each product sidebar must list these pages before any other:
-
-```yaml
-- title:
-  output: pdf
-  type: frontmatter
-  folderitems:
-  - title:
-    url: /titlepage
-    output: pdf
-    type: frontmatter
-  - title:
-    url: /tocpage
-    output: pdf
-    type: frontmatter
-```
-
-Leave the output as `output: pdf` for these frontmatter pages so that they don't appear in the web output.
-
-For more detail on the sidebar, see [Sidebar navigation][mydoc_sidebar_navigation] and [YAML tutorial][mydoc_yaml_tutorial].
-
-## Comments
-
-The theme integrates [Commento.io](https://commento.io/) for comments below pages and posts. (This commenting service doesn't inject controversial tracking ads like Disqus does.) You will need to Commento.io account + plan ($5/month) to authorize Commento with your domain (no other configuration should be required). If you don't want comments, in the \_config.yml file, change the `comments: true` properties (under `defaults`) to `comments: false` in every instance. Then in the commento.html include file (inside \_includes), the `{% raw %}{% unless page.comments == false %} ... {% endunless %}{% endraw %}` logic will not insert the Commentio form.
-
-## Relative links and offline viewing
-
-This theme uses relative links throughout so that you can view the site offline and not worry about which server or directory you're hosting it. It's common with tech docs to push content to an internal server for review prior to pushing the content to an external server for publication. Because of the need for seamless transferrence from one host to another, the site has to use relative links.
-
-To view pages locally on your machine (without the Jekyll preview server), they need to have the `.html` extension. The `permalink` property in the page's frontmatter (without surrounding slashes) is what pushes the files into the root directory when the site builds.
-
-## Page frontmatter
-
-When you write pages, include these same frontmatter properties with each page:
-
-```yaml
----
-title: "Some title"
-tags: [sample1, sample2]
-keywords: keyword1, keyword2, keyword3
-last_updated: Month day, year
-summary: "optional summary here"
-sidebar: sidebarname
-permalink: filename.html
----
-```
-
-(You will customize the values for each of these properties, of course.)
-
-For titles, surrounding the title in quotes is optional, but if you have a colon in the title, you must surround the title with quotation marks. If you have a quotation mark inside the title, escape it first with a backlash `\`.
-
-Values for `keywords` get populated into the metadata of the page for SEO.
-
-Values for `tags` must be defined in your \_data/tags.yml list. You also need a corresponding tag file inside the tags folder that follows the same pattern as the other tag files shown in the tags folder. (Jekyll won't auto-create these tag files.)
-
-If you don't want the mini-TOC to show on a page (such as for the homepage or landing pages), add `toc: false` in the frontmatter.
-
-The `permalink` value should be the same as your filename and include the ".html" file extension.
-
-For more detail, see [Pages][mydoc_pages].
-
-## Where to store your documentation topics
-
-You can store your files for each product inside subfolders following the pattern shown in the theme. For example, product1, product2, etc, can be stored in their own subfolders inside the \_pages directory. Inside \_pages, you can store your topics inside sub-subfolders or sub-sub-folders to your heart's content. When Jekyll builds your site, it will pull the topics into the root directory and use the permalink for the URL.
-
-Note that product1, product2, and mydoc are all just sample content to demonstrate how to add multiple products into the theme. You can freely delete that content.
-
-For more information, see [Pages][mydoc_pages] and [Posts][mydoc_posts].
-
-## Configure the top navigation
-
-The top navigation bar's menu items are set through the \_data/topnav.yml file. Use the top navigation bar to provide links for navigating from one product to another, or to navigate to external resources.
-
-For external URLs, use `external_url` in the item property, as shown in the example topnav.yml file. For internal links, use `url` the same was you do in the sidebar data files.
-
-Note that the topnav has two sections: `topnav` and `topnav_dropdowns`. The topnav section contains single links, while the `topnav_dropdowns` section contains dropdown menus. The two sections are independent of each other.
-
-## Generating PDF
-
-If you want to generate PDF, you'll need a license for [Prince XML](http://www.princexml.com/). You will also need to [install Prince](http://www.princexml.com/doc/installing/).  You can generate PDFs by product (but not for every product on the site combined together into one massive PDF). Prince will work even without a license, but it will imprint a small Prince image on the first page, and you're supposed to buy the license to use it.
-
-If you're on Windows, install [Git Bash client](https://git-for-windows.github.io/) rather than using the default Windows command prompt.
-
-Open up the css/printstyles.css file and customize the email address (`youremail@domain.com`) that is listed there. This email address appears in the bottom left footer of the PDF output. You'll also need to create a PDF configuration file following the examples shown in the pdfconfigs folder, and also customize some build scripts following the same pattern shown in the root: pdf-product1.sh
-
-See the section on [Generating PDFs][mydoc_generating_pdfs] for more details about setting the theme up for this output.
-
-## Blogs / News
-
-For blog posts, create your markdown files in the \_posts folder following the sample formats. Post file names always begin with the date (YYYY-MM-DD-title).
-
-The news/news.html file displays the posts, and the news_archive.html file shows a yearly history of posts. In documentation, you might use the news to highlight product features outside of your documentation, or to provide release notes and other updates.
-
-See [Posts][mydoc_posts] for more information.
-
-## Markdown
-
-This theme uses [kramdown markdown](http://kramdown.gettalong.org/). kramdown is similar to Github-flavored Markdown, except that when you have text that intercepts list items, the spacing of the intercepting text must align with the spacing of the first character after the space of a numbered list item. Basically, with your list item numbering, use two spaces after the dot in the number, like this:
-
-```
-1.  First item
-2.  Second item
-3.  Third item
-```
-
-When you want to insert paragraphs, notes, code snippets, or other matter in between the list items, use four spaces to indent. The four spaces will line up with the first letter of the list item (the <b>F</b>irst or <b>S</b>econd or <b>T</b>hird).
-
-```
-1.  First item
-
-    ```
-    alert("hello");
-    ```
-
-2.  Second item
-
-    Some pig!
-
-3.  Third item
-```
-
-See the topics under "Formatting" in the sidebar for more information.
-
-## Automated links
-
-If you want to use an automated system for managing links, see [Automated Links][mydoc_hyperlinks.html#automatedlinks]. This approach automatically creates a list of Markdown references to simplify linking.
-
-## Other instructions
-
-The content here is just a getting started guide only. For other details in working with the theme, see the various sections in the sidebar.
+.......
 
 {% include links.html %}
