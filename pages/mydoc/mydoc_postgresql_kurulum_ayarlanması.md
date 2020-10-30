@@ -153,7 +153,7 @@ PostgreSQL sunucunun aynı anda kaç bağlantı isteği kabul edeceği:
 max_connections = 100
 ```
 
-{% include note.html content="Bu değer bir süre gözlemleyip, sunucu kaynaklarına göre düzenlenmelidir!." %}
+{% include note.html content="Bu değer bir süre gözlemleyip, sunucu kaynaklarına göre düzenlenmelidir!" %}
 
 ### PostgreSQL Ayarları: Zaman
 
