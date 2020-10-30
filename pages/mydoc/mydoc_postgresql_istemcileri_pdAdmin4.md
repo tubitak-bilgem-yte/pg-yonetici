@@ -5,7 +5,7 @@ keywords: postgres, pgAdmin4, istemci
 last_updated: October 30, 2020
 summary: "PostgreSQL Veritabanı İstemcileri: pgAdmin4"
 sidebar: mydoc_sidebar
-permalink: mydoc_postgresql_veritabanı_istemcileri_pgAdmin4.html
+permalink: mydoc_postgresql_istemcileri_pgAdmin4.html
 folder: mydoc
 ---
 
