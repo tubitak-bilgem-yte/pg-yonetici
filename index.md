@@ -25,7 +25,7 @@ PostgreSQL, veritabanı ve sistem yöneticileri, yazılım mimarları ve gelişt
 
 PostgreSQL’in öğrenmesi, kurulumu, konfigürasyonu, yönetimi, izlemesi ve bakımı kolaydır. Post-greSQL ekosisteminde birçok yönetim, izleme açık kaynaklı ve ticari araç vardır.
 
-PostgreSQL’in çok aktif ve güçlü geliştirici komünitesi vardır. Her yıl bir majör sürü
+PostgreSQL’in çok aktif ve güçlü geliştirici komünitesi vardır. Her yıl bir majör sürümü yayınlanır.
 
 ## PostgreSQL Tarihçesi
 
