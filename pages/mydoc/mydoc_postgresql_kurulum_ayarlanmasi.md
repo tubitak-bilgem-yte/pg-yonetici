@@ -5,7 +5,7 @@ keywords: postgres, kurulum, ayarlama
 last_updated: October 30, 2020
 summary: "PostgreSQL Veritabanı Kurulumu ve Ayarlanması"
 sidebar: mydoc_sidebar
-permalink: mydoc_postgresql_kurulum_ayarlanması.html
+permalink: mydoc_postgresql_kurulum_ayarlanmasi.html
 folder: mydoc
 ---
 

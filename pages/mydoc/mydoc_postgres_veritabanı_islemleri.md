@@ -1,11 +1,11 @@
 ---
-title: "PostgreSQL Veritabanı Yönetimi: Temel Veritabanı İşlemleri"
+title: "PostgreSQL Temel Veritabanı İşlemleri"
 tags: [PostgreSQL]
 keywords: postgres, yönetim, tablo, index 
 last_updated: October 30, 2020
 summary: "Temel Veritabanı İşlemleri"
 sidebar: mydoc_sidebar
-permalink: mydoc_postgres_veritabanı_işlemleri.html
+permalink: mydoc_postgres_veritabanı_islemleri.html
 folder: mydoc
 ---
 
@@ -83,7 +83,7 @@ postgres=# \l
  guzel_turkcem | postgres | UTF8 | tr_TR.UTF-8 | tr_TR.UTF-8 |
 ```
 
-## Veritabanı Üzerinde Tablo İşlemleri
+## Tablo İşlemleri
 
 Bir veritabanı içinde yeni bir tablo oluşturma:
 
@@ -157,7 +157,7 @@ ALTER TABLE public.personel
 ALTER COLUMN ad TYPE character varying (50);
 ```
 
-## Veritabanı Üzerinde Veri İşlemleri
+## Veri İşlemleri
 
 Tabloya bir satır ekleme:
 
@@ -190,7 +190,7 @@ hede=# SELECT * FROM personel;
 (5 rows)
 ```
 
-## Veritabanı Üzerinde İndex İşlemleri
+## İndex İşlemleri
 
 PostgreSQL Primary Key ya da Unique Constraint için index’i otomatik olarak oluşturur.
 
@@ -218,7 +218,7 @@ CREATE INDEX
 
 {% include note.html content="PostgreSQL’in sorgu planlayıcısı hangi indexleri kullanıp sorguyu optimize edeceğini belirler." %}
 
-## Veritabanı Üzerinde Referans Verme İşlemleri
+## Referans Verme İşlemleri
 
 Bir tablodan başka bir tabloya o tablonun Primary Key alanı aracılığıyla referans verilir.
 
@@ -261,7 +261,7 @@ Foreign-key constraints:
     "orders_item_code_fkey" FOREIGN KEY (item_code) REFERENCES items(code)
 ```
 
-## Veritabanı Üzerinde Çalışma Zamanı Parametreleri
+## Çalışma Zamanı Parametreleri
 
 ``SHOW`` ile belirli bir çalışma parametresinin bilgisi alınabilir:
 

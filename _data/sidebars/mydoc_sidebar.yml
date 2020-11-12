@@ -33,7 +33,7 @@ entries:
     folderitems:
 
     - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
-      url: /mydoc_postgresql_kurulum_ayarlanması.html
+      url: /mydoc_postgresql_kurulum_ayarlanmasi.html
       output: web, pdf
 
   - title: PostgreSQL Veritabanı İstemcileri
@@ -41,11 +41,11 @@ entries:
     folderitems:
 
     - title: psql İstemcisi
-      url: mydoc_postgresql_istemcileri_psql.html
+      url: /mydoc_postgresql_istemcileri_psql.html
       output: web, pdf
 
     - title: pgAdmin4 İstemcisi
-      url: mydoc_postgresql_istemcileri_pgAdmin4.html
+      url: /mydoc_postgresql_istemcileri_pgAdmin4.html
       output: web, pdf
 
   - title: PostgreSQL Veritabanı Yönetimi
@@ -53,15 +53,15 @@ entries:
     folderitems:
 
     - title: PostgreSQL Temel Veritabanı işlemleri
-      url: /mydoc_postgres_veritabanı_işlemleri.html
+      url: /mydoc_postgres_veritabanı_islemleri.html
       output: web, pdf
 
     - title: PostgreSQL Kullanıcı Yönetimi
-      url: /mydoc_posts.html
+      url: /mydoc_kullanici_yonetimi.html
       output: web, pdf
 
     - title: PostgreSQL Yetkilendirme ve Güvenlik Yönetimi
-      url: /mydoc_lists.html
+      url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
       output: web, pdf
 
     - title: PostgreSQL’de Gözetleme
