@@ -73,5 +73,14 @@ entries:
     folderitems:
     
     - title: PostgreSQL MVCC ve VACUUM
-      url: /mydoc_mvcc_vacuum.html
+      url: /mydoc_postgresql_loglari.html
       output: web, pdf
+
+  - title: PostgreSQL Logları
+    output: web, pdf
+    folderitems:
+    
+    - title: PostgreSQL Logları
+      url: /mydoc_postgresql_loglari.html
+      output: web, pdf
+      
