@@ -91,3 +91,11 @@ entries:
     - title: PostgreSQL Yedekleme
       url: /mydoc_postgresql_yedekleme.html
       output: web, pdf
+
+  - title: PostgreSQL Sürüm Yükseltme
+    output: web, pdf
+    folderitems:
+    
+    - title: PostgreSQL Sürüm Yükseltme
+      url: /mydoc_postgresql_surum_yukseltme.html
+      output: web, pdf
