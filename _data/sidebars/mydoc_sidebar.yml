@@ -109,7 +109,7 @@ entries:
       output: web, pdf
 
     - title: Sorguların İyileştirilmesi
-      url: /mydoc_postgresql_surum_yukseltme.html
+      url: /mydoc_sorgularin_iyilestirilmesi.html
       output: web, pdf
     
     - title: Performans İyileştirmeye Giriş
