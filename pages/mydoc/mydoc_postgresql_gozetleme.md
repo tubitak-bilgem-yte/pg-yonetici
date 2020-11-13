@@ -9,6 +9,9 @@ permalink: mydoc_postgresql_gozetleme.html
 folder: mydoc
 ---
 
+PostgreSQL MVCC ve VACUUM
+mydoc_mvcc_vacuum.html
+
 ## PostgreSQL’de Gözetleme
 
 PostgreSQL sunucusu üzerinde gözetlenmesi gereken temel konular:
@@ -83,7 +86,7 @@ Statistics Collector’ün ayarları ``postgresql.conf`` dosyasından yapılır:
 #stats_temp_directory = 'pg_stat_tmp'
 ```
 
-Statistics Collector’ün topladığı veritabanına kaç bağlantı var, transaction miktarları, toplam diske yazma, toplam cache’ten okuma, eklenen silinen satır sayısı verileri **pg_stat** ile başlayan tablolarda tutulur.
+*Statistics Collector*’ün topladığı veritabanına kaç bağlantı var, transaction miktarları, toplam diske yazma, toplam cache’ten okuma, eklenen silinen satır sayısı verileri **pg_stat** ile başlayan tablolarda tutulur.
 
 ```sql
 SELECT * FROM pg_stat_database;
@@ -101,7 +104,7 @@ Veritabanlarındaki mevcut sorgular, başlama zamanları ve durumları için:
 SELECT * FROM pg_stat_activity;
 ```
 
-- Mevcut sorgularla ilgili bilgiler içeren kolonları sadece superuser yetkililer görebilir.
+- Mevcut sorgularla ilgili bilgiler içeren kolonları sadece *superuser* yetkililer görebilir.
 
 Mevcut sorgular ne zamandır çalıştığını görmek için:
 
@@ -231,12 +234,12 @@ FROM pg_stat_statements;
 
 Diğer Bazı PostgreSQL Eklentileri
 
-- pg_stat_plans:
+- ``pg_stat_plans``
   - pg_stat_statements eklentisinin daha da genişletilmişidir.
   - Sorgu planlarını da kaydeder.
-- pgstattuple
+- ``pgstattuple``
   - Tablo ve indexler için canlı ve silinmiş satırları, boyutları v.b. istatistiğe döker
-- pg_buffercache
+- ``pg_buffercache``
   - Tablo ve indexlerin paylaşılan bufferlarını, cache’te tuttukları sayfaları v.b. gösterir.
 
 ### Bazı Gözetleme Programcıkları
@@ -266,8 +269,5 @@ Zabbix, gelişkin bir merkezi gözetleme sunucusudur. Gözetleme şablonları ve
 #### Nagios
 
 Nagios da en çok kullanılan merkezi gözetleme sunucularından biridir. Eklentiler ile detaylı gözetleme, alarm ve metrik toplama işlemlerini yapabilir. Grafikleştirme yeteneği kazandırmak için ek programa ihtiyaç duyar.
-
-```sql
-```
 
 {% include links.html %}
