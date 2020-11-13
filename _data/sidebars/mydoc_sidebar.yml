@@ -111,15 +111,3 @@ entries:
     - title: Sorguların İyileştirilmesi
       url: /mydoc_sorgularin_iyilestirilmesi.html
       output: web, pdf
-    
-    - title: Performans İyileştirmeye Giriş
-      url: /mydoc_postgresql_surum_yukseltme.html
-      output: web, pdf
-
-    - title: İşletim Sistemi Ayarları
-      url: /mydoc_postgresql_surum_yukseltme.html
-      output: web, pdf
-    
-    - title: Donanım Performansı
-      url: /mydoc_postgresql_surum_yukseltme.html
-      output: web, pdf
