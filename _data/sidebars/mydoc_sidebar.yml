@@ -73,7 +73,7 @@ entries:
     folderitems:
     
     - title: PostgreSQL MVCC ve VACUUM
-      url: /mydoc_postgresql_loglari.html
+      url: /mydoc_mvcc_vacuum.html
       output: web, pdf
 
   - title: PostgreSQL Logları
@@ -98,4 +98,16 @@ entries:
     
     - title: PostgreSQL Sürüm Yükseltme
       url: /mydoc_postgresql_surum_yukseltme.html
+      output: web, pdf
+
+  - title: PostgreSQL Performans İyileştirmeleri
+    output: web, pdf
+    folderitems:
+    
+    - title: Veritabanı Servisinde İyileştirme
+      url: /mydoc_servis_iyilestirme.html
+      output: web, pdf
+
+    - title: Sorguların İyileştirilmesi
+      url: /mydoc_sorgularin_iyilestirilmesi.html
       output: web, pdf
