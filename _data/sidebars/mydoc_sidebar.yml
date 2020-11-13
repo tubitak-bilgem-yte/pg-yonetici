@@ -83,4 +83,11 @@ entries:
     - title: PostgreSQL Logları
       url: /mydoc_postgresql_loglari.html
       output: web, pdf
-      
+
+  - title: PostgreSQL Yedekleme
+    output: web, pdf
+    folderitems:
+    
+    - title: PostgreSQL Yedekleme
+      url: /mydoc_postgresql_yedekleme.html
+      output: web, pdf
