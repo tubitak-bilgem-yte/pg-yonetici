@@ -111,3 +111,31 @@ entries:
     - title: Sorguların İyileştirilmesi
       url: /mydoc_sorgularin_iyilestirilmesi.html
       output: web, pdf
+
+    - title: İşletim Sistemi Ayarları
+      url: /mydoc_isletim_sistemi_ayarlari.html
+      output: web, pdf
+
+    - title: Donanım Performansı
+      url: /mydoc_donanim_performansi.html
+      output: web, pdf
+
+    - title: EXPLAIN
+      url: /mydoc_explain.html
+      output: web, pdf
+
+  - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+    output: web, pdf
+    folderitems:
+
+    - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+      url: /mydoc_yuksek_erisilebilik_olcekleme.html
+      output: web, pdf
+
+    - title: Streaming Replication
+      url: /mydoc_streaming_replication.html
+      output: web, pdf
+
+    - title: Logical Replication
+      url: /mydoc_logical_replication.html
+      output: web, pdf
