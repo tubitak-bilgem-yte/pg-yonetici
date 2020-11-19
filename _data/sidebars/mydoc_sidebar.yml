@@ -139,3 +139,15 @@ entries:
     - title: Logical Replication
       url: /mydoc_logical_replication.html
       output: web, pdf
+
+    - title: Barman
+      url: /mydoc_barman.html
+      output: web, pdf
+
+    - title: PgPool-II
+      url: /mydoc_pgpool.html
+      output: web, pdf
+
+    - title: repmgr
+      url: /mydoc_repmgr.html
+      output: web, pdf

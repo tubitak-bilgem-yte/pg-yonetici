@@ -30,7 +30,7 @@ postgres=# \l
 Yeni bir veritabanı oluşturma:
 
 ```sql
-postgres=# CREATE DATABASE hede;
+postgres=# CREATE DATABASE pagila;
 CREATE DATABASE
 ```
 
@@ -88,10 +88,10 @@ postgres=# \l
 Bir veritabanı içinde yeni bir tablo oluşturma:
 
 ```sql
-postgres=# \c hede
-You are now connected to database "hede" as user "postgres".
+postgres=# \c pagila
+You are now connected to database "pagila" as user "postgres".
 
-hede=# CREATE TABLE personel (
+pagila=# CREATE TABLE personel (
   ad            varchar(40),
   soyad      varchar(40),
   kidem      int,
@@ -103,7 +103,7 @@ CREATE TABLE
 Tabloları listeleme:
 
 ```sql
-hede=# \dt
+pagila=# \dt
           List of relations
  Schema |   Name   | Type  |  Owner
 --------+----------+-------+----------
@@ -116,11 +116,11 @@ hede=# \dt
 Tablo sahipliğini değiştirmek için:
 
 ```sql
-hede=# CREATE USER yildirim;
+pagila=# CREATE USER yildirim;
 CREATE ROLE
-hede=# ALTER TABLE personel OWNER TO yildirim;
+pagila=# ALTER TABLE personel OWNER TO yildirim;
 ALTER TABLE
-hede=# \dt
+pagila=# \dt
           List of relations
  Schema |   Name   | Type  |  Owner
 --------+----------+-------+-------
@@ -131,7 +131,7 @@ hede=# \dt
 Tablo yapısını gösterme:
 
 ```sql
-hede=# \d personel
+pagila=# \d personel
           Table "public.personel"
  Column |         Type          | Modifiers
 --------+-----------------------+-----------
@@ -147,7 +147,7 @@ Tabloyu düzenleme: Yeni kolon ekleme
 
 ```sql
 ALTER TABLE public.personel
-    ADD COLUMN hede text;
+    ADD COLUMN pagila text;
 ```
 
 Tabloyu düzenleme: Bir kolon tipini değiştirme
@@ -162,14 +162,14 @@ ALTER COLUMN ad TYPE character varying (50);
 Tabloya bir satır ekleme:
 
 ```sql
-hede=# INSERT INTO personel VALUES ('John','Doe',5,01);
+pagila=# INSERT INTO personel VALUES ('John','Doe',5,01);
 INSERT 0 1
 ```
 
 Tabloya birden fazla satır ekleme:
 
 ```sql
-hede=# INSERT INTO personel VALUES ('Jane','Doe',1,02),
+pagila=# INSERT INTO personel VALUES ('Jane','Doe',1,02),
            ('Richard','Roe',3,03), ('Fred','Bloggs', 7,04),
        ('Juan','Perez',11,05);
 INSERT 0 4
@@ -179,7 +179,7 @@ INSERT 0 4
 Satır sorgulama:
 
 ```sql
-hede=# SELECT * FROM personel;
+pagila=# SELECT * FROM personel;
    ad    | soyad  | kidem | uid
 ---------+--------+-------+-----
  John    | Doe    |     5 |   1
@@ -190,14 +190,14 @@ hede=# SELECT * FROM personel;
 (5 rows)
 ```
 
-## İndex İşlemleri
+## İndeks İşlemleri
 
-PostgreSQL Primary Key ya da Unique Constraint için index’i otomatik olarak oluşturur.
+PostgreSQL Primary Key ya da Unique Constraint için indeksi otomatik olarak oluşturur.
 
 ```sql
-postgres=# \c hede
-You are now connected to database "hede" as user "postgres".
-hede=# \d personel
+postgres=# \c pagila
+You are now connected to database "pagila" as user "postgres".
+pagila=# \d personel
           Table "public.personel"
  Column |         Type          | Modifiers
 --------+-----------------------+-----------
@@ -209,10 +209,10 @@ Indexes:
     "personel_pkey" PRIMARY KEY, btree (uid)
 ```
 
-Standart index oluşturma:
+Standart indeks oluşturma:
 
 ```sql
-hede=# CREATE INDEX soyad_idx ON personel (soyad);
+pagila=# CREATE INDEX soyad_idx ON personel (soyad);
 CREATE INDEX
 ```
 
@@ -224,7 +224,7 @@ Bir tablodan başka bir tabloya o tablonun Primary Key alanı aracılığıyla r
 
 ```sql
 
-hede=# CREATE TABLE items
+pagila=# CREATE TABLE items
 (
   code int PRIMARY KEY,
   name text,
@@ -233,7 +233,7 @@ hede=# CREATE TABLE items
 CREATE TABLE
 
 
-hede=# CREATE TABLE orders
+pagila=# CREATE TABLE orders
 (
   no int PRIMARY KEY,
   date date,
@@ -247,7 +247,7 @@ CREATE TABLE
 Referans veren tablo:
 
 ```sql
-hede=# \d orders
+pagila=# \d orders
       Table "public.orders"
   Column   |  Type   | Modifiers
 -----------+---------+-----------

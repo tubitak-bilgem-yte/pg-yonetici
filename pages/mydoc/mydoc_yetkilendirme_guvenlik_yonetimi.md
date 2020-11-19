@@ -13,7 +13,7 @@ folder: mydoc
 
 ### Host Bazlı Yetkilendirme
 
-Bir istemci PostgreSQL’e bağlantı yapmak istediğinde`/var/lib/pgsql/11/data/pg_hba.conf` dosyasından geçmelidir.`pg_hba.conf` dosyasından kurallar sıralı olarak okunur ve olumlu / olumsuz ilk eşleşen satırda izin verme / kısıtlama gerçekleşir.
+Bir istemci PostgreSQL’e bağlantı yapmak istediğinde`/var/lib/pgsql/13/data/pg_hba.conf` dosyasından geçmelidir.`pg_hba.conf` dosyasından kurallar sıralı olarak okunur ve olumlu / olumsuz ilk eşleşen satırda izin verme / kısıtlama gerçekleşir.
 
 *pg_hba.conf* satırlarının yazım şekli:
 
@@ -23,7 +23,7 @@ Bir istemci PostgreSQL’e bağlantı yapmak istediğinde`/var/lib/pgsql/11/data
 
 - **TYPE** ⇒ local / host / hostssl / hostnossl
 
-Yerel ya da uzaktan TCP/IP üzerinden yapılacak bağlantılar için **TYPE = "host"**
+Yerel ya da uzaktan TCP/IP üzerinden yapılacak bağlantılar için `TYPE = "host"`
 
 ```sql
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
@@ -45,8 +45,8 @@ hostnossl        all         zabbix       0.0.0.0/0              reject
 Unix soketi üzerinden yapılacak bağlantılar için "local" tipinde satır tanımlanır. Bu satırda IP/ağ adresi bulunmaz ve diğer alanlar "host" tipindekilerle aynı şekilde ayarlanır.
 
 ```sql
-# TYPE  DATABASE        USER            ADDRESS                METHOD
-local   all           postgres                                  peer
+#   TYPE    DATABASE        USER            ADDRESS                METHOD
+    local     all           postgres                                peer
 ```
 
 Yetkilendirmenin hangi yöntemle yapılacağı: **METHOD**
@@ -59,7 +59,7 @@ Yetkilendirmenin hangi yöntemle yapılacağı: **METHOD**
 | `trust` | Koşulsuz izin ver |
 | `reject` | Koşulsuz reddet |
 
-pg_hba.conf'ta bir satırda USER alanına şunlardan biri gelir:
+*pg_hba.conf*'ta bir satırda USER alanına şunlardan biri gelir:
 
 |-------|--------|
 | `all` | Tüm veritabanı kullanıcıları |
@@ -67,16 +67,16 @@ pg_hba.conf'ta bir satırda USER alanına şunlardan biri gelir:
 | `+group` | "group" adlı grup/rol ve bunun üyesi tüm kullanıcı/roller |
 | `@file` | PostgreSQL dizininde "file" adlı dosyada yazan tüm kullanıcı/roller |
 
-"peer" ve "ident" doğrulama metotlarında sistem kullanıcısını veritabanı kullanıcısına eşleyen bir "map" kullanmak da mümkündür. `pg_ident.conf`’ta yazan mappingler ile pg_hba.conf’ta yazan izinler eşleştirilir.
+"peer" ve "ident" doğrulama metotlarında sistem kullanıcısını veritabanı kullanıcısına eşleyen bir "map" kullanmak da mümkündür. `pg_ident.conf`’ta yazan mappingler ile *pg_hba.conf*’ta yazan izinler eşleştirilir.
 
 ### Veritabanına Bağlantı Yetkilendirmesi
 
-Host bazlı yetkilendirme satırlarınki DATABASE kısmında ne yazıldıysa sadece oralara izin verilir. Bu aşama geçildikten sonra veritabanına bağlanabilme iki koşula bağlıdır:
+Host bazlı yetkilendirme satırlarınki `DATABASE` kısmında ne yazıldıysa sadece oralara izin verilir. Bu aşama geçildikten sonra veritabanına bağlanabilme iki koşula bağlıdır:
 
 - datallowconn’un true olması.
 - Kullanıcı/rolün veritabanı şemasını kullanma izninin olması.
 
-``datallowconn false`` olarak ayarlanmış veritabanlarına kimse bağlanamaz (template)
+``datallowconn false`` olarak ayarlanmış veritabanlarına kimse bağlanamaz (template).
 
 ```sql
 postgres=> select datname,datallowconn from pg_database;
@@ -268,7 +268,7 @@ pg02=# CREATE POLICY user_mod ON phonebook FOR UPDATE
 CREATE POLICY
 ```
 
-Genel SQL yetkilendirmelerini de yapalım. "tubitak" herşeye yetkili, herkes ise sadece görme ve değiştirmeye yetkili olsun:
+Genel SQL yetkilendirmelerini de yapalım. "tubitak" her şeye yetkili, herkes ise sadece görme ve değiştirmeye yetkili olsun:
 
 ```sql
 pg02=# GRANT SELECT, INSERT, UPDATE, DELETE ON phonebook TO tubitak;

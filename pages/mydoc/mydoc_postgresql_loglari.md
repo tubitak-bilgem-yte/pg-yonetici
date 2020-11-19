@@ -18,7 +18,7 @@ folder: mydoc
 
 ### Logların Yazılışı
 
-Loglama ayarları ``postgresql.conf`` dosyasında **# ERROR REPORTING AND LOGGING** bölümünde görülür:
+Loglama ayarları `postgresql.conf` dosyasında *# ERROR REPORTING AND LOGGING* bölümünde bulunur:
 
 ```js
 log_destination = stderr
@@ -72,7 +72,7 @@ Varsayılan olarak detay loglar kapalıdır. Açılmak istenirse birçok seçene
 
 Sunucu performansını değerlendirmek için sorgu logları açılmak istenebilir. Varsayılan olarak kapalıdır.
 
-```sh
+```yaml
 log_statement = 'none'          # Kullanılabilecek değerler: none, ddl, mod, all
 ```
 
@@ -150,7 +150,7 @@ psql: could not connect to server: No such file or directory
 
 ### PgAudit ile Audit Loglarının Tutulması
 
-PostgreSQL’in standart sorgu loglamasına ek olarak sadece belirli işlemlere ve nesnelere ait loglarının tutulmasını sağlar. 
+PostgreSQL’in standart sorgu loglamasına ek olarak sadece belirli işlemlere ve nesnelere ait loglarının tutulmasını sağlar.
 
 PostgreSQL deposundan gerekli eklenti kurulur:
 
@@ -163,23 +163,23 @@ Ayar dosyasına girerek, eklentimizi ekliyoruz:
 ```text
 $ vi postgresql.conf
   
-  shared_preload_libraries='pgaudit'
+shared_preload_libraries='pgaudit'
 ```
 
 Servisi yeniden başlatıp, psql’le bağlandıktan sonra:
 
-```text
+```sql
 CREATE EXTENSION pgaudit;
 ```
 
 *pgaudit.log* değiskeni ile okuma loglarının yakalanması:
 
-```text
+```sql
 ALTER SYSTEM SET pgaudit.log TO 'read';
 SELECT pg_reload_conf();
 ```
 
-- `all` ile bütün logları tutabileceğimiz gibi virgülle '`read`, `write`' şeklinde alabiliriz.
+- `all` ile bütün logları tutabileceğimiz gibi virgülle `read`, `write` şeklinde alabiliriz.
 
 Sorgumuzu çalıştırıp logumuza bakalım.
 
