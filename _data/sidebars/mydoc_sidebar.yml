@@ -147,3 +147,7 @@ entries:
     - title: PgPool-II
       url: /mydoc_pgpool.html
       output: web, pdf
+
+    - title: repmgr
+      url: /mydoc_repmgr.html
+      output: web, pdf
