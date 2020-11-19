@@ -143,3 +143,7 @@ entries:
     - title: Barman
       url: /mydoc_barman.html
       output: web, pdf
+
+    - title: PgPool-II
+      url: /mydoc_pgpool.html
+      output: web, pdf
