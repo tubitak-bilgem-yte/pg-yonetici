@@ -53,7 +53,7 @@ pg_dumpall ile tüm veritabanlarını yedekleme:
 $ pg_dumpall > /tmp/all.sql
 ```
 
-- Bu yedeğin içinde veritabanları, roller, erişim hakları v.b. herşey bulunur
+- Bu yedeğin içinde veritabanları, roller, erişim hakları v.b. her şey bulunur
 
 Alınan bir text dump’ı geri yükleme:
 
@@ -75,13 +75,13 @@ Belirli bir tablonun dump’ını alma:
 $ pg_dump -d pg02 -t hodo > /tmp/hodo.sql
 ```
 
-Veritabanının bu tablo hariç gerisinin dump’ını alma:
+Veritabanının belirtilen tablo hariç gerisinin dump’ını alma:
 
 ```sh
 $ pg_dump -d pg02 -T hodo > /tmp/hodosız.sql
 ```
 
-`-t` ve `-T` parametreleri aynı anda ve wildcard olarak da kullanılabir.
+`-t` ve `-T` parametreleri aynı anda ve *wildcard* olarak da kullanılabir.
 
 ```sh
 $ pg_dump -t 'detroit.emp*' -T detroit.employee_log mydb > db.sql
@@ -99,7 +99,7 @@ Açıp geri yükleme:
 ```sh
 $ gunzip -c /tmp/pg02.sql.gz | psql pg02_yeni
 
-veya
+# veya
 
 $ zcat /tmp/pg02.sql.gz | psql pg02_yeni
 ```
@@ -171,10 +171,10 @@ Ancak bu yöntemin eksileri var!
 
 ### WAL Logları
 
-- PostgreSQL, veritabanında değişiklik yapan tüm işlemleri WAL logları olarak pg_wal altına yazar
-- WAL logları asıl olarak çökme durumunda PostgreSQL’i tekrar tutarlı hale getirmek için tutulur
+- PostgreSQL, veritabanında değişiklik yapan tüm işlemleri WAL logları olarak `pg_wal` altına yazar.
+- WAL logları asıl olarak çökme durumunda PostgreSQL’i tekrar tutarlı hale getirmek için tutulur.
 - Son Checkpoint’ten itibaren WAL logları yeniden oynatılarak PostgreSQL otomatik düzeltilir.
-- `wal_level`, WAL’a ne kadar bilginin yazıldığını belirler
+- `wal_level`, WAL’a ne kadar bilginin yazıldığını belirler.
 - Varsayılan olarak `wal_level = minimal`
 - Minimal’ken WAL dosyaları yalnızca çökme sonrası kurtarma için gereken bilgileri içerir
 
@@ -211,9 +211,9 @@ Belirli aralıklarla veri dizininin yedeği alınmalı
 
 Geri dönüş prosedürü:
 
-- PostgreSQL kapatılır ve veri dizini komple boşaltılır
-- Dizin yedeği (base backup) veri dizinine geri dönülür, sahipliği düzenlenir
-- `pg_wal` içeriği doluysa temizlenir.
+- PostgreSQL kapatılır ve veri dizini komple boşaltılır,
+- Dizin yedeği (base backup) veri dizinine geri dönülür, sahipliği düzenlenir,
+- `pg_wal` içeriği doluysa temizlenir,
 - Arşivlenen logları geri dönecek komutun (**restore_command**) tanımlı olduğu bir *recovery.conf* dosyası hazırlanır.
 - Tüm log yerine bir yere kadar log işletilecekse bu da aynı dosyada `recovery_target_time` şeklinde tanımlanır.
 - PostgreSQL başlatılır, düzgün kurtarma olduysa recovery.conf, *recovery.done olur.

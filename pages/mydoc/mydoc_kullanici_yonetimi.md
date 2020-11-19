@@ -28,9 +28,9 @@ postgres=# \du
  zabbix      |                                     | {}
 ```
 
-**CREATE USER**: varsayılan olarak login yetkisi olan bir kullanıcı oluşturur.
+`CREATE USER`: varsayılan olarak login yetkisi olan bir kullanıcı oluşturur.
 
-**CREATE ROLE**: nologin bir kullanıcı oluşturur.
+`CREATE ROLE`: nologin bir kullanıcı oluşturur.
 
 ```sql
 postgres=# CREATE ROLE yildirim;
@@ -85,7 +85,7 @@ REASSIGN OWNED BY bilgem TO yte;
 DROP OWNED BY bilgem;
 ```
 
-Grup rolleri de tekil roller gibi oluşturulur. Başka roller bu rollere eklenir ya da çıkarılır
+Grup rolleri de tekil roller gibi oluşturulur. Başka roller bu rollere eklenir ya da çıkarılır.
 
 ```sql
 CREATE ROLE admin NOLOGIN;
@@ -93,7 +93,7 @@ GRANT admin TO bilgem;
 REVOKE admin FROM bilgem;
 ```
 
-``INHERIT/NOINHERIT`` ile bir rolün üyesi olduğu grupların yetkilerini direk kullanıp kullanamayacağı belirtilir. INHERIT ile üye olunan grubun yetkileri direk kullanılabilir. NOINHERIT ile üye olunan grubun yetkileri sadece SET ROLE komutu ardından kullanılabilir.
+`INHERIT/NOINHERIT` ile bir rolün üyesi olduğu grupların yetkilerini direk kullanıp kullanamayacağı belirtilir. INHERIT ile üye olunan grubun yetkileri direk kullanılabilir. NOINHERIT ile üye olunan grubun yetkileri sadece `SET ROLE` komutu ardından kullanılabilir.
 
 ```sql
 CREATE ROLE developer LOGIN INHERIT;
@@ -103,19 +103,19 @@ GRANT admin TO developer;
 GRANT wheel TO admin;
 ```
 
-Bir kullanıcıya başka bir kullanıcının hakları da ``GRANT`` ile aktarılır.
+Bir kullanıcıya başka bir kullanıcının hakları da `GRANT` ile aktarılır.
 
 ```sql
 GRANT  yildirim TO dba;
 ```
 
-Superuser hakları aktarılamaz sonra alter user yapılması gerekir.
+*Superuser* hakları aktarılamaz sonra *alter user* yapılması gerekir.
 
 ```sql
 ALTER USER dba WITH SUPERUSER;
 ```
 
-Örnek olarak; *dbadmin* isimli bir grup rolü oluşturalım. Bu role ``CREATEDB`` hakkı verelim. Kendi adımızla ve *123abc* parolasıyla bir login rolü oluşturalım. *tubitak* isimli bir login rolü oluşturalım, buna *dbadmin* rolünü atayalım.
+Örnek olarak; *dbadmin* isimli bir grup rolü oluşturalım. Bu role `CREATEDB` hakkı verelim. Kendi adımızla ve *123abc* parolasıyla bir login rolü oluşturalım. *tubitak* isimli bir login rolü oluşturalım, buna *dbadmin* rolünü atayalım.
 
 ```sql
 
