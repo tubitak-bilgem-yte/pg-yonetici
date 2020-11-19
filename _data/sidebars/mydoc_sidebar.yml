@@ -139,3 +139,7 @@ entries:
     - title: Logical Replication
       url: /mydoc_logical_replication.html
       output: web, pdf
+
+    - title: Barman
+      url: /mydoc_barman.html
+      output: web, pdf
