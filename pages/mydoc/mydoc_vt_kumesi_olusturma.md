@@ -56,10 +56,14 @@ Bununla birlikte, dizin içerikleri güvendeyken, varsayılan istemci kimlik do�
 
 ## İkincil Dosya Sistemlerinin Kullanımı
 
-Çoğu kurulum, veritabanı kümelerini makinenin 'kök' birimi dışındaki dosya sistemlerinde (birimler) oluşturur. Bunu yapmayı seçerseniz, veri dizini olarak ikincil birimin en üstteki dizinini (bağlama noktası) kullanmayı denemeniz önerilmez. En iyi uygulama, PostgreSQL kullanıcısının sahip olduğu bağlama noktası dizini içinde bir dizin oluşturmak ve ardından bunun içinde veri dizinini oluşturmaktır. Bu, özellikle pg_upgrade gibi işlemler için izin sorunlarını önler ve ayrıca ikincil birim çevrimdışı duruma getirilirse temiz hatalar sağlar.
+Çoğu kurulum, veritabanı kümelerini makinenin "root" birimi dışındaki dosya sistemlerinde oluşturur. Bunu yapmayı seçerseniz, ikincil birimin en üstteki dizinini (mount point) veri dizini olarak kullanmayı denemeniz tavsiye edilmez. En iyi uygulama, PostgreSQL kullanıcısının sahip olduğu bağlama noktası dizini ( mount-point directory ) içinde bir dizin oluşturmak ve ardından bunun içinde veri dizinini oluşturmaktır. Bu, özellikle `pg_upgrade` gibi işlemler için izin sorunlarını önler ve ayrıca ikincil birim çevrimdışı duruma getirilirse temiz hatalar sağlar.
 
-### Dosya Sistemleri
+## Dosya Sistemleri
 
-#### NFS
+Genellikle, POSIX semantiğine sahip herhangi bir dosya sistemi PostgreSQL için kullanılabilir. Kullanıcılar; satıcı desteği, performans ve aşinalık gibi çeşitli nedenlerle farklı dosya sistemlerini tercih eder. Deneyimler bize diğer tüm şeyler eşit olduğunda durumda, yalnızca dosya sistemlerini değiştirerek veya küçük dosya sistemi yapılandırması değişiklikleri yaparak büyük performans veya davranış değişiklikleri beklenmemesi gerektiğini göstermiştir.
+
+### NFS
+
+PostgreSQL veri dizinini depolamak için bir NFS dosya sistemi kullanmak mümkündür. PostgreSQL, NFS dosya sistemleri için özel bir şey yapmaz, yani NFS'nin tam olarak yerel olarak bağlı sürücüler gibi davrandığını varsayar. PostgreSQL, dosya kilitleme ( file locking ) gibi NFS üzerinde standart olmayan davranışa sahip olduğu bilinen herhangi bir işlevselliği kullanmaz.
 
 {% include links.html %}
