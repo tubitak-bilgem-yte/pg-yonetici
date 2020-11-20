@@ -28,130 +28,6 @@ entries:
       output: web, pdf
       type: homepage
 
-  - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
-    output: web, pdf
-    folderitems:
-
-    - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
-      url: /mydoc_postgresql_kurulum_ayarlanmasi.html
-      output: web, pdf
-
-  - title: PostgreSQL Veritabanı İstemcileri
-    output: web, pdf
-    folderitems:
-
-    - title: psql İstemcisi
-      url: /mydoc_postgresql_istemcileri_psql.html
-      output: web, pdf
-
-    - title: pgAdmin4 İstemcisi
-      url: /mydoc_postgresql_istemcileri_pgAdmin4.html
-      output: web, pdf
-
-  - title: PostgreSQL Veritabanı Yönetimi
-    output: web, pdf
-    folderitems:
-
-    - title: PostgreSQL Temel Veritabanı işlemleri
-      url: /mydoc_postgres_veritabanı_islemleri.html
-      output: web, pdf
-
-    - title: PostgreSQL Kullanıcı Yönetimi
-      url: /mydoc_kullanici_yonetimi.html
-      output: web, pdf
-
-    - title: PostgreSQL Yetkilendirme ve Güvenlik Yönetimi
-      url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
-      output: web, pdf
-
-    - title: PostgreSQL’de Gözetleme
-      url: /mydoc_postgresql_gozetleme.html
-      output: web, pdf
-
-  - title: PostgreSQL MVCC ve VACUUM
-    output: web, pdf
-    folderitems:
-    
-    - title: PostgreSQL MVCC ve VACUUM
-      url: /mydoc_mvcc_vacuum.html
-      output: web, pdf
-
-  - title: PostgreSQL Logları
-    output: web, pdf
-    folderitems:
-    
-    - title: PostgreSQL Logları
-      url: /mydoc_postgresql_loglari.html
-      output: web, pdf
-
-  - title: PostgreSQL Yedekleme
-    output: web, pdf
-    folderitems:
-    
-    - title: PostgreSQL Yedekleme
-      url: /mydoc_postgresql_yedekleme.html
-      output: web, pdf
-
-  - title: PostgreSQL Sürüm Yükseltme
-    output: web, pdf
-    folderitems:
-    
-    - title: PostgreSQL Sürüm Yükseltme
-      url: /mydoc_postgresql_surum_yukseltme.html
-      output: web, pdf
-
-  - title: PostgreSQL Performans İyileştirmeleri
-    output: web, pdf
-    folderitems:
-    
-    - title: Veritabanı Servisinde İyileştirme
-      url: /mydoc_servis_iyilestirme.html
-      output: web, pdf
-
-    - title: Sorguların İyileştirilmesi
-      url: /mydoc_sorgularin_iyilestirilmesi.html
-      output: web, pdf
-
-    - title: İşletim Sistemi Ayarları
-      url: /mydoc_isletim_sistemi_ayarlari.html
-      output: web, pdf
-
-    - title: Donanım Performansı
-      url: /mydoc_donanim_performansi.html
-      output: web, pdf
-
-    - title: EXPLAIN
-      url: /mydoc_explain.html
-      output: web, pdf
-
-  - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
-    output: web, pdf
-    folderitems:
-
-    - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
-      url: /mydoc_yuksek_erisilebilik_olcekleme.html
-      output: web, pdf
-
-    - title: Streaming Replication
-      url: /mydoc_streaming_replication.html
-      output: web, pdf
-
-    - title: Logical Replication
-      url: /mydoc_logical_replication.html
-      output: web, pdf
-
-    - title: Barman
-      url: /mydoc_barman.html
-      output: web, pdf
-
-    - title: PgPool-II
-      url: /mydoc_pgpool.html
-      output: web, pdf
-
-    - title: repmgr
-      url: /mydoc_repmgr.html
-      output: web, pdf
-
   - title: Veritabanı Kurulumu ve Çalışması
     output: web, pdf
     folderitems:
@@ -255,3 +131,128 @@ entries:
     - title: Ön Ayar Seçenekleri
       url: /mydoc_on_ayar_secenekleri.html
       output: web, pdf
+
+#  - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
+#    output: web, pdf
+#    folderitems:
+#
+#    - title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
+#      url: /mydoc_postgresql_kurulum_ayarlanmasi.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Veritabanı İstemcileri
+#    output: web, pdf
+#    folderitems:
+#
+#    - title: psql İstemcisi
+#      url: /mydoc_postgresql_istemcileri_psql.html
+#      output: web, pdf
+#
+#    - title: pgAdmin4 İstemcisi
+#      url: /mydoc_postgresql_istemcileri_pgAdmin4.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Veritabanı Yönetimi
+#    output: web, pdf
+#    folderitems:
+#
+#    - title: PostgreSQL Temel Veritabanı işlemleri
+#      url: /mydoc_postgres_veritabanı_islemleri.html
+#      output: web, pdf
+#
+#    - title: PostgreSQL Kullanıcı Yönetimi
+#      url: /mydoc_kullanici_yonetimi.html
+#      output: web, pdf
+#
+#    - title: PostgreSQL Yetkilendirme ve Güvenlik Yönetimi
+#      url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
+#      output: web, pdf
+#
+#    - title: PostgreSQL’de Gözetleme
+#      url: /mydoc_postgresql_gozetleme.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL MVCC ve VACUUM
+#    output: web, pdf
+#    folderitems:
+#    
+#    - title: PostgreSQL MVCC ve VACUUM
+#      url: /mydoc_mvcc_vacuum.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Logları
+#    output: web, pdf
+#    folderitems:
+#    
+#    - title: PostgreSQL Logları
+#      url: /mydoc_postgresql_loglari.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Yedekleme
+#    output: web, pdf
+#    folderitems:
+#    
+#    - title: PostgreSQL Yedekleme
+#      url: /mydoc_postgresql_yedekleme.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Sürüm Yükseltme
+#    output: web, pdf
+#    folderitems:
+#    
+#    - title: PostgreSQL Sürüm Yükseltme
+#      url: /mydoc_postgresql_surum_yukseltme.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Performans İyileştirmeleri
+#    output: web, pdf
+#    folderitems:
+#    
+#    - title: Veritabanı Servisinde İyileştirme
+#      url: /mydoc_servis_iyilestirme.html
+#      output: web, pdf
+#
+#    - title: Sorguların İyileştirilmesi
+#      url: /mydoc_sorgularin_iyilestirilmesi.html
+#      output: web, pdf
+#
+#    - title: İşletim Sistemi Ayarları
+#      url: /mydoc_isletim_sistemi_ayarlari.html
+#      output: web, pdf
+#
+#    - title: Donanım Performansı
+#      url: /mydoc_donanim_performansi.html
+#      output: web, pdf
+#
+#    - title: EXPLAIN
+#      url: /mydoc_explain.html
+#      output: web, pdf
+#
+#  - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+#    output: web, pdf
+#    folderitems:
+#
+#    - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+#      url: /mydoc_yuksek_erisilebilik_olcekleme.html
+#      output: web, pdf
+#
+#    - title: Streaming Replication
+#      url: /mydoc_streaming_replication.html
+#      output: web, pdf
+#
+#    - title: Logical Replication
+#      url: /mydoc_logical_replication.html
+#      output: web, pdf
+#
+#    - title: Barman
+#      url: /mydoc_barman.html
+#      output: web, pdf
+#
+#    - title: PgPool-II
+#      url: /mydoc_pgpool.html
+#      output: web, pdf
+#
+#    - title: repmgr
+#      url: /mydoc_repmgr.html
+#      output: web, pdf
+
