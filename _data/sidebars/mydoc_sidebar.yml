@@ -151,3 +151,107 @@ entries:
     - title: repmgr
       url: /mydoc_repmgr.html
       output: web, pdf
+
+  - title: Veritabanı Kurulumu ve Çalışması
+    output: web, pdf
+    folderitems:
+
+    - title: PostgreSQL Kullanıcı Hesabı
+      url: /mydoc_kullanici_hesabi.html
+      output: web, pdf
+
+    - title: Veritabanı Kümesi Oluşturma
+      url: /mydoc_vt_kumesi_olusturma.html
+      output: web, pdf
+
+    - title: Veritabanı Sunucusunu Başlatma
+      url: /mydoc_vt_sunucu_baslatma.html
+      output: web, pdf
+
+    - title: Çekirdek Kaynaklarını Yönetme
+      url: /mydoc_cekirdek_kaynaklari.html
+      output: web, pdf
+
+    - title: Sunucuyu Kapatma
+      url: /mydoc_sunucuyu_kapatma.html
+      output: web, pdf
+
+    - title: PostgreSQL Veritabanı Kümesini Yükseltme
+      url: /mydoc_vt_kumesi_yukseltme.html
+      output: web, pdf
+
+    - title: Preventing Server Spoofing
+      url: /mydoc_repmgr.html
+      output: web, pdf
+
+    - title: Şifreleme Seçenekleri
+      url: /mydoc_sifreleme_secenekleri.html
+      output: web, pdf
+
+    - title: Güvenli Bağlantı
+      url: /mydoc_guvenli_baglanti.html
+      output: web, pdf
+
+  - title: PostgreSQL Veritabanı Yapılandırması
+    output: web, pdf
+    folderitems:
+
+    - title: Ayar Parametreleri
+      url: /mydoc_ayar_paremetreleri.html
+      output: web, pdf
+
+    - title: Dosya Konumları
+      url: /mydoc_dosya_konumlari.html
+      output: web, pdf
+
+    - title: Bağlantılar ve Kimlik Doğrulama
+      url: /mydoc_baglantilar_kimlik_dogrulama.html
+      output: web, pdf
+
+    - title: Kaynak Tüketimi
+      url: /mydoc_kaynak_tuketimi.html
+      output: web, pdf
+
+    - title: Write Ahead Log
+      url: /mydoc_wal.html
+      output: web, pdf
+
+    - title: Replication
+      url: /mydoc_replication.html
+      output: web, pdf
+
+    - title: Sorgu Planlama
+      url: /mydoc_sorgu_planlama.html
+      output: web, pdf
+
+    - title: Hata Raporlama ve Günlük Kaydı
+      url: /mydoc_error_reporting_logging.html
+      output: web, pdf
+
+    - title: Çalışma Zamanı İstatistikleri 
+      url: /mydoc_calisma_zamani_istatistikleri.html
+      output: web, pdf
+
+    - title: Automatic Vacuuming
+      url: /mydoc_replication.html
+      output: web, pdf
+
+    - title: İstemci Bağlantısı Varsayılanları
+      url: /mydoc_istemci_baglantisi_varsayilanlari.html
+      output: web, pdf
+
+    - title: Lock Yönetimi
+      url: /lock_yonetimi.html
+      output: web, pdf
+
+    - title: Sürüm ve Platform Uyumluluğu
+      url: /mydoc_surum_platform_uyumlulugu.html
+      output: web, pdf
+
+    - title: Hata Yönetimi
+      url: /mydoc_hata_yonetimi.html
+      output: web, pdf
+
+    - title: Ön Ayar Seçenekleri
+      url: /mydoc_on_ayar_secenekleri.html
+      output: web, pdf
