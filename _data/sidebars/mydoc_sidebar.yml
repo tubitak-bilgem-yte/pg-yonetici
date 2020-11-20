@@ -28,7 +28,7 @@ entries:
       output: web, pdf
       type: homepage
 
-  - title: Veritabanı Kurulumu ve Çalışması
+  - title: Veritabanı Kurulumu ve Çalıştırılması
     output: web, pdf
     folderitems:
 
