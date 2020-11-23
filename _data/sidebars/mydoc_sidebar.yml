@@ -19,7 +19,7 @@ entries:
       output: pdf
       type: frontmatter
 
-  - title: Giriş
+  - title: Genel Bakış
     output: web, pdf
     folderitems:
     
@@ -48,7 +48,7 @@ entries:
       url: /mydoc_cekirdek_kaynaklari.html
       output: web, pdf
 
-    - title: Sunucuyu Kapatma
+    - title: Veritabanı Sunucuyu Kapatma
       url: /mydoc_sunucuyu_kapatma.html
       output: web, pdf
 
