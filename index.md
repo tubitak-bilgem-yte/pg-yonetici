@@ -1,10 +1,10 @@
 ---
-title: "PostgreSQL Veritabanı Geliştirici Dokümantasyonu"
+title: "PostgreSQL Veritabanı Yönetici Dokümantasyonu"
 keywords: Giriş
 tags: [PostgreSQL]
 sidebar: mydoc_sidebar
 permalink: index.html
-summary: PostgreSQL Veritabanı Geliştirici Dokümantasyonu
+summary: PostgreSQL Veritabanı Yönetici Dokümantasyonu
 ---
 
 {% include image.html file="postgres_giris.png" url="/pg-yonetici/images/postgres_giris.png" alt="postgres giriş"%}
