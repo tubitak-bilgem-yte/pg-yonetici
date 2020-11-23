@@ -111,7 +111,7 @@ pg_dumpall -p 5432 | psql -d postgres -p 5433
 
 ### pg_upgrade Yaklaşımı ile Yükseltme
 
-[`pg_upgrade`](https://www.postgresql.org/docs/current/pgupgrade.html) modülü, bir kurulumun ana PostgreSQL sürümünden diğerine yerinde geçişi için kullanılır. Yükseltmeler, özellikle `--link` modunda dakikalar içinde gerçekleştirilebilir. Sunucuyu başlatma / durdurma, initdb'yi çalıştırma gibi yukarıdaki bahsettiğimiz pg_dumpall'a benzer adımlar gerektirir. [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) dokümantasyonu gerekli adımları özetler.
+`pg_upgrade` modülü, bir kurulumun ana PostgreSQL sürümünden diğerine yerinde geçişi için kullanılır. Yükseltmeler, özellikle `--link` modunda dakikalar içinde gerçekleştirilebilir. Sunucuyu başlatma / durdurma, initdb'yi çalıştırma gibi yukarıda bahsettiğimiz pg_dumpall'a benzer adımlar gerektirir. [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) dokümantasyonu gerekli adımları özetler.
 
 ### Replication Yaklaşımı ile Yükseltme
 

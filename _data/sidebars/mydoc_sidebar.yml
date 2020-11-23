@@ -48,11 +48,11 @@ entries:
       url: /mydoc_cekirdek_kaynaklari.html
       output: web, pdf
 
-    - title: Veritabanı Sunucuyu Kapatma
-      url: /mydoc_sunucuyu_kapatma.html
+    - title: Veritabanı Sunucusunu Kapatma
+      url: /mydoc_vt_sunucu_kapatma.html
       output: web, pdf
 
-    - title: PostgreSQL Veritabanı Kümesini Yükseltme
+    - title: Veritabanı Kümesini Yükseltme
       url: /mydoc_vt_kumesi_yukseltme.html
       output: web, pdf
 
