@@ -56,24 +56,36 @@ entries:
       url: /mydoc_vt_kumesi_yukseltme.html
       output: web, pdf
 
-    - title: Preventing Server Spoofing
-      url: /mydoc_repmgr.html
+    - title: Sunucu Sahtekarlığını Önleme
+      url: /mydoc_preventing_server_spoofing.html
       output: web, pdf
 
     - title: Şifreleme Seçenekleri
       url: /mydoc_sifreleme_secenekleri.html
       output: web, pdf
 
-    - title: Güvenli Bağlantı
-      url: /mydoc_guvenli_baglanti.html
+    - title: SSL ile Güvenli TCP / IP Bağlantıları
+      url: /mydoc_tcp_ip_ssl.html
+      output: web, pdf
+
+    - title: GSSAPI Şifreleme ile TCP / IP Bağlantıları 
+      url: /mydoc_tcp_ip_gssapi.html
+      output: web, pdf
+
+    - title: SSH Tünelleri ile Güvenli TCP / IP Bağlantıları
+      url: /mydoc_tcp_ip_ssh.html
+      output: web, pdf
+
+    - title: Windows'ta Olay Günlüğünü Kaydetme
+      url: /mydoc_win_olay_gunlugu.html
       output: web, pdf
 
   - title: PostgreSQL Veritabanı Yapılandırması
     output: web, pdf
     folderitems:
 
-    - title: Ayar Parametreleri
-      url: /mydoc_ayar_paremetreleri.html
+    - title: Parametreleri Ayarlama
+      url: /mydoc_paremetreleri_ayarlama.html
       output: web, pdf
 
     - title: Dosya Konumları
