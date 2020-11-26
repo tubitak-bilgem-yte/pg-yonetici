@@ -5,7 +5,7 @@ keywords: postgres
 last_updated: November 23, 2020
 summary: "Veritabanı Sunucusunu Kapatma"
 sidebar: mydoc_sidebar
-permalink: mydoc_sunucuyu_kapatma.html
+permalink: mydoc_vt_sunucu_kapatma.html
 folder: mydoc
 ---
 

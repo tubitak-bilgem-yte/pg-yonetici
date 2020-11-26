@@ -5,7 +5,7 @@
 }
 
 
-h3 {color: #ED1951; }
+h3 {color: #248EC2 }
 h4 {color: #808080; }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -106,7 +106,7 @@ li.sidebarTitle {
   margin-top:20px;
     font-weight:normal;
     font-size:130%;
-    color: #ED1951;
+    color: #248EC2;
     margin-bottom:10px;
     margin-left: 5px;
 

@@ -11,10 +11,10 @@ folder: mydoc
 
 ## PostgreSQL Kullanıcı Hesabı
 
-Dış dünya tarafından erişilebilen her sunucuda olduğu gibi, PostgreSQL'in ayrı bir kullanıcı hesabı altında çalıştırılması tavsiye edilir. Bu kullanıcı hesabı yalnızca sunucu tarafından yönetilen verilere sahip olmalı ve diğer arka plan süreçleri ile paylaşılmamalıdır. Özellikle, bu kullanıcı hesabının PostgreSQL çalıştırılabilir dosyalarına sahip olmaması, risk altındaki bir sunucu işleminin bu çalıştırılabilir dosyaları değiştirememesini sağlamak için tavsiye edilir.
+Dış dünya tarafından erişilebilen her sunucuda olduğu gibi, PostgreSQL'in ayrı bir kullanıcı hesabı altında çalıştırılması tavsiye edilir. Bu kullanıcı hesabı, yalnızca sunucu tarafından yönetilen verilere sahip olmalı ve diğer arka plan süreçleriyle paylaşılmamalıdır. Özellikle, bu hesabın PostgreSQL çalıştırılabilir dosyalarına sahip olmaması, risk altındaki bir sunucu sürecinin ilgili çalıştırılabilir dosyalarda değişiklik yapmasının engellenmesi için tavsiye edilir.
 
 PostgreSQL'in önceden paketlenmiş sürümleri, genellikle paket kurulumu sırasında otomatik olarak uygun bir kullanıcı hesabı oluşturur.
 
-Sisteminize bir Unix kullanıcı hesabı eklemek için `useradd` veya `adduser` komutu kullanılır. **postgres** kullanıcı adı sıklıkla kullanılır ve bu dokümanda varsayılandır, ancak isterseniz başka bir ad da kullanabilirsiniz.
+Sisteme bir Unix kullanıcı hesabı eklemek için `useradd` veya `adduser` komutu kullanılır. **postgres** kullanıcı adı sıklıkla kullanılır ve bu dokümanda varsayılandır. Dilerseniz başka bir ad da kullanabilirsiniz.
 
 {% include links.html %}

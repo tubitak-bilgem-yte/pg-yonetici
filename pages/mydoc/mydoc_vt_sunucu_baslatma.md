@@ -149,9 +149,9 @@ psql: could not connect to server: Connection refused
         TCP/IP connections on port 5432?
 ```
 
-Bu genel "konuşacak bir sunucu bulamadım" hatasıdır. TCP / IP iletişimi denendiğinde yukarıdakine benzer. Yapılan en yaygın hata sunucuyu TCP / IP bağlantılarına izin verecek şekilde yapılandırmayı unutmaktır.
+Bu genel "konuşacak bir sunucu bulamadım" hatasıdır. TCP / IP bağlantısı denendiğinde yukarıdaki hata alınır. Burada yapılan en yaygın hata sunucuyu TCP / IP bağlantılarına izin verecek şekilde yapılandırmayı unutmaktır.
 
-Benzer şekilde yerel bir sunucuya Unix alan soketi iletişimini denediğinizde bunu alırsınız:
+Benzer şekilde yerel bir sunucuya Unix-domain soket bağlantısı denediğinizde şöyle bir hata alırsınız:
 
 ```bash
 psql: could not connect to server: No such file or directory
@@ -159,6 +159,6 @@ psql: could not connect to server: No such file or directory
         connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 ```
 
-Son satır, istemcinin doğru yere bağlanmaya çalıştığını doğrulamak için kullanışlıdır. Gerçekte orada çalışan sunucu yoksa, gösterildiği gibi çekirdek hata mesajı tipik olarak "Connection refused" veya "No such file or directory" şeklinde olacaktır. Bir diğer hata mesajı olan "Connection timed out" ağ bağlantısının olmaması gibi daha temel sorunları ifade eder.
+Son satır, istemcinin doğru yere bağlanmaya çalıştığını doğrulamak için kullanışlıdır. Gerçekte orada çalışan sunucu yoksa, gösterildiği gibi "Connection refused" veya "No such file or directory" şeklinde bir çekirdek hata mesajı alınacaktır. Bir diğer hata mesajı olan "Connection timed out" ise ağ bağlantısının olmaması gibi daha temel sorunları ifade eder.
 
 {% include links.html %}
