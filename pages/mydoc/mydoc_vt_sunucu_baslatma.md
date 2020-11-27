@@ -110,7 +110,7 @@ HINT:  Is another postmaster already running on port 5432? If not, wait a few se
 FATAL:  could not create any TCP/IP sockets
 ```
 
-Bu genellikle sadece öneri anlamı taşır: zaten çalışmakta olan aynı bağlantı noktasında başka bir sunucu başlatmayı denedinizi bildiriyor. Bununla birlikte, çekirdek hata mesajı **Address already in use** veya bunun bir çeşidi değilse, farklı bir sorun olabilir. Örneğin, ayrılmış bir bağlantı noktası numarasında bir sunucu başlatmaya çalışmak aşağıdaki gibi bir hata verecektir:
+Bu, zaten çalışmakta olan aynı bağlantı noktasında başka bir sunucu başlatmayı denedinizi bildiren bir öneri mejaşıdır. Burada çekirdek hata mesajı *Address already in use* veya bir çeşidi değilse farklı bir sorun olabilir. Örneğin, kullanılan bir bağlantı noktasında  sunucu başlatmaya çalışmak aşağıdaki gibi bir hata verecektir:
 
 ```bash
 $ postgres -p 666
@@ -135,13 +135,13 @@ FATAL:  could not create semaphores: No space left on device
 DETAIL:  Failed system call was semget(5440126, 17, 03600).
 ```
 
-disk alanınızın tükendiği anlamına gelmez. Bu, çekirdeğinizin System V semaforlarının sayısı üzerindeki sınırının PostgreSQL'in oluşturmak istediği sayıdan daha küçük olduğu anlamına gelir. Sunucuyu azaltılmış sayıda izin verilen bağlantılarla ([max_connections]("")) başlatarak sorunu çözebilirsiniz, ancak sonunda çekirdek sınırını artırmak isteyeceksiniz.
+Bu hata, disk alanınızın tükendiği anlamına gelmez. Bu, çekirdeğinizin System V semaforlarının sayısı üzerindeki sınırının PostgreSQL'in oluşturmak istediği sayıdan daha küçük olduğu ifade eder. Sunucuyu maksimum eşzamanlı bağlantı sayısını azaltarak başlatarak sorunu çözebilirsiniz ancak nihai çözüm olarak çekirdek sınırını arttırmak olacaktır.
 
 System V IPC olanaklarının yapılandırılmasına ilişkin ayrıntılar [Çekirdek Kaynaklarını Yönetme]("") bölümünde verilmiştir.
 
 ### İstemci Bağlantı Sorunları
 
-İstemci tarafında olası hata koşulları oldukça çeşitli ve uygulamaya bağlı olsa da bunlardan birkaçı doğrudan sunucunun nasıl başlatıldığıyla ilgili olabilir. Aşağıda gösterilenler dışındaki koşullar, ilgili istemci uygulamasıyla ile belgelenmelidir.
+İstemci tarafında olası hata koşulları oldukça çeşitli ve uygulamaya bağlı olsa da bunlardan birkaçı doğrudan sunucunun nasıl başlatıldığıyla ilgilidir. Aşağıda gösterilenler dışındaki koşullar, ilgili istemci uygulamasıyla belgelenmelidir.
 
 ```bash
 psql: could not connect to server: Connection refused
