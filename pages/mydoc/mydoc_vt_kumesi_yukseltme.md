@@ -19,27 +19,17 @@ PostgreSQL'in ana sürümlerinde dahili veri depolama formatı değişebilir ve 
 
 Yeni ana sürümler ayrıca kullanıcı tarafından görülebilen bazı uyumsuzlukları ortaya çıkarabileceğinden uygulama tarafında değişiklikler gerekebilir. Kullanıcı tarafından görülebilen tüm değişiklikler [sürüm notlarında](https://www.postgresql.org/docs/current/release.html) listelenmiştir. 'Migration' başlıklı bölüme özellikle dikkat edin. Birkaç ana sürümde arasında yükseltme yapıyorsanız araya giren her sürümün, sürüm notlarını okumanız sağlıklı bir yükseltme için önerilir.
 
-Dikkatli kullanıcılar, tamamen geçiş yapmadan önce istemci uygulamalarını yeni sürümde test etmek isteyeceklerdir. Bu nedenle eski ve yeni sürümlerin eşzamanlı kurulumlarını yapmak genellikle iyi bir fikirdir. Bir PostgreSQL ana sürüm yükseltmesini test ederken aşağıdaki olası değişiklik kategorilerini göz önünde bulundurun:
+Dikkatli kullanıcılar, tamamen geçiş yapmadan önce istemci uygulamalarını yeni sürümde test etmek isteyecektir. Bu nedenle eski ve yeni sürümlerin eşzamanlı kurulumlarını yapmak genellikle iyi bir fikirdir. Bir PostgreSQL ana sürüm yükseltmesini test ederken aşağıdaki olası değişiklik kategorilerini göz önünde bulundurun:
 
-`Administration`
+{% include callout.html content="`Administration`: Yöneticilerin sunucuyu izleme ve kontrol etme yetenekleri, her ana sürümde sıklıkla değişir ve iyileştirilir." type="primary" %}
 
-Yöneticilerin sunucuyu izleme ve kontrol etme yetenekleri, her ana sürümde sıklıkla değişir ve iyileştirilir.
+{% include callout.html content="`SQL`: Yeni SQL komut yeteneklerini içerir ve sürüm notlarında özellikle belirtilmediği sürece davranışta değişiklik olmaz." type="primary" %}
 
-`SQL`
+{% include callout.html content="`Library API`: libpq gibi tipik kütüphaneler sürüm notlarında belirtilmediği sürece yalnızca yeni işlevler ekler." type="primary" %}
 
-Yeni SQL komut yeteneklerini içerir ve sürüm notlarında özellikle belirtilmediği sürece davranışta değişiklik içermez.
+{% include callout.html content="`System Catalogs`: Sistem kataloğu değişiklikleri genellikle veritabanı yönetim araçlarını etkiler." type="primary" %}
 
-`Library API`
-
-libpq gibi kitaplıklar, sürüm notlarında belirtilmediği sürece yalnızca yeni işlevler ekler.
-
-`System Catalogs`
-
-Sistem kataloğu değişiklikleri genellikle veritabanı yönetim araçlarını etkiler.
-
-`Server C-language API`
-
-C programlama dilinde yazılan arka uç ( backend ) işlevi API'sindeki değişiklikleri içerir. Bu tür değişiklikler arka uç işlevlerine başvuran kodu etkiler.
+{% include callout.html content="`Server C-language API`:C programlama dilinde yazılan arka uç ( backend ) işlevi API'sindeki değişiklikleri içerir. Bu tür değişiklikler arka uç işlevlerine başvuran kodu etkiler." type="primary" %}
 
 ### pg_dumpall Yaklaşımı ile Yükseltme
 
