@@ -11,7 +11,7 @@ folder: mydoc
 
 ## Veritabanı Sunucusunu Kapatma
 
-Veritabanı sunucusunu kapatmanın supervisor `postgres` sürecine sinyal gönderme temelli birkaç yolu vardır. PostgreSQL'in önceden paketlenmiş bir sürümünü kullanıyorsanız ve sunucuyu başlatmak için hükümlerini kullandıysanız, sunucuyu durdurmak için de sağlanan hükümlerini kullanmalısınız.
+Veritabanı sunucusunu kapatmanın supervisor `postgres` sürecine sinyal gönderme temelli birkaç yolu vardır. PostgreSQL'in önceden paketlenmiş bir sürümünü kullanıyorsanız ve sunucuyu başlatmak için paket yöneticisinin araçlarını kullandıysanız, sunucuyu durdurmak için de sağlanan araçları kullanmalısınız.
 
 Sunucuyu doğrudan yönetirken, postgres sürecinin kapanma türünü farklı sinyaller göndererek kontrol edebilirsiniz:
 
