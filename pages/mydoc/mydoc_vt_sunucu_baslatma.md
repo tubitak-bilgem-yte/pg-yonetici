@@ -13,7 +13,7 @@ folder: mydoc
 
 Veritabanına herhangi birinin erişebilmesi için veritabanı sunucusunu başlatmanız gerekir. Veritabanı sunucusu programına `postgres` denir.
 
-PostgreSQL'in önceden paketlenmiş bir sürümünü kullanıyorsanız, işletim sisteminizin kurallarına göre sunucuyu bir arka plan görevi olarak çalıştırmaya yönelik hükümler hemen hemen her dağıtım için sağlanmıştır. Sunucuyu başlatmak için paketin altyapısını kullanmak, kendizin nasıl yapacağınızı belirtmesinden çok daha kolay olacaktır. Ayrıntılar için paket düzeyindeki belgelere bakın.
+PostgreSQL'in önceden paketlenmiş bir sürümünü kullanıyorsanız, işletim sisteminizin kurallarına göre sunucuyu bir arka plan görevi olarak çalıştırmaya yönelik akış hemen hemen her dağıtım için sağlanmıştır. Sunucuyu başlatmak için paketin altyapısını kullanmak, kendizin nasıl yapacağınızı belirtmesinden çok daha kolay olacaktır. Ayrıntılar için paket düzeyindeki belgelere bakın.
 
 Sunucuyu manuel olarak başlatmanın basit yolu, postgres'i doğrudan veri dizininin konumunu `-D` seçeneği ile belirterek çağırmaktır, örneğin:
 
@@ -21,7 +21,7 @@ Sunucuyu manuel olarak başlatmanın basit yolu, postgres'i doğrudan veri dizin
 $ postgres -D /usr/local/pgsql/data
 ```
 
-{% include callout.html content="Bu komut PostgreSQL kullanıcı hesabına çalıştırılır ve sunucuyu ön planda çalışır duruma getirir. Sunucu, -D olmadığı durumda PGDATA ortam değişkeni tarafından adlandırılan veri dizinini kullanmaya çalışır. Bu değişken de sağlanmazsa işlem başarısız olur." type="info" %}
+{% include callout.html content="Bu komut PostgreSQL kullanıcı hesabında çalıştırılır ve sunucuyu ön planda çalışır duruma getirir. Sunucu, -D olmadığı durumda PGDATA ortam değişkeni tarafından adlandırılan veri dizinini kullanmaya çalışır. Bu değişken de sağlanmazsa işlem başarısız olur." type="info" %}
 
 postgres'i arka planda başlamak için Unix kabuk sözdizimini kullanın:
 
@@ -102,7 +102,7 @@ Sunucu çalışırken, PID'si veri dizinindeki `postmaster.pid` dosyasında sakl
 
 ### Sunucu Başlatma Hataları
 
-Sunucuyu başlatırken başarısız almanın birkaç genel nedeni vardır. Bu durumlarda sunucunun günlük dosyasını kontrol edin veya elle başlatın (standart çıktıyı veya standart hatayı yeniden yönlendirmeden) ve hangi hata mesajlarının alındığına bakın. Aşağıda en yaygın hata mesajlarından bazılarını ayrıntılı olarak açıklıyoruz.
+Sunucuyu başlatırken başarısız olmanın birkaç genel nedeni vardır. Bu durumlarda sunucunun günlük dosyasını kontrol edin veya elle başlatın (standart çıktıyı veya standart hatayı yeniden yönlendirmeden) ve hangi hata mesajlarının alındığına bakın. Aşağıda en yaygın hata mesajlarından bazılarını ayrıntılı olarak açıklıyoruz.
 
 ```text
 LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
@@ -110,7 +110,7 @@ HINT:  Is another postmaster already running on port 5432? If not, wait a few se
 FATAL:  could not create any TCP/IP sockets
 ```
 
-Bu, zaten çalışmakta olan aynı bağlantı noktasında başka bir sunucu başlatmayı denedinizi bildiren bir öneri mejaşıdır. Burada çekirdek hata mesajı *Address already in use* veya bir çeşidi değilse farklı bir sorun olabilir. Örneğin, kullanılan bir bağlantı noktasında  sunucu başlatmaya çalışmak aşağıdaki gibi bir hata verecektir:
+Bu, zaten çalışmakta olan aynı bağlantı noktasında başka bir sunucu başlatmayı denedinizi bildiren bir öneri mejaşıdır. Burada çekirdek hata mesajı *Address already in use* veya bir çeşidi değilse farklı bir sorun olabilir. Örneğin, kullanılan bir bağlantı noktasında sunucu başlatmaya çalışmak aşağıdaki gibi bir hata verecektir:
 
 ```bash
 $ postgres -p 666
