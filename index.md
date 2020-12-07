@@ -113,7 +113,6 @@ PostgreSQL kurumsal veritabanı yönetimi sistemlerinde olmazsa olmaz başlıca 
 ### Diğer Veritabanlarından Göç
 
 - PostgreSQL’in mimarisi, hem ilişkisel hem de ilişkisel olmayan modellerden herhangi bir mevcut veritabanı sisteminden geçişi destekleyecek kadar esnektir.
-- PostgreSQL’in mimarisi, hem ilişkisel hem de ilişkisel olmayan modellerden herhangi bir mevcut veritabanı sisteminden geçişi destekleyecek kadar esnektir.
 - Yabancı Veri Paketleyici eklentileri ile harici veri kaynaklarına bağlanarak üzerinde sorgu çalıştırabilir, veri aktarabilir/alabilir ve yerel veri tabloları üzerinde yapılan sorguların sonuçları ile birleştirebilir, veri entegrasyonu yapabilirsiniz. Genel, spesifik (Oracle, MySQL, PostgreSQL, MS SQL Server, DB2, Teradata), NoSQL (Cassandra, MongoDB, Redis, Neo4j), dosya (XML, CSV, düz metin), coğrafi bilgi sistemleri gibi farklı yapılarda harici veri kaynaklarına ve farklı veritabanlarına [erişebilirsiniz](http://wiki.postgresql.org/wiki/Foreign_data_wrappers).
 - SQL standartlarını ile uyumlu olması, özellikle ticari ilişkisel veritabanlarından PostgreSQL’e göçü kolaylaştırmaktadır. Diğer veritabanlarından PostgreSQL’e göç için geliştirilmiş açık kaynak kodlu ve ticari araçlar mevcuttur.
 
