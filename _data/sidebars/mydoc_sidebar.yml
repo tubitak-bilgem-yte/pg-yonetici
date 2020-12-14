@@ -112,7 +112,7 @@ entries:
       url: /mydoc_sorgu_planlama.html
       output: web, pdf
 
-    - title: Hata Raporlama ve Günlük Kaydı
+    - title: Hata Raporlama ve Logging
       url: /mydoc_error_reporting_logging.html
       output: web, pdf
 
@@ -121,7 +121,7 @@ entries:
       output: web, pdf
 
     - title: Automatic Vacuuming
-      url: /mydoc_replication.html
+      url: /mydoc_automatic_vacuuming.html
       output: web, pdf
 
     - title: İstemci Bağlantısı Varsayılanları
