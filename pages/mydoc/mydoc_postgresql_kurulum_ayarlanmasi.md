@@ -1,20 +1,16 @@
 ---
-title: PostgreSQL Veritabanı Kurulumu ve Ayarlanması
+title: Genel Veritabanı Kurulumu ve Ayarlanması
 tags: [PostgreSQL]
 keywords: postgres, kurulum, ayarlama
-last_updated: October 30, 2020
-summary: "PostgreSQL Veritabanı Kurulumu ve Ayarlanması"
+last_updated: December 21, 2020
 sidebar: mydoc_sidebar
 permalink: mydoc_postgresql_kurulum_ayarlanmasi.html
 folder: mydoc
 ---
 
-* Kaynak koddan kurulum
-* Paket yönetim sistemi ile kurulum
-
 ## Paket Yönetim Sistemi ile Kurulum
 
-PostgreSQL farklı majör sürümlerini farklı depolarda tutar. Kurulacak sürüme göre o deponun paketi seçilip kurulur[](https://www.postgresql.org/download/). RPM paket deposunun edinilmesi:
+PostgreSQL farklı majör sürümleri farklı depolarda tutulur. Kurulacak sürüme göre o deponun paketi seçilip kurulur ([bkz.](https://www.postgresql.org/download/)). RPM paket deposunun edinilmesi:
 
 ```shell
 $ yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
@@ -34,13 +30,13 @@ PostgreSQL sunucunun kurulumu:
 $ yum install postgresql13-server postgresql13-contrib
 ```
 
-Kurulumun tamamlamasından sonra PostgreSQL sunucu ve istemci programları ve eklentiler kurulur. Veri dizini boş olarak oluşturulmuş ve kurulum ile birlikte gelen postgres sistem kullanıcısına verilmiş durumdadır. Kurulumdan sonra standart ayarlarla PostgreSQL ayağa kaldırılabilir. Ancak önce DB’nin bir seferliğine ilklendirilmesi (initialize) edilmesi gerekir. İlklendirme işlemi:
+Kurulumun tamamlamasından sonra PostgreSQL sunucu istemci programları ve eklentiler kurulur. Veri dizini boş olarak oluşturulmuş ve kurulum ile birlikte gelen `postgres` sistem kullanıcısına verilmiş durumdadır. Kurulumdan sonra standart ayarlarla PostgreSQL ayağa kaldırılabilir. Ancak önce DB’nin bir seferliğine ilklendirilmesi (initialize) edilmesi gerekir. İlklendirme işlemi şu şekildedir:
 
 ```sh
 /usr/pgsql-1/bin/postgresql-13-setup initdb
 ```
 
-İlklendirme işlemiyle catalog cluster (database cluster) oluşur. PostgreSQL’in veri dizininde dosyaların oluştuğunu görürüz:
+İlklendirme işlemiyle **catalog cluster** (database cluster) oluşutulur. PostgreSQL’in veri dizininde dosyaların oluştuğunu görürüz:
 
 ```sh
 ls -la /var/lib/pgsql/13/data
@@ -69,7 +65,7 @@ su postgres -c '/usr/pgsql-13/bin/pg_ctl start -D \
              /usr/local/pgsql/data -l serverlog'
 ```
 
-Sunucunun ayağa kalktığı loglar izlenerek takip edilir. Sunucu ilklendirme loglarını şuraya yazar: ``/var/lib/pgsql/13/initdb.log``. Sonraki zamanlarda ise log dosyaları log dizininde gün ekiyle tutulacaktır:
+Sunucunun ayağa kalktığı loglar izlenerek takip edilir. Sunucu ilklendirme loglarını ``/var/lib/pgsql/13/initdb.log`` dosyasına yazılır. Sonraki zamanlarda ise log dosyaları log dizininde gün ekiyle tutulacaktır:
 
 ```sh
 ls -l /var/lib/pgsql/13/data/log
@@ -81,13 +77,13 @@ total 4
 
 PostgreSQL varsayılan ayarlarına dokunulmadan ayağa kaldırılabilir. Ayar değişiklikleri için oynanacak temel ayar dosyası: `/var/lib/pgsql/13/data/postgresql.conf`
 
-Ayarların çoğu **reload** ile aktifleşir, **restart** gerektirenler dosyada belirtilmiştir. PostgreSQL *reload* edildiğinde servis kesintisi yapılmadan ayar dosyasındaki değişiklikler tekrar okunur. Mevcut bağlantıların düşmesine neden olmayacağı için restart gerektiren özel parametrelerin değişimi hariç tüm durumlarda *reload* tercih edilmelidir.
+Ayarların çoğu **reload** ile aktifleşir, **restart** gerektirenler dosyada belirtilmiştir. PostgreSQL *reload* edildiğinde servis kesintisi yapılmadan ayar dosyasındaki değişiklikler tekrar okunur. Mevcut bağlantıların düşmesine neden olmayacağı için *restart* gerektiren özel parametrelerin değişimi hariç tüm durumlarda *reload* tercih edilmelidir.
 
 ```sh
 systemctl reload postgresql-13
 ```
 
-Ayar dosyalarında "#" ile başlayan yorum satırları her bir parametrenin ön tanımlı değerlerini gösterir:
+Ayar dosyalarında "#" ile başlayan yorum satırları her bir parametrenin öntanımlı değerlerini gösterir:
 
 ```yaml
 #port = 5432                                            # (change requires restart)
@@ -107,7 +103,7 @@ TimeZone  | Europe/Rome |      | Client Connection Defaults / Locale |
 (1 row)
 ```
 
-**ALTER SYSTEM** komutlarıyla da parametre değişikliği yapılabilir, ancak bu şekilde set edilen parametre anında etkin olmaz. Değişiklik ``postgresql.auto.conf`` dosyasına yazılır, servisi **reload** ettikten sonra etkinleşir. *postgresql.auto.conf*’taki parametre *postgresql.conf*’takine göre önceliklidir.
+**ALTER SYSTEM** komutlarıyla da parametre değişikliği yapılabilir, ancak bu şekilde *set* edilen parametre anında etkin olmaz. Değişiklik ``postgresql.auto.conf`` dosyasına yazılır, servisi **reload** ettikten sonra etkinleşir. *postgresql.auto.conf*’taki parametre *postgresql.conf*’takine göre önceliklidir.
 
 ```text
 postgres=# alter system set work_mem='16MB';
@@ -138,7 +134,7 @@ listen_addresses = ''
 
 Servisin unix soketiyle ilgili ayarlarıyla ilgili şunlar değiştirilebilir:
 
-```text
+```yaml
 #unix_socket_directories = '/var/run/postgresql, /tmp'
 #unix_socket_group = ''
 #unix_socket_permissions = 0777
@@ -150,7 +146,7 @@ PostgreSQL sunucunun aynı anda kaç bağlantı isteği kabul edeceği:
 max_connections = 100
 ```
 
-{% include note.html content="Bu değer bir süre gözlemleyip, sunucu kaynaklarına göre düzenlenmelidir!" %}
+{% include note.html content="Bu değer bir süre izlenip, sunucu kaynaklarına göre düzenlenmelidir!" %}
 
 ### PostgreSQL Ayarları: Zaman
 
