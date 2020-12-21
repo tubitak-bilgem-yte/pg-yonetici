@@ -5,8 +5,13 @@ topnav:
   items:
 #    - title: Blog
 #      url: /news
+    - title: Katkı Rehberi
+      url: /mydoc_katki_rehberi.html
+    - title: PostgreSQL Geliştirici Dokümanı
+      external_url: https://tubitak-bilgem-yte.github.io/pg-gelistirici/
     - title: GitHub
       external_url: https://github.com/berkanyiildirim/pg-yonetici/
+
 
 #Topnav dropdowns
 #topnav_dropdowns:
