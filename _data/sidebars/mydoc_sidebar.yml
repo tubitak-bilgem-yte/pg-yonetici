@@ -18,16 +18,7 @@ entries:
       url: /tocpage.html
       output: pdf
       type: frontmatter
-
-  - title: Genel Bakış
-    output: web, pdf
-    folderitems:
-    
-    - title: Giriş
-      url: /index.html
-      output: web, pdf
-      type: homepage
-
+      
   - title: Veritabanı Kurulumu ve Çalıştırılması
     output: web, pdf
     folderitems:
@@ -47,10 +38,6 @@ entries:
     - title: Veritabanı Sunucusunu Başlatma
       url: /mydoc_vt_sunucu_baslatma.html
       output: web, pdf
-
-#    - title: Çekirdek Kaynaklarını Yönetme
-#      url: /mydoc_cekirdek_kaynaklari.html
-#      output: web, pdf
 
     - title: Veritabanı Sunucusunu Kapatma
       url: /mydoc_vt_sunucu_kapatma.html
@@ -84,7 +71,7 @@ entries:
       url: /mydoc_win_olay_gunlugu.html
       output: web, pdf
 
-  - title: PostgreSQL Veritabanı Yapılandırması
+  - title: Veritabanı Yapılandırması
     output: web, pdf
     folderitems:
 
@@ -127,26 +114,6 @@ entries:
     - title: Otomatik Vacuuming
       url: /mydoc_automatic_vacuuming.html
       output: web, pdf
-
-#    - title: İstemci Bağlantısı Varsayılanları
-#      url: /mydoc_istemci_baglantisi_varsayilanlari.html
-#      output: web, pdf
-#
-#    - title: Lock Yönetimi
-#      url: /lock_yonetimi.html
-#      output: web, pdf
-#
-#    - title: Sürüm ve Platform Uyumluluğu
-#      url: /mydoc_surum_platform_uyumlulugu.html
-#      output: web, pdf
-#
-#    - title: Hata Yönetimi
-#      url: /mydoc_hata_yonetimi.html
-#      output: web, pdf
-#
-#    - title: Ön Ayar Seçenekleri
-#      url: /mydoc_on_ayar_secenekleri.html
-#      output: web, pdf
 
   - title: PostgreSQL Veritabanı İstemcileri
     output: web, pdf
@@ -196,17 +163,13 @@ entries:
       url: /mydoc_postgresql_loglari.html
       output: web, pdf
 
-  - title: PostgreSQL Yedekleme
+  - title: Yedekleme ve Geri Yükleme, Sürüm Yükseltme
     output: web, pdf
     folderitems:
     
     - title: PostgreSQL Yedekleme
       url: /mydoc_postgresql_yedekleme.html
       output: web, pdf
-
-  - title: PostgreSQL Sürüm Yükseltme
-    output: web, pdf
-    folderitems:
     
     - title: PostgreSQL Sürüm Yükseltme
       url: /mydoc_postgresql_surum_yukseltme.html
@@ -236,11 +199,11 @@ entries:
       url: /mydoc_explain.html
       output: web, pdf
 
-  - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+  - title: Yüksek Erişilebilirlik, Load Balancing, Replikasyon
     output: web, pdf
     folderitems:
 
-    - title: PostgreSQL Yüksek Erişilebilirlik ve Ölçekleme
+    - title: Yüksek Erişilebilirlik ve Ölçekleme
       url: /mydoc_yuksek_erisilebilik_olcekleme.html
       output: web, pdf
 
@@ -260,6 +223,10 @@ entries:
       url: /mydoc_pgpool.html
       output: web, pdf
 
+    - title: pgBouncer
+      url: /mydoc_pgbouncer.html
+      output: web, pdf
+      
     - title: repmgr
       url: /mydoc_repmgr.html
       output: web, pdf
