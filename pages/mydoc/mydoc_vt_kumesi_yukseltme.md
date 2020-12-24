@@ -2,7 +2,7 @@
 title: "PostgreSQL Veritabanı Kümesini Yükseltme"
 tags: [PostgreSQL]
 keywords: postgres
-last_updated: December 21, 2020
+last_updated: December 24, 2020
 sidebar: mydoc_sidebar
 permalink: mydoc_vt_kumesi_yukseltme.html
 folder: mydoc
@@ -32,9 +32,9 @@ Tamamen geçiş yapmadan önce istemci uygulamalarını yeni sürümde test etme
 
 ### pg_dumpall Yaklaşımı ile Yükseltme
 
-Yükseltme yöntemlerinden biri, PostgreSQL ana sürümünde verilerin dump'ın alıp ve başka sürümde yeniden yüklemektir. Bu işlem için `pg_dumpall` logical yedekleme aracı kullanılır. PostgreSQL'in uyumsuz bir sürümüne sahip bir veri dizinini kullanmanızı engelleyen kontroller vardır. Bu nedenle bir veri dizininde yanlış sunucu sürümünü başlatmaya çalışmak büyük bir zarara sebep olmaz.
+Yükseltme yöntemlerinden biri, PostgreSQL ana sürümünde verilerin dump'ın alıp ve başka sürümde yeniden yüklemektir. Bu işlem için [`pg_dumpall`](mydoc_postgresql_yedekleme.html#pg_dumpall) logical yedekleme aracı kullanılır. PostgreSQL'in uyumsuz bir sürümüne sahip bir veri dizinini kullanmanızı engelleyen kontroller vardır. Bu nedenle bir veri dizininde yanlış sunucu sürümünü başlatmaya çalışmak büyük bir zarara sebep olmaz.
 
-PostgreSQL'in yeni sürümündeki `pg_dump` ve `pg_dumpall` programlarını kullanmanız önerilir. Dump programlarının mevcut sürümleri, herhangi bir sunucu sürümünden 7.0 sürüm kadar geriden veri okuyabilir.
+PostgreSQL'in yeni sürümündeki [`pg_dump`](mydoc_postgresql_yedekleme.html#pg_dump-ile-yedekleme) ve `pg_dumpall` programlarını kullanmanız önerilir. Dump programlarının mevcut sürümleri, herhangi bir sunucu sürümünden 7.0 sürüm kadar geriden veri okuyabilir.
 
 {% include warning.html content=" Aşağıdaki talimatlar mevcut kurulumunuzun `/usr/local/pgsql` dizini altında olduğunu ve veri alanının `/usr/local/pgsql/data` içinde olduğunu varsayar. Gerekli durumlarda yollarınızı uygun şekilde değiştirin."%}
 
@@ -99,5 +99,71 @@ pg_dumpall -p 5432 | psql -d postgres -p 5433
 Güncellenmiş PostgreSQL sürümünden, logical replikasyon yöntemi ile bir standby sunucu oluşturulabilir. Logical replikasyon, PostgreSQL'in farklı major sürümleri arasında replikasyonu destekler. Standby aynı bilgisayarda veya farklı bir bilgisayarda olabilir. Primary sunucu ile senkronize olduktan sonra (PostgreSQL'in eski sürümünü çalıştıran) ana sunucular değiştirilerek standby ana sunucu yapılabilir ve alt sürümdeki veritabanı kapatılabilir. Böyle bir değişim, yükseltme işleminin birkaç saniyelik kesinti süresinde başarılı şekilde tamamlanmasını sağlar.
 
 {% include tip.html content=" Bu yükseltme yaklaşımı yerleşik logical replikasyon olanaklarının yanı sıra pglogical, Slony, Londiste ve Bucardo gibi harici logical replikasyon araçları kullanılarak da gerçekleştirilebilir."%}
+
+### Minör Sürüm Yükseltme
+
+Sadece çalışabilir dosyalar değişir ve PostgreSQL yeniden başlatılır. Paket yönetim sistemi ile:
+
+```shell
+yum update postgresql11*
+systemctl restart postgresql-11
+```
+
+### Majör Sürüm Yükseltme
+
+```shell
+yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+```
+
+Yeni PostgreSQL sürümü kurulur:
+
+```shell
+yum install postgresql12-server postgresql12 postgresql12-contrib
+```
+
+Yeni sürümün ilklendirmesi yapılır:
+
+```shell
+/usr/pgsql-12/bin/postgresql-12-setup initdb
+```
+
+Eski PostgreSQL sürümü durdurulur ve açılıştan kaldırılır:
+
+```shell
+systemctl stop postgresql-11
+systemctl disable postgresql-11
+```
+
+Eski sürümün veritabanı yeni sürümün veritabanına aktarılır:
+
+```shell
+su - postgres
+$ /usr/pgsql-12/bin/pg_upgrade -b /usr/pgsql-11/bin \
+    -B /usr/pgsql-12/bin -d /var/lib/pgsql/11/data \
+    -D /var/lib/pgsql/12/data
+$ exit
+```
+
+Öntanımlıları değiştirilen veritabanı ayar dosyaları (*postgresql.conf*, *pg_hba.conf*, vs) karşılaştırılarak elle yeni sürüme aktarılır. Yeni sürüm PostgreSQL başlatılır ve servis açılışta otomatik çalışacak biçimde ayarlanır:
+
+```shell
+systemctl start postgresql-12
+systemctl enable postgresql-12
+```
+
+Veritabanının aktarımı sonrasında sistemin istatistiklerinin oluşturulması için `ANALYZE` çalıştırılır:
+
+```shell
+su - postgres
+$ ./analyze_new_cluster.sh
+$ exit
+```
+
+Eski veri dizini ve eski PostgreSQL paketleri kaldırılabilir (ya da yedek olarak saklanabilir):
+
+```shell
+rm -rf /var/lib/pgsql/11/data/*
+yum remove postgresql11-server postgresql11 postgresql11-contrib
+```
 
 {% include links.html %}
