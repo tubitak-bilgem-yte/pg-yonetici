@@ -43,10 +43,6 @@ entries:
       url: /mydoc_vt_sunucu_kapatma.html
       output: web, pdf
 
-    - title: Veritabanı Kümesini Yükseltme
-      url: /mydoc_vt_kumesi_yukseltme.html
-      output: web, pdf
-
     - title: Sunucu Sahtekarlığını Önleme
       url: /mydoc_preventing_server_spoofing.html
       output: web, pdf
@@ -115,7 +111,7 @@ entries:
       url: /mydoc_automatic_vacuuming.html
       output: web, pdf
 
-  - title: PostgreSQL Veritabanı İstemcileri
+  - title: Veritabanı İstemcileri
     output: web, pdf
     folderitems:
 
@@ -127,19 +123,19 @@ entries:
       url: /mydoc_postgresql_istemcileri_pgAdmin4.html
       output: web, pdf
 
-  - title: PostgreSQL Veritabanı Yönetimi
+  - title: Veritabanı Yönetimi
     output: web, pdf
     folderitems:
 
-    - title: PostgreSQL Temel Veritabanı işlemleri
+    - title: Temel Veritabanı işlemleri
       url: /mydoc_postgres_veritabanı_islemleri.html
       output: web, pdf
 
-    - title: PostgreSQL Kullanıcı Yönetimi
+    - title: Kullanıcı Yönetimi
       url: /mydoc_kullanici_yonetimi.html
       output: web, pdf
 
-    - title: PostgreSQL Yetkilendirme ve Güvenlik Yönetimi
+    - title: Yetkilendirme ve Güvenlik Yönetimi
       url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
       output: web, pdf
 
@@ -163,7 +159,7 @@ entries:
       url: /mydoc_postgresql_loglari.html
       output: web, pdf
 
-  - title: Yedekleme ve Geri Yükleme, Sürüm Yükseltme
+  - title: Yedekleme & Geri Yükleme, Sürüm Yükseltme
     output: web, pdf
     folderitems:
     
@@ -171,8 +167,8 @@ entries:
       url: /mydoc_postgresql_yedekleme.html
       output: web, pdf
     
-    - title: PostgreSQL Sürüm Yükseltme
-      url: /mydoc_postgresql_surum_yukseltme.html
+    - title: Veritabanı Kümesini Yükseltme
+      url: /mydoc_vt_kumesi_yukseltme.html
       output: web, pdf
 
   - title: PostgreSQL Performans İyileştirmeleri
@@ -199,7 +195,7 @@ entries:
       url: /mydoc_explain.html
       output: web, pdf
 
-  - title: Yüksek Erişilebilirlik, Load Balancing, Replikasyon
+  - title: Yüksek Erişilebilirlik, Yük Dengeleme, Replikasyon
     output: web, pdf
     folderitems:
 
