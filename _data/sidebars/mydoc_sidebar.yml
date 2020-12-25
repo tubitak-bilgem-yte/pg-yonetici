@@ -139,24 +139,44 @@ entries:
       url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
       output: web, pdf
 
-    - title: PostgreSQL’de Gözetleme
-      url: /mydoc_postgresql_gozetleme.html
+    - title: Data Aging
+      url: /mydoc_data_aging.html
+      output: web, pdf
+    
+    - title: Tablespace
+      url: /mydoc_tablespace.html
       output: web, pdf
 
-  - title: PostgreSQL MVCC ve VACUUM
+    - title: Partitioning
+      url: /mydoc_partitioning.html
+      output: web, pdf
+
+  - title: MVCC, VACUUM, FDW
     output: web, pdf
     folderitems:
     
     - title: PostgreSQL MVCC ve VACUUM
       url: /mydoc_mvcc_vacuum.html
       output: web, pdf
+    
+    - title: FDW
+      url: /mydoc_fdw.html
+      output: web, pdf
 
-  - title: PostgreSQL Logları
+  - title: PostgreSQL Logging & İzleme
     output: web, pdf
     folderitems:
     
-    - title: PostgreSQL Logları
+    - title: PostgreSQL Logging
       url: /mydoc_postgresql_loglari.html
+      output: web, pdf
+    
+    - title: Audit Logging
+      url: /mydoc_audit_logging.html
+      output: web, pdf
+
+    - title: PostgreSQL’de İzleme
+      url: /mydoc_postgresql_gozetleme.html
       output: web, pdf
 
   - title: Yedekleme & Geri Yükleme, Sürüm Yükseltme
