@@ -24,6 +24,6 @@ Data aging yapılacağı zaman, iki yol bulunmaktadır:
 - Verileri başka tablespacelere taşımak,
 - Eski partitionları drop etmek.
 
-Ayrınlı bilgi için [Tablespace](mydoc_tablespace.html) ve [Partitioning](/mydoc_partitioning.html) sayfalarına bakın.
+Ayrınlı bilgi için [Tablespace](mydoc_tablespace.html) ve [Partitioning](mydoc_partitioning.html) sayfalarına bakın.
 
 {% include links.html %}
