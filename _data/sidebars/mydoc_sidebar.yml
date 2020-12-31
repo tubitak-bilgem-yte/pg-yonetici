@@ -111,6 +111,22 @@ entries:
       url: /mydoc_automatic_vacuuming.html
       output: web, pdf
 
+  - title: PostgreSQL Nasıl Çalışır?
+    output: web, pdf
+    folderitems:
+
+    - title: Sorguların İşlenmesi
+      url: /mydoc_query_processing.html
+      output: web, pdf
+
+    - title: Process ve Memory Mimarisi
+      url: /mydoc_process_memory_mimarisi.html
+      output: web, pdf
+
+    - title: Foreign Data Wrappers
+      url: /mydoc_foreign_data_wrappers.html
+      output: web, pdf
+
   - title: Veritabanı İstemcileri
     output: web, pdf
     folderitems:
@@ -122,6 +138,7 @@ entries:
     - title: pgAdmin4 İstemcisi
       url: /mydoc_postgresql_istemcileri_pgAdmin4.html
       output: web, pdf
+
 
   - title: Veritabanı Yönetimi
     output: web, pdf
@@ -198,10 +215,6 @@ entries:
   - title: PostgreSQL Performans İyileştirmeleri
     output: web, pdf
     folderitems:
-
-    - title: Soruguların İşlenmesi
-      url: /mydoc_query_processing.html
-      output: web, pdf
 
     - title: Veritabanı Servisinde İyileştirme
       url: /mydoc_servis_iyilestirme.html
