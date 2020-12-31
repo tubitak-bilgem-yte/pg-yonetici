@@ -1,485 +1,296 @@
 ---
-title: "Streaming Replication"
+title: "Streaming Replikasyon"
 tags: [PostgreSQL]
 keywords: postgres
-last_updated: November 16, 2020
-summary: "Streaming Replication"
+last_updated: December 31, 2020
 sidebar: mydoc_sidebar
 permalink: mydoc_streaming_replication.html
 folder: mydoc
 ---
 
-## Streaming Replication
+## PostgreSQL Replikasyon Giriş
 
-- Primary-Standby yapısında replikasyon sağlıyor
-- Primary sunucuda yapılan değişiklikler → WAL ( Write-Ahead Log ) arşivleri
-- Öntanımlı asenkron, senkron olmaya zorlanabiliyor
-- Standby WAL arşivlerini Primary’dan alıp kendine uyguluyor
-- Dosya sistemindeki dosyaların farkları (blok bazlı) aktarılıyor
+Streaming Replication PostgreSQL'e 9.0 sürümü ile birlikte gelen ve PostgreSQL'in içine gömülü replikasyon çözümüdür. Hot Standby da yine 9.0 sürümü ile birlikte gelen ve standby sunucusunu salt okunur olarak çalıştırmaya izin veren bir teknolojidir. 9.1'de synchronous replication, 9.2'de cascading replication, 9.3'de timeline switch following, 9.5'de ise replication slots ve timed delay standbys özellikleri PostgreSQL'e eklenmiştir. Bu bölümde, Streaming Replication (kısaca SR), Hot Standby (kısaca HS), Cascading Replication (CR) ve Synchronous Replication (Sync Rep) yapılandırması ve ipuçları ele alınmıştır.
 
-**Planlama**:
+## Streaming Replikasyon Altyapısının Kurulması
 
-- PostgreSQL sunucuları aynı sürümde, işletim sisteminde ve mimaride olmalı
-- PostgreSQL sunucuların dizin yerleri aynı olmalı
-- CREATE TABLESPACE ile Primary’da yaratılan yeni tablespace’ler olursa, standby’larda da tek tek elle yaratılmalı
-- Herhangi bir sorun olmaması için, tablespace’leri elle oluşturmak / düzenlemek yerine, standby’ın sıfırdan oluşturulması da önerilenler arasında.
+### Streaming Replication ve Hot Standby Hazırlıkları
 
-### Kurulum - Primary
+**Master sunucudaki postgresql.conf değişiklikleri**:
 
-Replikasyon için bir kullanıcı oluşturuyoruz:
+Aşağıdaki değişiklikler Streaming Replication ve Hot Standby için özel değişikliklerdir. Diğer değişiklikleri içermezler ve öntanımlı *postgresql.conf*'a göre olan değişikliklerdir. Önce master sunucudaki değişecek parametereleri yazalım.
 
-```sql
-psql -c "CREATE ROLE replikasyon WITH REPLICATION \
-            PASSWORD 'parola' LOGIN;"
-```
-
-postgresql.conf içine:
-
-```yaml
-listen_addresses = '*'
-wal_level = replica
-max_wal_senders = 3
-wal_keep_segments = 32
-wal_log_hints = on
-```
-
-pg_hba.conf içine:
-
-```sql
-host    replication     replikasyon     192.168.56.0/24       md5
-```
-
-Servisi yeniden başlatıyoruz:
-
-```sql
-systemctl restart postgresql-11
-```
-
-- Replikasyon için, replikasyon yetkileri olan özel bir kullanıcı yaratıldığına dikkat. Her yetkiyi vermiyoruz.
-- wal_level için 9.6 öncesi sürümlerde "archive" veya "hot_standby" kullanılırdı. Şimdi bu ikisi yerine "replica" kullanılıyor.
-- wal_log_hints ayarı, devreden çıkarılan bir Primary tekrar kümeye dahil edilmek isterse ihtiyaç duyulan bir ayar. Geçiş sırasında wal logların ayrılan timeline’ını birleştirmeye yarıyor.
-- Güvenlik duvarı varsa iki sunucu arasında 5432 portuna izin verilmeli.
-- SELinux etkinse, oluşturulan dosyaların SELinux context’lerine de dikkat edilmeli.
-
-### Kurulum - Standby
-
-Servisi durduralım, veri dizinini boşaltalım, ``pg_basebackup`` ile Primary’dan veritabanını alalım (data dizini boş olmalı):
+*WAL arşivlemesi yöntemi:*
 
 ```text
-# systemctl stop postgresql-11
-# su - postgres
-$ rm -rf /var/lib/pgsql/11/data/*
-
-$ pg_basebackup --pgdata=/var/lib/pgsql/11/data \
-    --host=192.168.56.101 --username=replikasyon \
-    --password --wal-method=stream --format=plain \
-    --progress --verbose
-
-Password:
-pg_basebackup: initiating base backup, waiting for checkpoint to complete
-pg_basebackup: checkpoint completed
-pg_basebackup: write-ahead log start point: 0/2000060 on timeline 1
-pg_basebackup: starting background WAL receiver
-24442/24442 kB (100%), 1/1 tablespace
-pg_basebackup: write-ahead log end point: 0/2000168
-pg_basebackup: waiting for background process to finish streaming ...
-pg_basebackup: base backup completed
+wal_level = replica # 9.6 ve sonrası 
+max_wal_senders = 10
+wal_keep_segments = 256 
+archive_mode=on 
+archive_command=/usr/pgsql-9.6/bin/rsyncwal.sh %p %f' 
 ```
 
-Gelen yedekle beraber ayar dosyaları da (postgresql.conf, pg_hba.conf) geldi. Bunlar Standby’e göre düzenlenmeli. *postgresql.conf* dosyasına:
+*replication slot yöntemi:*
 
-```yaml
-listen_address = '*'
-wal_level = replica
-max_wal_senders = 3
-wal_keep_segments = 32
-hot_standby = on
+```text
+wal_level = logical 
+max_wal_senders=5 
+max_replication_slots=5
 ```
 
-``/var/lib/pgsql/11/data/recovery.conf`` dosyası şuna benzer içerikte oluşturulur:
+Şimdi bu parametreleri açıklayalım:
 
-```yaml
-standby_mode = 'on'
-primary_conninfo = 'host=192.168.56.101 port=5432 application_name=standby1 user=replikasyon password=parola'
-trigger_file = '/var/lib/pgsql/11/data/promote_db'
-```
-
-{% include note.html content=" primary_conninfo parametresinin tek satırda olması gereklidir."%}
-
-Servis başlatılır ve loglar izlenir:
+**`wal_level`**: PostgreSQL'de transaction loglarının adı bildiğiniz gibi Write Ahead Log (WAL)'dur. `wal_level` parametresi, WAL içine ne kadar bilgi yazılacağını belirtir. 9.6’da bu parametre `minimal`, `replica` ve `logical` değerlerini almaktadır. minimal, wal_level 'ın öntanımlı parametresidir, ve WAL içine PostgreSQL'in sadece normal şekilde işlemesi için gereken bilgilerin yazılmasını sağlar. Bu bilgiler PostgreSQL'in çökme anında kurtarması gereken bilgilerdir. replica ise PITR ya da WAL arşivlemesi için gereken bilgilerin yazılmasını sağlar ya da üstte tarif ettiğimiz HS sunucusunun çalışması için gereken ek bilgilerin de WAL içine yazılmasını sağlar. Son olarak logical ise logical replication içindir. Bu üçü arasında en çok bilgi logical içindedir. Dolayısıyla wal_level parametresinin gereksiz şekilde logical olarak ayarlanması, PostgreSQL'in daha fazla WAL üretmesi anlamına gelecektir. wal_level parametresi minimal olduğunda aşağıdaki işlemlerde WAL loglama güvenli olarak es geçilebilir,ve bu da bu işlemlerin başarımını arttırır:
 
 ```sql
-$ exit
-# systemctl start postgresql-11
-
-# tail -f /var/lib/pgsql/11/data/log/postgresql-Thu.log
-2018-03-22 20:25:43.200 +03 [1650] LOG:  database system was interrupted; last known up at 2018-03-22 20:13:08 +03
-2018-03-22 20:25:43.470 +03 [1650] LOG:  entering standby mode
-2018-03-22 20:25:43.473 +03 [1650] LOG:  redo starts at 0/4000028
-2018-03-22 20:25:43.475 +03 [1650] LOG:  consistent recovery state reached at 0/4000130
-2018-03-22 20:25:43.475 +03 [1646] LOG:  database system is ready to accept read only connections
-2018-03-22 20:25:44.008 +03 [1654] LOG:  started streaming WAL from primary at 0/5000000 on timeline 1
+CREATE TABLE AS 
+CREATE INDEX 
+CLUSTER 
+COPY (aynı tx içinde yaratılan ya da truncate edilen tablolara) 
 ```
 
-Bu noktadan sonra Primary’da yapılan her işlem Standby’de gözlenir. Standby’in senkron durumda olduğunu kontrol etmek için Primary ve Standby’de şu sorgular çalıştırılır (sonuçları eşit ise senkrondur):
+**`max_wal_senders`**: Standby sunucudan ya da sunuculardan eşzamanlı olarak yapılabilecek eşzamanlı replikasyon bağlantısının sayısını belirler. Bu sayıya base backup almak için yapılan bağlantılar da dahildir. kısacası, en fazla kaç walsender sürecinin başlayacağını belirler. Öntanımlı değeri 0'dır, replikasyon yapılmaz. Bu parametreyi 10 olarak ayarlayabiliriz. Bu parametreden önce üstteki wal_level'ın mutlaka replica olarak ayarlanması gerekmektedir.
 
-**Primary:**
+**`wal_keep_segments`**: Standby sunucu tarafından kullanılması gereken, archiver süreci başarısız olduğu için checkpoint tarafından da temizlenmeyen ve pg_wal dizininde tutulacak olan WAL sayısını belirtir. Eğer standby sunucu bu parametredeki sayıdan daha fazla geride kalırsa, o zaman master sunucu standby tarafından hala gereksinim duyulan WAL dosyalarını silebilir. Bu durumda replikasyon duracaktır. Bu sayıyı çok arttırmanız pg_wal dizininizde çok sayıda dosyanın birikmesi anlamına gelecektir. Performans açısından sıkıntı yoktur; ancak bekleyen dosyaların birden gönderilmesi network üzerinde baskı oluşturabilir.
+
+**`archive_mode`**: WAL arşivlemesini etkinleştirir. Restart gerektiren bir parametredir. archiver sürecini başlatır.
+
+**`archive_command`**: Dolan ya da `archive_timeout` parametresi ile aktarma zamanı gelen WAL dosyalarının nereye nasıl gönderileceğini belirten parametredir. Burada 2 makro kullanılabilir:
+
+- `%p`: Arşivlenecek WAL dosyasının tam yolu (dosya adı dahil)
+- `%f`: Arşivlenecek dosyanın sadece adı
+
+Bu komut mutlaka 0 döndürmelidir. Aksi taktirde komut başarısız olmuş sayılacaktır. Arşivleme başarısız olursa, işlem başarılı olana kadar archive_command tekrar tekrar çalıştırılacaktır. Burada bir script kullanabilir; ya da doğrudan *rsync/scp/cp* gibi bir komut da kullanabilirsiniz.
+
+{% include note.html content="  Bu parametrenin içerdiği dizini/dizinleri standby sunucularda yaratmayı unutmayınız. Ayrıca, eğer 1'den fazla standby sunucunuz varsa, WALların her sunucuya ayrı ayrı atılması gerekir" %}
+
+Örnek bir rsyncwal.sh scripti şu şekilde olabilir:
+
+```bash
+#!/bin/bash 
+ 
+rsync -q -ae ssh $1 \ postgres@192.168.122.85:/pgsql/9.6walarchive/$2
+ 
+if [ $? != 0 ] then 
+    echo "Archiver error:" 
+    exit 1 
+fi
+ 
+ 
+exit 0
+```
+
+Burada $1 ve $2, archive_command parametresinde verilen 2 değişkeni sırası ile gösterir. $1 %p, $2 de %f 'ye karşılık gelir. Bu dosyanın izinlerini düzenleyelim:
+
+```bash
+chown postgres: /usr/pgsql-9.6/bin/rsyncwal.sh 
+chmod 700 /usr/pgsql-9.6/bin/rsyncwal.sh
+```
+
+**Master sunucuda replikasyon kullanıcısı yaratmak**:
+
+Replikasyon için özel bir kullanıcı yaratacağız, ve hatta postgres kullanıcısının da bu yetkisini geri alacağız. Bu özellik PostgreSQL replikasyon güvenliğini arttırır:
 
 ```sql
-postgres=# SELECT pg_current_wal_lsn();
- pg_current_wal_lsn
---------------------
- 0/5000140
-(1 row)
+CREATE ROLE replicauser WITH REPLICATION LOGIN ENCRYPTED PASSWORD 'deneme'; 
+ALTER ROLE postgres NOREPLICATION;
 ```
 
-**Standby:**
+**Master sunucudaki pg_hba.conf değişiklikleri**:
+
+Master sunucuda walreceiver sürecine izin vermeniz gerekmektedir. Bunun için standby sunucusunun ip'sini *pg_hba.conf* içine ekleyiniz. Burada özel olak “replication” sanal veritabanını kullanıyoruz. Aşağıda örnek bir satır bulabilirsiniz.
+
+```text
+host replication replicauser 192.168.1.10/32 md5
+```
+
+Bu işlemlerden sonra PostgreSQL'i restart etmeyi unutmayın.
+
+**Replication slot yaratmak:**
+
+Replikasyonu replication slot ile yaptığımızda, master sunucuda aşağıdaki komutu çalıştıralım. mgm_slot yerine istediğiniz adı verebilirsiniz. Bu adı sonraki aşamalarda pg_receivexlog ile kullanacağız:
+
+```text
+SELECT * FROM pg_create_physical_replication_slot('mgm_slot');
+```
+
+**Base backup almak**:
+
+SR+HS'ı çalıştırmak için, sunucunun dosya sistemi seviyesinde yedeğini almak gerekir. Bunun için de SQL komutlarını ya da komut satırı araçlarını kullanacağız.
+
+**Parolasız SSH yapmak (WAL arşivlemesi için)**:
+
+WAL dosyalarının karşı sunucuya aktarılması için, sftp/rsync işlemlerinin parolasız olması gerekmektedir. Aksi takdirde her işlemde parola sorulur ve bu işlem etkileşimli olmadığı için WAL arşivlemesi yapılamaz. Aşağıdaki komutu iki sunucuda da, postgres kullanıcısı olarak çalıştırın ve sizden parola istendiğinde enter'a basıp devam edin:
+
+```bash
+ssh-keygen -t rsa 
+```
+
+Şimdi, ssh anahtarlarımızı saklayacağımız dosyayı yaratalım ve gerekli izinlerini verelim:
+
+```text
+touch ~/.ssh/authorized_keys 
+chmod 600 ~/.ssh/authorized_keys
+```
+
+Ardından sunuculardaki *~/.ssh/id_rsa.pub* dosyasının içeriğini diğer sunucudaki *~/.ssh/authorized_keys* dosyasına tek satırda aynen aktarınız. Son aşamada, iki sunucuya da karşılıklı olarak *postgres* kullanıcılarından ssh yapınız. Hem host keyleri saklamış olur, hem de yaptıklarımızı denemiş olursunuz.
+
+**Aşağıdakini master sunucu üzerinde yapınız**:
+
+**1.** psql ile herhangi bir veritabanına bağlanın ve aşağıdakini çalıştırın (etiket yerine herhangi birşey yazabilirsiniz):
 
 ```sql
-postgres=# SELECT pg_last_wal_receive_lsn();
- pg_last_wal_receive_lsn
--------------------------
- 0/5000140
-(1 row)
+SELECT pg_start_backup('etiket');
 ```
 
-- `pg_basebackup` için standby’ın veri dizini boş olmalı.
-- `standby_mode` ayarı, sunucunun standby çalıştığını belirtir ve salt okunur çalıştırır.
-- recovery.conf: Standby sunucu ayarları buradan yapılıyor. Geçmişe dönük uyumluluk için adı recovery.conf.
-- Replikasyon ayarlandıktan sonra Primary’a veri insert edilip Standby’de aynı veri sorgulanarak katılımcılara gösterilebilir.
+**2.** Veri dosyalarını rsync ile standby sunucusuna atın. Öncelikle ssh anahtarı ile yetkilendirmeyi etkinleştirmelisiniz. Bu işlemi postgres kullanıcısı ile yapmalısınız. Örnek komut:
 
-### Failover
-
-`recovery.conf` dosyasında belirtilen `trigger_file` dosyası oluşturulduğu anda failover başlar.
-
-```shell
-touch /var/lib/pgsql/11/data/promote_db
+```bash
+rsync --delete -ave ssh /var/lib/pgsql/9.6/data/* \ 
+192.168.1.10:/var/lib/pgsql/9.6/data
 ```
 
-Loglarda trigger dosyası bulunduğu ve failover gerçekleştiğine dair kayıtlar görülür.
+rsync bittiğinde, psql ile aşağıdaki komutu çalıştırın:
 
 ```sql
-< 2018-01-08 12:16:19.957 +03 > LOG:  trigger file found: /var/lib/pgsql/11/data/promote_db
-< 2018-01-08 12:16:19.957 +03 > FATAL:  terminating walreceiver process due to administrator command
-< 2018-01-08 12:16:19.959 +03 > LOG:  invalid record length at 0/13000140: wanted 24, got 0
-< 2018-01-08 12:16:19.959 +03 > LOG:  redo done at 0/13000108
-< 2018-01-08 12:16:20.043 +03 > LOG:  selected new timeline ID: 2
-< 2018-01-08 12:16:20.337 +03 > LOG:  archive recovery complete
+SELECT pg_stop_backup();
 ```
 
-*recovery.conf* dosyasının adı recovery.done olarak değişir. Böylece bir sonraki açılışta da Primary olarak çalışır.
+**pg_basebackup ile Base Backup Almak (önerilen yöntem, WAL arşivlemesi yöntemi)**:
 
-```shell
--rw-r--r-- 1 postgres postgres 194 Jan  5 13:43 recovery.done
+PostgreSQL ile gelen pg_basebackup komutu, bize base backup almakta yardımcı olur. Bu komutu standby sunucuda çalıştırmalısınız:
+
+```bash
+/usr/pgsql-9.6/bin/pg_basebackup -D /var/lib/pgsql/9.6/standby -c fast -x -P -Fp -R -h 192.168.1.22 -p 5432 -U replicauser
 ```
 
-### WAL Düzeyleri
+**pg_basebackup ile Base Backup Almak (önerilen yöntem, replication slot yöntemi)**:
 
-**minimal**: Çökmeden dönecek kadar (öntanımlı)
+Replication slot kullandığımızda, komutta küçük bir değişiklik yapacağız:
 
-**replica**: Arşivleme ve streaming replication için gerekli bilgiler (eski sürümlerde archive + hot_standby)
-
-**logical**: Dış kaynak gönderim eklentileri için ek bilgiler
-
-{% include note.html content="Her log düzeyi, bir öncekinin verilerini içerir ve log düzeyi arttıkça, logun boyutu büyür."%}
-
-### WAL Arşivlemek
-
-WAL dosyalarının ``pg_wal`` dizininden silinmesi yerine başka bir dizine arşivlenebiliyor:
-postgresql.conf ayarları:
-
-```yaml
-wal_level = replica
-archive_mode = on
-archive_command = 'test ! -f /srv/wal_archive/%f && cp %p /srv/wal_archive/%f'
+```bash
+/usr/pgsql-9.6/bin/pg_basebackup -D /var/lib/pgsql/9.6/standby -c fast -X stream -P -Fp -R -h 127.0.0.1 -p 5432 -U replicauser
 ```
 
-{% include note.html content="%f = dosya ismi, %p = dosya yolu (pg_wal)"%}
+Parametreleri açıklayalım:
 
-### Standby WAL Kaynakları
+**`-c`**: PostgreSQL, base backup almadan önce master sunucuda checkpoint yapmak ister. Öntanımlı olarak da bu işlemi “spreaded” yapar (ayrıntılar için kitabımızın checkpoint ile ilgili kısmına bakabilirsiniz). Eğer vakit kaybetmek istemiyorsanız ve sunucunuza gelecek ek yükü gözardı ediyorsanız, pg_basebackup'ın checkpoint'i “fast” modda yapmasını sağlayabilirsiniz.
 
-Standby başlatıldığında sırasıyla, `restore_command` tanımlandıysa,
+**`-x`**: base backup içinde WAL dosyalarının eklenmesini sağlar. (WAL arşivlemesi yöntemi)
 
-- WAL arşiv dizini, örnek recovery.conf dosyasında:
+**`-P`**: “Progress” anlamına gelir, base backup alma sürecini yüzdeli gösterir.
 
-```yaml
-restore_command = 'cp /srv/wal_archive/%f "%p" 2>>/var/lib/pgsql/11/standby.log'
-```
+**`-F`**: Base backup “formatını” belirler. Öntanımlı olarak pg_basebackup komutu yedeği sıkıştırarak (tar ile) alır. Yedek amaçlı base backuplarda bunu tercih edebilirsiniz. Ancak, replikasyon hazılıklarında “plain” formatta almanız daha uygun olacaktır. -Fp, bunu sağlar.
 
-- pg_wal dizinindeki WAL
-- Primary’dan TCP’den bağlanıp WAL alıp, kendindeki eksikleri uygular.
+**`-h, -p , -U`**: master sunucunun ip adresi/alan adı, portu ve replikasyon için kullanıcı adını buraya yazabilirsiniz. Bu komutu büyük veritabanlarında screen içinde çalıştırabilirsiniz.
 
-### Sürekli Arşivleme ve PITR
+**Standby sunucudaki pg_receivexlog başlatmak (replication slot yöntemi)**:
 
-Belirli aralıklarla istenen sunucudan base backup alınır:
-
-```shell
-pg_basebackup --pgdata=/srv/backup_$(date +%F) \
-    --host=192.168.56.101 --username=replikasyon \
-    --password
-
-Password:
-NOTICE:  pg_stop_backup complete, all required WAL segments have been archived
-```
-
-Yedekten dönülecek yerde çalışan PostgreSQL varsa durdurulur. Veri dizini boşaltılır,
+Standby sunucusunda replication slot kullanmak için pg_receivexlog'u başlatalım:
 
 ```sql
-systemctl stop postgresql-11
-rm -rf /var/lib/pgsql/11/data/*
+mkdir -m 700 /var/lib/pgsql/9.6/xlogsb
+ 
+/usr/pgsql-9.6/bin/pg_receivexlog -D /var/lib/pgsql/9.6/xlogsb/ -S mgm_slot -v -h localhost -U replicauser & >> /var/lib/pgsql/9.6/pg_receivexlog.log 2>&1 < /dev/null
 ```
 
-İstenen base backup, veri dizinine kopyalanır,
+**Standby sunucudaki pg_hba.conf değişiklikleri**:
 
-```shell
-cp -r /srv/backup_2018-01-08/* /var/lib/pgsql/11/data/
+Slave sunucuda da bazı değişiklikler yapılmalıdır. Öncelikle postgresql.conf' da aşağıdaki değişikliği yapalım (Üstte de yazdığımız gibi, bu değişiklikler performans, vb değişikliklerin dışında olup, sadece standby ile ilgili olan değişikliklerdir). Burada, master sunucu değişikliklerini geri alabilirsiniz, eğer master'dan gelen dosyayı kullanıyorsanız aşağıdaki değişiklikleri yapınız:
+
+```text
+hot_standby=on 
+hot_standby_feedback=on
 ```
 
-Base backuptan gelen postgresql.conf, daha önce Standby ayarlarında yaptığımız gibi değiştirilir (listen_address, archive’ın kapatılması gibi). Ayrıca Wal log dizini temizlenir, çünkü bunlar bayat Wal loglar, biz arşivlenmiş Wal loglardan seçip kullanacağız,
+**WAL arşivlemesi yönteminde:**
 
-```shell
-rm -rf /var/lib/pgsql/11/data/pg_wal/*
+```text
+standby_mode = 'on' 
+primary_conninfo = 'host=192.168.1.5 port=5432 user=replicauser password=test' 
+restore_command = 'cp /pgsql/9.6-walarchive/%f %p' 
+archive_cleanup_command='/usr/pgsql-9.6/bin/pg_archivecleanup /pgsql/9.6-walarchive %r' 
+trigger_file = '/var/lib/pgsql/9.6/data/mgm.failover'
+recovery_target_timeline = 'latest'
 ```
 
-Arşivlenen Wal logları sunucuya alınır:
-
-```shell
-scp -r 192.168.56.101:/srv/wal_archive /srv/wal_archive_backup
-chown -R postgres:postgres /srv/wal_archive_backup
-```
-
-Basit bir recovery.conf dosyası şu içerikte oluşturulur,
-
-```yaml
-restore_command = 'cp /srv/wal_archive_backup/%f "%p" >> /var/lib/pgsql/11/pitr.log'
-recovery_target_time='2017-01-08 13:00:00'
-```
-
-Tüm veri dizininin izinleri düzenlenir:
-
-```shell
-chown -R postgres:postgres /var/lib/pgsql/11/data
-```
-
-PostgreSQL başlatılır,
-
-```shell
-systemctl start postgresql-11
-```
-
-Loglar takip edilerek veritabanının istenen zamana döndüğü görülür,
-
-```shell
-< 2018-01-08 13:26:43.868 +03 > LOG:  database system was interrupted; last known up at 2018-01-08 13:14:18 +03
-< 2018-01-08 13:26:43.868 +03 > LOG:  creating missing WAL directory "pg_xlog/archive_status"
-< 2018-01-08 13:26:45.338 +03 > LOG:  starting point-in-time recovery to 2017-01-08 13:00:00+03
-< 2018-01-08 13:26:45.350 +03 > LOG:  restored log file "000000010000000000000014" from archive
-< 2018-01-08 13:26:45.625 +03 > LOG:  redo starts at 0/14000028
-< 2018-01-08 13:26:45.717 +03 > LOG:  consistent recovery state reached at 0/140000F8
-< 2018-01-08 13:26:45.720 +03 > LOG:  redo done at 0/140000F8
-< 2018-01-08 13:26:45.731 +03 > LOG:  restored log file "000000010000000000000014" from archive
-< 2018-01-08 13:26:45.982 +03 > LOG:  selected new timeline ID: 2
-< 2018-01-08 13:26:46.275 +03 > LOG:  archive recovery complete
-```
-
-### WAL Temizliği
-
-- `pg_archivecleanup` komutu ile yapılıyor,
-Otomatik olması için recovery.conf dosyasına şu satır ekleniyor:
-
-```shell
-archive_cleanup_command = '/usr/pgsql-11/bin/pg_archivecleanup /srv/wal_archive %r'
-```
-
-Elle de çalıştırılabilir. Verilen dosyadan eski dosyaları siler:
-
-```shell
-/usr/pgsql-11/bin/pg_archivecleanup /srv/wal_archive/ \
-    00000001000000000000000A.00000060.backup
-```
-
-Yedekleme ve/ya log amaçlı arşiv saklanabilir. Ayrıca WAL arşivleri, bir tam yedek ile beraber point-in-time-recovery yapmak için kullanılabilir.
-
-{% include note.html content=" archive_cleanup_command parametresinin tek satırda olması gereklidir."%}
-
-### Replikasyon Slotları
-
-WAL dosyalarının tüm standby’lar çekmeden silinmemesini sağlıyor
-
-Primary’ın postgresql.conf dosyasına ek:
-
-```yaml
-max_replication_slots = 3
-```
-
-Primary üzerinde slot oluşturuluyor:
-
-```sql
-<SELECT * FROM pg_create_physical_replication_slot('standby1');
-Standby’ın recovery.conf’una ek yapılıyor:
-```
-
-```yaml
-primary_slot_name = 'standby1'
-```
-
-Bu şekilde standby her Primary’a gittiğinde bilgisini slot’una kaydediyor. O bilgiye göre WAL dosyası yanlışlıkla temizlenmiyor. max_replication_slots değeri en az standby sayısı kadar olmalı.
-
-### Standby Senkronlanmasını Zorlamak
-
-- Veri kaybı riskini kaldırmak için,
-- `synchronous_standby_names = *`,
-- *Değer boşsa senkron zorlanmaz (öntanımlı),
-- Belirli bir transaction için `synchronous_commit` değeri ile kapatılabilir.
-
-### Gecikmeli Standby
-
-- Uygulama düzeyindeki hatalardan geri dönmek için,
-- x saat geriden takip eden bir standby,
-- Üzerine WAL uygulanabilir,
-- Hızla tekrar devreye alınabilir,
-- Standart replikasyondaki gibi pg_basebackup alınır ve postgresql.conf ayarlanır:
-
-```shell
-pg_basebackup --pgdata=/var/lib/pgsql/11/data \
-    --host=192.168.56.101 --username=replikasyon \
-    --password --xlog-method=stream --format=plain \
-    --progress --verbose
-
-vim postgresql.conf
-    listen_address = 192.168.56.102
-    wal_level = replica
-    max_wal_senders = 3
-    wal_keep_segments = 32
-    hot_standby = on
-```
-
-recovery.conf dosyası şuna benzer içerikte oluşturulur, gecikme ayarına dikkat:
+**replication slot yönteminde:**
 
 ```text
 standby_mode = 'on'
-primary_conninfo = 'host=192.168.56.101 port=5432 application_name=standby1 user=replikasyon password=parola'
-trigger_file = '/var/lib/pgsql/11/data/promote_db'
-recovery_min_apply_delay = 2h
+primary_conninfo = 'host=192.168.1.5 port=5432 user=replicauser password=test'
+trigger_file = '/var/lib/pgsql/9.6/standby/stop.replication'
+recovery_target_timeline = 'latest'
+primary_slot_name = 'mgm_slot'
 ```
 
-- h (saat) yanı sıra, d, m, s, ms birimleri de kullanılabilir.
+**`standby_mode:`** streaming replication'ı etkinleştirir.
 
-İzinler düzenlenir, servis ayağa kaldırılır:
+**`primary_conninfo:`** master sunucuya bağlantı bilgisini içerir.
 
-```shell
-chown -R /var/lib/pgsql/11/data
-systemctl start postgresql-11
-```
+**`trigger_file:`** sunucuda görüldüğü zaman streaming replication'ın bitmesini tetikler (failover). Bu dosyayı yaratmak için “touch” komutunu kullanabilirsiniz. Bu dosya yaratıldıktan çok kısa süre sonra PostgreSQL standby sunucuda kendisini master modda açacaktır. Bu işlem sonunda recovery.conf dosyasının adı recovery.done olarak değiştirilecektir.
 
-- Gecikmeli replikasyon ilk ayarlandığında base backup’tan daha geriye gitmez, x saat sonra ilk senkronlar yapılmaya başlanır.
+**`restore_command:`** WAL arşivinden WAL dosyalarının geri yüklenmesini sağlayan komutu içerir. Bu komut özellikle standby sunucu ilk başlatıldığında, standby'ın master sunucuyu yakalayabilmesi için kullanılır. Ayrıca, SR geri kalırsa, PostgreSQL veriyi WAL dosyalarından restore edecektir.
 
-### İzlenmesi Gereken Değerler
+Eğer base backup'ı pg_basebackup ile almadıysanız, *postmaster.pid* dosyasını standby'dan silin.
 
-**Primary'de**:
+Şimdi, *postgresql.conf*'daki değişiklikleri uygulayın, *recovery.conf*'u oluşturun ve standby sunucuyu çalıştırın. İkinci sunucu hot standby modunda çalışacaktır.
+
+### Cascading Replikasyon
+
+Cascading (basamaklı) replication, master sunucudan bir standby sunucu replikasyonu oluşturduktan sonra, o standby sunucudan başka bir standby sunucu daha oluşturmak anlamına gelir. Böylece 1 master sunucudan 2 standby çıkmak ve sunucuya yük getirmek yerine, 2. standby'ın yükünü 1. standby'a verip yükü azaltabilirsiniz. Burada sayısal açıdan bir sınır bulunmamakla beraber, pratikte WAL trafiğiyle oluşacak ağ yükü nedeniyle çok fazla standby yapmamak önerilir.
+
+Burada yapmanız gereken şey, genel olarak üstteki ile aynıdır. Farkı şudur: 1. standby sunucusu hem standby olacak (hot_standby=on), hem de 2. standby sunucu için master olacak (max_wal_senders 0'dan büyük olmalı ve diğer master sunucu parametreleri de olmalı). Benzer şekilde, iki standby sunucusunda da recovery.conf dosyası tabii ki olmalıdır.
+
+### Synchronous Replikasyon
+
+Synchronous replication, master sunucudaki bir transaction'ın, (en az) 1 standby sunucuya da aynı anda commit edilmesi demektir. Asynchronous replication'da, master sunucuya girilen veri, WAL dosyasına yazıldıktan sonra standby sunucuya walsender aracılığı ile aktarılır. Synchronous replication'da ise, bu işlem aynı anda yapılır.
+
+Synchronous replication'da, en az 1 aktif standby sunucu olmak zorundadır. Bu sunucu olmazsa, master sunucudaki tüm sorgular duraklatılır ve standby sunuculardan en az birisi ayağa kaldırılana kadar bekletilir. Burada `wal_keep_segments` parametresi daha da önem kazanacaktır.
+
+Öncelikli olarak senkronize edilecek olan sunucu dışındaki standby sunucular “potansiyel standby” diye geçerler. Eğer 1. standby sunucu devre dışı kalırsa, sıradaki sunucu senkron için öncelik sırasına girecektir. İşte bu nedenlerden dolayı synchronous replication kullanırken, en az 2 standby sunucu olması önerilir.
+
+Synchronous replication'ı kurarken kullanmanız gereken tek farklı parametre, `synchronous_standby_names` parametresidir. Burada,
+*recovery.conf* içindeki `primary_conninfo` parametresine `application_name` ile girdiğimiz sunucu adlarını yazıyoruz. Örneğin, primary_conninfo parametreleri, *recovery.conf* içinde:
 
 ```text
-postgres=# SELECT * FROM pg_stat_replication;
--[ RECORD 1 ]----+------------------------------
-pid              | 2324
-usesysid         | 16384
-usename          | replikasyon
-application_name | standby1
-client_addr      | 192.168.56.102
-client_hostname  |
-client_port      | 55330
-backend_start    | 2018-01-08 13:44:10.154573+03
-backend_xmin     |
-state            | streaming
-sent_lsn         | 0/170005A0
-write_lsn        | 0/170005A0
-flush_lsn        | 0/170005A0
-replay_lsn       | 0/170005A0
-write_lag        |
-flush_lag        |
-replay_lag       |
-sync_priority    | 0
-sync_state       | async
+primary_conninfo = 'host=192.168.1.5 port=5432 user=replicauser password='test' application_name='sb1' 
+primary_conninfo = 'host=192.168.1.5 port=5432 user=replicauser password='test' application_name='sb2' 
 ```
 
-Primary’da replikasyon çalışıyor mu?
+olarak ayarlanmışsa, bu parametreyi,
 
-**Primary’de**:
-
-```shell
-ps auxf | grep sender | grep -v grep
-postgres  2324  0.0  0.3 355864  3052 ?        Ss   13:44   0:00  \_ postgres: wal sender process replication 192.168.56.102(55330) streaming 0/17000680
+```text
+synchronous_standby_names='sb1,sb2'
 ```
 
-**Standby’de**:
+şeklinde yazmak yeterlidir. 1'den fazla standby sunucunuz olduğunda sadece senkron olmasını istediklerinizi buraya yazabilirsiniz. Bu parametreye `*` yazmak, tüm application_name 'leri kabul etmek demektir.
 
-```shell
-ps auxf | grep receiver | grep -v grep
-postgres  2638  0.0  0.3 362216  3200 ?        Ss   13:44   0:00  \_ postgres: wal receiver process   streaming 0/17000680
+**Standby sunucular için ek replikasyon parametreleri**:
+
+Bu bölümde, *postgresql.conf* içindeki ek standby sunucu replikasyon parametreleri ele alınmıştır.
+
+**`wal_receiver_status_interval:`** Standby sunucu(lar), replikasyon süreci ile ilgili bilgileri bir üstteki sunucuya (bu master sunucu olabilir, ya da kendisinden önce standby sunucu olabilir) gönderirler. İki gönderim arası en fazla, wal_receiver_status_interval karar sürede gerçekleşir. Öntanımlı değeri 10 saniyedir. Güncellemelerin sıklığı iki şekilde ayarlanır:
+
+- wal_receiver_status_interval süresi kadar
+- WAL’lara eklenen her yeni transaction işlemi sonrasında
+
+Bunlardan hangisi önce olursa, o zaman bilgiler güncellenir. Dolayısıyla, buradaki bilgiler çok güncel olmayabilir.
+Bu bilgiler `pg_stat_replication` içinde görünür. Bu view içindeki kolonların ayrıntılarına [buradan](http://www.postgresql.org/docs/devel/static/monitoring-stats.html#PGSTAT-REPLICATION-VIEW) ulaşabilirsiniz. Bu değer 0 olursa, durum güncelleme devre dışı kalır.
+
+**`hot_standby_feedback`**: Boolean bir değerdir ve öntanımlı değeri `off`'dur. HS sunucusunun, bir üstteki sunucuya, (tanımını önceki parametrede yapmıştık) o anda standby sunucuda çalışan sorgularla ilgili bilgi gönderip göndermeyeceğini belirler. Bu parametreyi engellemek özellikle uzun sürebilecek sorgularda, üstteki sunucuda cleanup işleminin yapılmamasını sağlar ve yararlı olur. Bu işlem, üst sunucudaki bloat'ı arttıracaktır. Bu bilgiler, üstteki `wal_receiver_status_interval` değerinden daha sık gönderilmez. Raporlama amaçlı kullanılan HS sunucularında bu parametreyi açmak yararlı olabilir. Eğer cascading replication varsa, 1. standby'ın altından gelen feedback mesajları, aracı olan sunucular üzerinden master sunucuya aktarılır.
+
+**`wal_receiver_timeout`**: Öntanımlı olarak 60 sn olan bu parametre ile, replikasyon bağlantıları belirtilen zaman aşımı süresinden daha uzun sürerse sonlandırılır. PostgreSQL belgelerinde de yazıldığı gibi, özellikle master sunucunun çöküp çökmediğinin anlaşılması açısından kullanılabilir. Bu değer 0 olursa, bu parametre devre dışı kalır.
+
+**Replikasyon gecikmesini hesaplamak**:
+
+Replikasyon gecikmelerini hesaplamak için, PostgreSQL’deki `pg_xlog_location_diff()` fonksiyonunu kullanabilirsiniz:
+
+```text
+SELECT client_hostname, client_addr, 
+    pg_xlog_location_diff(pg_stat_replication.sent_location, 
+    pg_stat_replication.replay_location) AS byte_lag 
+    FROM pg_stat_replication;
 ```
-
-Hangi sunucu Primary, hangi sunucu Standby?
-
-**Primary’de**:
-
-```shell
-postgres=# select pg_is_in_recovery();
- pg_is_in_recovery
--------------------
- f
-```
-
-**Standby’de**:
-
-```shell
-postgres=# select pg_is_in_recovery();
- pg_is_in_recovery
--------------------
- t
-```
-
-Replikasyonda gecikme (lag) var mı?
-
-**Standby’de**:
-
-```shell
-postgres=#  SELECT CASE WHEN
-    pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn ()
-    THEN 0
-    ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp())
-    END AS log_delay;
- log_delay
------------
-         0
-```
-
-Primary ve Standby’in senkronluk durumları:
-
-**Primary’de**:
-
-```shell
-postgres=# SELECT pg_current_wal_lsn();
- pg_current_wal_lsn
---------------------------
- 0/13000140
-(1 row)
-```
-
-**Standby’de**:
-
-```shell
-postgres=# SELECT pg_last_wal_receive_lsn();
- pg_last_wal_receive_lsn
--------------------------------
- 0/13000140
-(1 row)
-```
-
-### Diğer Parametreler
-
-- archive_timeout
-- max_wal_senders
-- wal_sender_timeout
-- wal_receiver_timeout
 
 {% include links.html %}
