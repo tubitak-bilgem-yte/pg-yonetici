@@ -1,7 +1,7 @@
 ---
 title: "Sorguların İşlenmesi"
 tags: [PostgreSQL]
-keywords: postgres, binary
+keywords: postgres, Query Processing, Parser, Analyzer, Rewriter, Planner, Planner
 last_updated: December 31, 2020
 summary: "Bu bölümde PostgreSQL’de query processing, tek tablolu bir sorgunun optimal planını elde etmek için izlenen adımlar, maliyet tahmini, plan ağacını oluşturma işlemleri, executor’un çalışması gibi konular daha çok sorgu optimizasyonu üzerine odaklanarak özetlenmiştir"
 sidebar: mydoc_sidebar
@@ -9,7 +9,7 @@ permalink: mydoc_query_processing.html
 folder: mydoc
 ---
 
-## Query Processing (Sorgu İşleme) Genel Bakış
+## Query Processing (Sorgu İşleme)
 
 Query Processing, postgres’in en karmaşık alt sistemlerinden birisidir. Postgres, SQL standartlarının gerektirdiği çok sayıda özelliği destekler ve sorguları en verimli şekilde işler.
 
@@ -81,6 +81,5 @@ Executor, Buffer Manager aracılığıyla tablo ve indexler üzerinde okuma yazm
 - [The Internals of PostgreSQL](http://www.interdb.jp/pg/pgsql03.html)
 
 - [Understanding How PostgreSQL Executes a Query](http://etutorials.org/SQL/Postgresql/Part+I+General+PostgreSQL+Use/Chapter+4.+Performance/Understanding+How+PostgreSQL+Executes+a+Query/)
-
 
 {% include links.html %}
