@@ -150,6 +150,10 @@ entries:
     - title: Partitioning
       url: /mydoc_partitioning.html
       output: web, pdf
+      
+    - title: Binary Veri Saklama
+      url: /mydoc_binary_veri_saklama.html
+      output: web, pdf
 
   - title: MVCC, VACUUM, FDW
     output: web, pdf
@@ -194,7 +198,11 @@ entries:
   - title: PostgreSQL Performans İyileştirmeleri
     output: web, pdf
     folderitems:
-    
+
+    - title: Soruguların İşlenmesi
+      url: /mydoc_query_processing.html
+      output: web, pdf
+
     - title: Veritabanı Servisinde İyileştirme
       url: /mydoc_servis_iyilestirme.html
       output: web, pdf
@@ -223,11 +231,11 @@ entries:
       url: /mydoc_yuksek_erisilebilik_olcekleme.html
       output: web, pdf
 
-    - title: Streaming Replication
+    - title: Streaming Replikasyon
       url: /mydoc_streaming_replication.html
       output: web, pdf
 
-    - title: Logical Replication
+    - title: Logical Replikasyon
       url: /mydoc_logical_replication.html
       output: web, pdf
 
