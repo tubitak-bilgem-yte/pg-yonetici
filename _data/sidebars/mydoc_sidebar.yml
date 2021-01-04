@@ -115,6 +115,10 @@ entries:
     output: web, pdf
     folderitems:
 
+    - title: Veritabanı Küme Yapısı ve Düzeni
+      url: /mydoc_vt_kume_yapisi.html
+      output: web, pdf
+
     - title: Sorguların İşlenmesi
       url: /mydoc_query_processing.html
       output: web, pdf
@@ -167,21 +171,13 @@ entries:
     - title: Partitioning
       url: /mydoc_partitioning.html
       output: web, pdf
-      
-    - title: Binary Veri Saklama
-      url: /mydoc_binary_veri_saklama.html
-      output: web, pdf
-
-  - title: MVCC, VACUUM, FDW
-    output: web, pdf
-    folderitems:
-    
-    - title: PostgreSQL MVCC ve VACUUM
-      url: /mydoc_mvcc_vacuum.html
-      output: web, pdf
     
     - title: FDW
       url: /mydoc_fdw.html
+      output: web, pdf
+      
+    - title: Binary Veri Saklama
+      url: /mydoc_binary_veri_saklama.html
       output: web, pdf
 
   - title: PostgreSQL Logging & İzleme
@@ -239,6 +235,10 @@ entries:
   - title: Yüksek Erişilebilirlik, Yük Dengeleme, Replikasyon
     output: web, pdf
     folderitems:
+
+    - title: PostgreSQL Otomatik Failover Çözümleri
+      url: /mydoc_postgresql_ha.html
+      output: web, pdf
 
     - title: Yüksek Erişilebilirlik ve Ölçekleme
       url: /mydoc_yuksek_erisilebilik_olcekleme.html
