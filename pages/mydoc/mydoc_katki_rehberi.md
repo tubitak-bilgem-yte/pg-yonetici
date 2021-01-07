@@ -113,19 +113,19 @@ mydoc_dosya_konumlari.md --> /mydoc_dosya_konumlari.html
 
 ### Mevcut Sayfaları Düzenleme
 
-1. Düzenlemek istediğiniz sayfada **`Düzeltme Öner`** butonuna tıklanır.
+**1.** Düzenlemek istediğiniz sayfada **`Düzeltme Öner`** butonuna tıklanır.
 {% include image.html file="contribution-1.png" alt="Düzeltme Öner" %}
 
-2. Sayfa açıldıktan sonra sağ üstteki kalem ikonuna basılır.
+**2.** Sayfa açıldıktan sonra sağ üstteki kalem ikonuna basılır.
 {% include image.html file="contribution-2.png" alt="Kalem" %}
 
-3. Metin editörü açıldıktan sonra istenilen değişiklikler yapılır. Bu değişikliklerin önizlemesi üstte bulunan **`Preview Changes`** kısmında görülebilir. Değişiklikler yapıldıktan sonra açıklayıcı bir mesaj yazılır ve **`Propose Changes`** butonuna basılır.
+**3.** Metin editörü açıldıktan sonra istenilen değişiklikler yapılır. Bu değişikliklerin önizlemesi üstte bulunan **`Preview Changes`** kısmında görülebilir. Değişiklikler yapıldıktan sonra açıklayıcı bir mesaj yazılır ve **`Propose Changes`** butonuna basılır.
 {% include image.html file="contribution-3.png" alt="Preview Changes" %}
 
-4. Açılan sayfada *Create Pull Request" butonuna basılır.
+**4.** Açılan sayfada **`Create Pull Request`** butonuna basılır.
 {% include image.html file="contribution-4.png" alt="Create Pull Request" %}
 
-5. Açılan pull request sayfasında **`Create Pull Request`** butonuna basılır ve değişiklikler proje yöneticisine gönderilir.
+**5.** Açılan pull request sayfasında **`Create Pull Request`** butonuna basılır ve değişiklikler proje yöneticisine gönderilir.
 {% include image.html file="contribution-5.png" alt="Send Request" %}
 
 6. Yapılan değişiklikler **proje yöneticisi** tarafından incelenerek kabul edilir veya geri çevrilir.
