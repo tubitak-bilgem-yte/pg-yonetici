@@ -128,7 +128,9 @@ mydoc_dosya_konumlari.md --> /mydoc_dosya_konumlari.html
 **5.** Açılan pull request sayfasında **`Create Pull Request`** butonuna basılır ve değişiklikler proje yöneticisine gönderilir.
 {% include image.html file="contribution-5.png" alt="Send Request" %}
 
-6. Yapılan değişiklikler **proje yöneticisi** tarafından incelenerek kabul edilir veya geri çevrilir.
+**6.** Yapılan değişiklikler **proje yöneticisi** tarafından incelenerek kabul edilir veya geri çevrilir.
+
+--- 
 
 ## Sayfa İçeriği Formatı
 
