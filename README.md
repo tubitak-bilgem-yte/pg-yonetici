@@ -24,7 +24,7 @@ Oluşturulan dosyanın isim formatı:
 dosya_ismi.md      Örnek: mydoc_dosya_konumlari.md
 ```
 
-{% include note.html content=" Markdown, okunması ve yazması kolay bir düz metin formatıdır. Projedeki markdown dosyaları HTML'e dönüştürülerek web sayfasına konulmaktadır. Markdown hakkında daha fazla bilgiye [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) sayfasından ulaşabilirsiniz." %}
+Markdown, okunması ve yazması kolay bir düz metin formatıdır. Projedeki markdown dosyaları HTML'e dönüştürülerek web sayfasına konulmaktadır. Markdown hakkında daha fazla bilgiye [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) sayfasından ulaşabilirsiniz.
 
 Eklenecek Markdown dosyası ilgili sayfaya göre aşağıdaki formatta başlamalıdır.
 
