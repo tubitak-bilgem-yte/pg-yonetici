@@ -149,7 +149,7 @@ Bu uyarı türleri farklı bir renk, simge ve uyarı kelimesine sahip olmaları 
 {% raw %}{% include warning.html content="Uyarınızı buraya ekleyin." %}{% endraw %}
 ```
 
-Bu şablonların çıktıları şu şekilde olacaktır (şablonları görüntelemek için [buradan](https://berkanyiildirim.github.io/pg-yonetici/mydoc_katki_rehberi.html) okuyunuz):
+Bu şablonların çıktıları şu şekilde olacaktır (şablonları görüntelemek için [buradan](https://berkanyiildirim.github.io/pg-yonetici/mydoc_katki_rehberi.html#uyarı-metni-türleri) okuyunuz):
 
 {% include note.html content="Notunuzu buraya ekleyin." %}
 
@@ -189,7 +189,7 @@ Her biri farklı açıklama metni türüne sahip şablonları ile ekleyeceğiniz
 {% raw %}{% include callout.html content="This is my **warning** type callout. It has a border on the left whose color you define by passing a type parameter." type="warning" %}{% endraw %}
 ```
 
-Bu şablonların çıktıları şu şekilde olacaktır (Şablonları görüntelemek için [buradan](https://berkanyiildirim.github.io/pg-yonetici/mydoc_katki_rehberi.html) okuyunuz):
+Bu şablonların çıktıları şu şekilde olacaktır (Şablonları görüntelemek için [buradan](https://berkanyiildirim.github.io/pg-yonetici/mydoc_katki_rehberi.html#uyarı-metni-türleri) okuyunuz):
 
 
 {% include callout.html content="This is my **danger** type callout. It has a border on the left whose color you define by passing a type parameter." type="danger" %}
