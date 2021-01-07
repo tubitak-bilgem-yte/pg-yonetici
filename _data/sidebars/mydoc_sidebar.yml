@@ -160,6 +160,10 @@ entries:
       url: /mydoc_yetkilendirme_guvenlik_yonetimi.html
       output: web, pdf
 
+    - title: Vacuum
+      url: /mydoc_vacuum.html
+      output: web, pdf
+
     - title: Data Aging
       url: /mydoc_data_aging.html
       output: web, pdf
@@ -194,6 +198,14 @@ entries:
 
     - title: PostgreSQL’de İzleme
       url: /mydoc_postgresql_gozetleme.html
+      output: web, pdf
+
+    - title: Mamonsu ile İzleme
+      url: /mydoc_mamonsu.html
+      output: web, pdf
+
+    - title: Prometheus ile İzleme
+      url: /mydoc_prometheus_ile_izleme.html
       output: web, pdf
 
   - title: Yedekleme & Geri Yükleme, Sürüm Yükseltme
@@ -238,6 +250,10 @@ entries:
 
     - title: PostgreSQL Otomatik Failover Çözümleri
       url: /mydoc_postgresql_ha.html
+      output: web, pdf
+
+    - title: Failover ve Recovery Olasılıkları
+      url: /mydoc_failover_recovery_olasiliklari.html
       output: web, pdf
 
     - title: Yüksek Erişilebilirlik ve Ölçekleme
