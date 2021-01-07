@@ -1,8 +1,8 @@
 ---
 title: "Dosya Konumları"
 tags: [PostgreSQL]
-keywords: postgres
-last_updated: December 31, 2020
+keywords: postgres, data_directory, config_file, ident_file, hba_file
+last_updated: January 6, 2021
 sidebar: mydoc_sidebar
 permalink: mydoc_dosya_konumlari.html
 folder: mydoc
