@@ -361,32 +361,6 @@ Sanırım gelecekte yazacağım bütün dokümanlarda Markdown kullanacağım.
 
 ---
 
-### Vurgu
-
-```text
-*Bu yazı italik yazılır*
-_Bu yazı da italik yazılır_
-
-**Bu yazı kalın yazılır**
-__Bu yazı da kalın yazılır__
-
-_Bunları **birleştirebilirsiniz**._
-```
-
-Çıktı şu şekilde gözükecek:
-
-*Bu yazı italik yazılır*
-
-_Bu yazı da italik yazılır_
-
-**Bu yazı kalın yazılır**
-
-__Bu yazı da kalın yazılır__
-
-_Bunları **birleştirebilirsiniz**._
-
----
-
 ### Listeler
 
 #### Sırasız
