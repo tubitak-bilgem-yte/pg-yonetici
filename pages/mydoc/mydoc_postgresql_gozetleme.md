@@ -1,9 +1,8 @@
 ---
-title: "PostgreSQL’de Gözetleme"
+title: "PostgreSQL’de İzleme"
 tags: [PostgreSQL]
 keywords: postgres
 last_updated: November 13, 2020
-summary: "PostgreSQL’de Gözetleme"
 sidebar: mydoc_sidebar
 permalink: mydoc_postgresql_gozetleme.html
 folder: mydoc
@@ -12,7 +11,7 @@ folder: mydoc
 PostgreSQL MVCC ve VACUUM
 mydoc_mvcc_vacuum.html
 
-## PostgreSQL’de Gözetleme
+## PostgreSQL’de İzleme
 
 PostgreSQL sunucusu üzerinde gözetlenmesi gereken temel konular:
 
@@ -24,9 +23,9 @@ PostgreSQL sunucusu üzerinde gözetlenmesi gereken temel konular:
 - Cache hit oranı
 - Kilitlenme miktarı
 - Replikasyon varsa standby gecikmesi
-Anlık görüntüleme, sorgu istatistikleri, dış servisler ile anlık gözetleme ve alarm üretme, dış servisler ile metrik toplama başlıca gözetleme biçimleridir.
+Anlık görüntüleme, sorgu istatistikleri, dış servisler ile anlık izleme ve alarm üretme, dış servisler ile metrik toplama başlıca izleme biçimleridir.
 
-### Unix Komutları ile Anlık Gözetleme
+### Unix Komutları ile Anlık İzleme
 
 ps komutu sistemdeki mevcut süreçlerin bilgilerini gösterir.
 
@@ -71,7 +70,7 @@ PostgreSQL verilerinin diskte kapladığı toplam boyutu **du** komutu ile göre
 
 - Bu miktar veritabanlarındaki tabloların içindeki gerçek veri miktarından fazla görünebilir.
 
-### PostgreSQL Komutları ile Anlık Gözetleme
+### PostgreSQL Komutları ile Anlık İzleme
 
 Statistics Collector veritabanı üzerinde; tablo ve indexlere erişim sayısı (disk ve tek satır bazında), tablolardaki satır sayısı, vakum ve analiz eylemlerinin bilgileri, fonksiyonların çağrılma sayısı ve çalışma süreleri gibi sistem aktivitelerini izler.
 
@@ -242,7 +241,7 @@ Diğer Bazı PostgreSQL Eklentileri
 - ``pg_buffercache``
   - Tablo ve indexlerin paylaşılan bufferlarını, cache’te tuttukları sayfaları v.b. gösterir.
 
-### Bazı Gözetleme Programcıkları
+### Bazı İzleme Programcıkları
 
 #### pg_activity
 
@@ -256,7 +255,7 @@ Yine pg_activity’e benzer olup PostgreSQL odaklı top ve uptime benzeri bir pr
 # yum install pg_view
 ```
 
-### Dış Servisler ile PostgreSQL Gözetleme
+### Dış Servisler ile PostgreSQL İzleme
 
 #### pgAdmin
 
@@ -264,10 +263,10 @@ Veritabanları istatistikleri ve grafikleri izlenebilir.
 
 #### Zabbix
 
-Zabbix, gelişkin bir merkezi gözetleme sunucusudur. Gözetleme şablonları ve sunucu tarafına kurulan connector’lar ile detaylı gözetleme yapar ve beklenmeyen durumlarda eposta, sms, v.b. yöntemlerle bildirimde bulunabilir. Eskiye dönük verileri biriktirme ve grafikleştirme gibi özelliklere de sahiptir.
+Zabbix, gelişkin bir merkezi izleme sunucusudur. İzleme şablonları ve sunucu tarafına kurulan connector’lar ile detaylı izleme yapar ve beklenmeyen durumlarda eposta, sms, v.b. yöntemlerle bildirimde bulunabilir. Eskiye dönük verileri biriktirme ve grafikleştirme gibi özelliklere de sahiptir.
 
 #### Nagios
 
-Nagios da en çok kullanılan merkezi gözetleme sunucularından biridir. Eklentiler ile detaylı gözetleme, alarm ve metrik toplama işlemlerini yapabilir. Grafikleştirme yeteneği kazandırmak için ek programa ihtiyaç duyar.
+Nagios da en çok kullanılan merkezi izleme sunucularından biridir. Eklentiler ile detaylı izleme, alarm ve metrik toplama işlemlerini yapabilir. Grafikleştirme yeteneği kazandırmak için ek programa ihtiyaç duyar.
 
 {% include links.html %}
