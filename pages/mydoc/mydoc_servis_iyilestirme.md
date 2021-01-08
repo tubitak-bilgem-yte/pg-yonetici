@@ -3,13 +3,10 @@ title: "Veritabanı Servisinde İyileştirme"
 tags: [PostgreSQL]
 keywords: postgres
 last_updated: November 13, 2020
-summary: "Veritabanı Servisinde İyileştirme"
 sidebar: mydoc_sidebar
 permalink: mydoc_servis_iyilestirme.html
 folder: mydoc
 ---
-
-mydoc_servis_iyilestirme.html
 
 ## Veritabanı Servisinde İyileştirme
 

@@ -3,7 +3,6 @@ title: "repmgr"
 tags: [PostgreSQL]
 keywords: postgres
 last_updated: November 19, 2020
-summary: "repmgr"
 sidebar: mydoc_sidebar
 permalink: mydoc_repmgr.html
 folder: mydoc
@@ -38,7 +37,7 @@ RepMgr Komutu:
 
 RepMgrd Servisi:
 
-- Replikasyon performansını gözetleme ve kaydetme
+- Replikasyon performansını izleme ve kaydetme
 - Primary’a erişilemediğini farkedip otomatik failover gerçekleştirme
 - Kümede çeşitli oluşan olaylarda uyarı üretebilme (e-posta, komut çalıştırma, vs)
 
@@ -48,7 +47,7 @@ Tablolar:
 
 - repmgr.events: Olay kayıtları
 - repmgr.nodes: Kümedeki her sunucunun bağlantı ve durum bilgisi
-- repmgr.monitoring_history: repmgrd’nin topladığı gözetleme bilgileri
+- repmgr.monitoring_history: repmgrd’nin topladığı izleme bilgileri
 
 Viewlar:
 
@@ -326,9 +325,9 @@ Last login: Wed May  2 17:51:02 +03 2018 on pts/0
 - repmgrd tek başına geri gelen master sorunsalını çözmek için yeterli değildir, çift master oluşur.
 - Uygulamaların doğru master’a bağlanmaları için RepMgrd’ye terfi komutu olarak pgbouncer’ı da ayarlayan bir komut girilmesi bu konuda çözüm olarak uygulanır (=fencing)
 
-### Gözetleme
+### İzleme
 
-repmgrd sadece gözetleme amaçlı da kullanılabilir. Gözetleme tablosunun kullanılması için aşağıdaki ayar yapılmalıdır:
+repmgrd sadece izleme amaçlı da kullanılabilir. İzleme tablosunun kullanılması için aşağıdaki ayar yapılmalıdır:
 
 ```text
 # vim /etc/repmgr/11/repmgr.conf

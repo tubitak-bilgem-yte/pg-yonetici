@@ -2,15 +2,11 @@
 title: "Sorguların İyileştirilmesi"
 tags: [PostgreSQL]
 keywords: postgres
-last_updated: November 16, 2020
-summary: "Sorguların İyileştirilmesi"
+last_updated: December 21, 2020
 sidebar: mydoc_sidebar
 permalink: mydoc_isletim_sistemi_ayarlari.html
 folder: mydoc
 ---
-
-Donanım Performansı
-mydoc_donanim_performansi.html
 
 ## İşletim Sistemi Ayarları
 
