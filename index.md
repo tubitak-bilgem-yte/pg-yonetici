@@ -4,12 +4,11 @@ keywords: Giriş
 tags: [PostgreSQL]
 sidebar: mydoc_sidebar
 permalink: index.html
-summary: PostgreSQL Veritabanı Yönetici Dokümantasyonu
 ---
 
 {% include image.html file="postgres_giris.png" url="/pg-yonetici/images/postgres_giris.png" alt="postgres giriş"%}
 
-## PostgreSQL (“Post-Gres-Q-L” okunur.)
+## PostgreSQL (“Post-Gres-Q-L”)
 
 PostgreSQL, tüm dünyada popüler olan açık kaynak kodlu, platform bağımsız gelişmiş bir nesne ilişkisel (ORDBMS) veritabanı yönetim sistemidir.
 
