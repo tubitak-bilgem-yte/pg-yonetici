@@ -2,8 +2,7 @@
 title: "İstemci Bağlantısı Varsayılanları"
 tags: [PostgreSQL]
 keywords: postgres
-last_updated: December 18, 2020
-summary: "İstemci Bağlantısı Varsayılanları"
+last_updated: December 21, 2020
 sidebar: mydoc_sidebar
 permalink: mydoc_istemci_baglantisi_varsayilanlari.html
 folder: mydoc
@@ -83,13 +82,5 @@ Bu parametrenin kullanım amacı şudur: logical replikasyon sistemleri, replike
 PostgreSQL, `origin` ve `local` ayarları dahili olarak aynı şekilde ele alır. Bu iki değeri üçüncü taraf replikasyon sistemleri dahili amaçları için kullanabilir. örneğin, değişiklikleri replike etmemesi gereken bir oturumu belirlemek için `local` değerini kullanabilir.<br/><br/>
 
 Yabancı anahtarlar tetikleyici olarak uygulandığından, bu parametrenin `replica` ayarlanması tüm yabancı anahtar denetimlerini de devre dışı bırakır. Bu hatalı kullanıldığında verileri tutarsız bir durumda bırakabilir." type="primary" %}
-
-### İfade (Statement) Davranışı
-
-### Locale ve Formatting
-
-### Paylaşılan Kütüphane Ön Yükleme
-
-### Diğer Varsayılanlar
 
 {% include links.html %}
