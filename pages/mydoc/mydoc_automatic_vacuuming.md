@@ -2,7 +2,7 @@
 title: "Otomatik Vacuuming"
 tags: [PostgreSQL]
 keywords: postgres, autovacuum, log_autovacuum_min_duration, autovacuum_max_workers, autovacuum_naptime, autovacuum_vacuum_threshold, autovacuum_vacuum_insert_threshold, autovacuum_analyze_threshold, autovacuum_vacuum_scale_factor, autovacuum_vacuum_insert_scale_factor, autovacuum_analyze_scale_factor, autovacuum_freeze_max_age, autovacuum_multixact_freeze_max_age, autovacuum_vacuum_cost_delay, autovacuum_vacuum_cost_limit
-last_updated: Januart 8, 2021
+last_updated: January 8, 2021
 sidebar: mydoc_sidebar
 permalink: mydoc_automatic_vacuuming.html
 folder: mydoc

@@ -22,7 +22,7 @@ Unix sistemlerinde `server.key` üzerindeki izinler dışarıya veya gruba herha
 
 PostgreSQL, sistem geneli OpenSSL yapılandırma dosyası `openssl.cnf`'ı kullanır. Bu dosya, `openssl version -d` tarafından bildirilen dizinde bulunur.
 
-OpenSSL, çeşitli chiper ve kimlik doğrulama algoritmalarını destekler. OpenSSL yapılandırma dosyasında bir chiper listesi belirtirken, *postgresql.conf* içindeki [ssl_ciphers](https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-SSL-CIPHERS)'ı değiştirerek veritabanı sunucusu tarafından kullanılmak üzere spesifik olarak chiper belirtebilirsiniz.
+OpenSSL, çeşitli cipher ve kimlik doğrulama algoritmalarını destekler. OpenSSL yapılandırma dosyasında bir cipher listesi belirtirken, *postgresql.conf* içindeki [ssl_ciphers](https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-SSL-CIPHERS)'ı değiştirerek veritabanı sunucusu tarafından kullanılmak üzere spesifik olarak cipher belirtebilirsiniz.
 
 ### İstemci Sertifikalarını Kullanma
 
