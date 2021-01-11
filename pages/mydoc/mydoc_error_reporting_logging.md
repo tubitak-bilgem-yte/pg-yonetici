@@ -245,7 +245,7 @@ CREATE TABLE postgres_log
 );
 ```
 
-{% include callout.html content=" Bu tabloya bir günlük dosyası aktarmak için, KOPYALA komutunu kullanın:" type="primary" %}
+{% include callout.html content=" Bu tabloya bir günlük dosyası aktarmak için, COPY komutunu kullanın:" type="primary" %}
 
 ```sql
 COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
@@ -269,5 +269,9 @@ Bu başlık altında verilen ayarlar, sunucu süreçlerinin süreç başlıklar�
 Ad, `NAMEDATALEN`'den daha az karakterde herhangi bir dize olabilir (standart build'de 64 karakter). `cluster_name` parametresi değerinde yalnızca yazdırılabilir ASCII karakterler kullanılabilir. Diğer karakterler soru işareti (?) ile değiştirilecektir. Bu parametre boş dizeye ' ' (varsayılan böyle) ayarlanırsa ad gösterilmez. Bu parametre yalnızca sunucu başlangıcında ayarlanabilir." type="primary" %}
 
 {% include callout.html content="**`update_process_title (boolean)`**: Sunucu tarafından her yeni SQL komutu alındığında süreç başlığının güncellenmesini sağlar. Bu ayar, çoğu platformda varsayılan olarak açıktır. Windows'ta süreç başlığının büyük güncellenme ek yükü nedeniyle varsayılan olarak kapalıdır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
+
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-logging.html)
 
 {% include links.html %}

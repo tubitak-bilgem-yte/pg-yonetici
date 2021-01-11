@@ -125,4 +125,8 @@ psql: could not connect to server: No such file or directory
 
 İstemcinin doğru yere bağlanmaya çalıştığını doğrulamak son satır kullanışlıdır. Gerçekte burada çalışan sunucu yoksa, gösterildiği gibi "Connection refused" veya "No such file or directory" şeklinde bir çekirdek hata mesajı alınır. Bir diğer hata mesajı olan "Connection timed out" ise ağ bağlantısının olmaması gibi daha temel sorunları ifade eder.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/server-start.html)
+
 {% include links.html %}

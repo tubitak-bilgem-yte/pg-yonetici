@@ -24,6 +24,10 @@ Vacuum işlemi sequential scan sırasında okunan tuple sayısını azaltacağı
 
 Çok fazla güncellenen tablolarda vacuum işleminin düzenli olarak yapılması gerekir. Vacuum işlemi veri tabanı boyutunu azaltır ve performansı arttırır.
 
-Autovacuum özelliği ile bu işlemlerin manuel olarak yapılmasına gerek kalmamıştır. A Autovacuum işlemi sırasında hem vacuum hem de analiz işlemi yapılacağından veri tabanı performansını arttıtır.
+Autovacuum özelliği ile bu işlemlerin manuel olarak yapılmasına gerek kalmamıştır. Autovacuum işlemi sırasında hem vacuum hem de analiz işlemi yapılacağından veri tabanı performansını arttıtır.
+
+**Kaynak:**
+
+[1]. [veritabaniegitimleri.com: Postgresql Vacuum İşlemi Nedir?](http://www.veritabaniegitimleri.com/2020/04/24/postgresql-vacuum-islemi-nedir/)
 
 {% include links.html %}

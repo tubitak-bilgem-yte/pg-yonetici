@@ -10,7 +10,7 @@ folder: mydoc
 
 ## Foreign Data Wrappers (FDW)
 
-Yabancı veri paketleyicileri (FDW), kullanıcının veritabanı dışındaki harici veri kaynaklarına yerel veritabanındaki bir tabloymuş gibi sorgular atmasını sağlar. Postgres ve SQL standar   tlarına uygun diğer ilişkisel veritabanları (MySQL, Oracle, mongoDB), key/value (NoSQL) kaynaklar, flat file veritabanları gibi harici veri kaynaklarına erişimi sağlayan pek çok FDW vardır. FDW'ler PostgreSQL üzerinde bir extension (eklenti) olarak uygulanmaktadır. Geliştirilmiş FDW'lere [Postgres wiki](https://wiki.postgresql.org/wiki/Foreign_data_wrappers) üzerinden ulaşabilirsiniz. PostgreSQL Global Development Group tarafından geliştirilen **`postgres_fdw`**[](https://www.postgresql.org/docs/current/postgres-fdw.html) dışında hemen hemen tüm uzantılar resmi olarak desteklenmemektedir.
+Yabancı veri sarmalayıcıları (FDW), kullanıcının veritabanı dışındaki harici veri kaynaklarına yerel veritabanındaki bir tabloymuş gibi sorgular atmasını sağlar. Postgres ve SQL standartlarına uygun diğer ilişkisel veritabanları (MySQL, Oracle, mongoDB), key/value (NoSQL) kaynaklar, flat file veritabanları gibi harici veri kaynaklarına erişimi sağlayan pek çok FDW vardır. FDW'ler PostgreSQL üzerinde bir extension (eklenti) olarak uygulanmaktadır. Geliştirilmiş FDW'lere [Postgres wiki](https://wiki.postgresql.org/wiki/Foreign_data_wrappers) üzerinden ulaşabilirsiniz. PostgreSQL Global Development Group tarafından geliştirilen **`postgres_fdw`**[](https://www.postgresql.org/docs/current/postgres-fdw.html) dışında hemen hemen tüm uzantılar resmi olarak desteklenmemektedir.
 
 {% include image.html file="fdw-1.png" alt="http://www.interdb.jp/pg/img/fig-4-fdw-1.png" caption="Şekil 1. [http://www.interdb.jp/pg/img/fig-4-fdw-1.png]" %}
 
@@ -221,6 +221,6 @@ LOG:  statement: COMMIT TRANSACTION
 
 **Kaynak**:
 
-[The Internals of PostgreSQL](http://www.interdb.jp/pg/pgsql04.html)
+[1]. [The Internals of PostgreSQL](http://www.interdb.jp/pg/pgsql04.html)
 
 {% include links.html %}

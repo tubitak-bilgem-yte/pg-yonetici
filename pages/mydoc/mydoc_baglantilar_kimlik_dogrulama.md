@@ -91,4 +91,8 @@ SSL kurulumu hakkında bilgi için bkz. [SSL ile Güvenli TCP / IP Bağlantılar
 
 {% include callout.html content=" **`ssl_passphrase_command_supports_reload (boolean)`**: Bu parametre, `ssl_passphrase_command` tarafından ayarlanan passphrase komutunun, yapılandırma yeniden yüklemesi sırasında anahtar dosyası bir passphrase gerektirdiğinde çağrılıp çağrılmayacağını belirler. Parametre kapalıysa (varsayılan böyledir) `ssl_passphrase_command`, yeniden yükleme sırasında yok sayılacak ve passphrase gerekirse SSL yapılandırması yeniden yüklenmeyecektir. passphrase'in bir dosyadan elde edilebildiği kullanımda bu parametrenin açık olarak ayarlanması uygun olabilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-connection.html)
+
 {% include links.html %}

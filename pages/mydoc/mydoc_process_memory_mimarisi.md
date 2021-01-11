@@ -32,7 +32,7 @@ Aşağıda ilk üç process türü ayrıntılı şekilde ele alınmıştır.
 
 Postgres Server Process, PostgreSQL sunucusundaki tüm processlerin parent process'idir. Önceki sürümlerde `postmaster` olarak adlandırılırdı.
 
-[pg_ctl](https://www.postgresql.org/docs/9.5/app-pg-ctl.html) yardımcı programının `start` opsiyonuyla postgres server process  başlatılır. Bu process'e **`bellekte shared memory area`** isminde bir alan tahsis edilir ve burada çeşitli background process'ler başlatır, duruma göre  replication associated processes ve background worker process'lerini de başlatarak istemcilerden bağlantı isteklerini bekler. Tam çalışır durumdaki veritabanı, artık istemcilerden gelen her bir bağlantı isteği için bir backend process başlatarak gönderilen sorguları işler.
+[pg_ctl](https://www.postgresql.org/docs/9.5/app-pg-ctl.html) yardımcı programının `start` opsiyonuyla postgres server process  başlatılır. Bu process'e bellekte **`shared memory area`** isminde bir alan tahsis edilir ve burada çeşitli background process'ler başlatır, duruma göre replication associated processes ve background worker process'lerini de başlatarak istemcilerden bağlantı isteklerini bekler. Tam çalışır durumdaki veritabanı, artık istemcilerden gelen her bir bağlantı isteği için bir backend process başlatarak gönderilen sorguları işler.
 
 {% include note.html content=" Postgres server process aynı anda yalnızca bir portu dinler. Varsayılan 5432'dir. Dinlenen port numaraları farklı olmak şartıyla aynı hostta birden çok PostgreSQL veritabanı çalıştırmak mümkündür." %}
 
@@ -61,9 +61,9 @@ Background Process'lerin her biri kendine özel fonksiyonlar içerdiği ve Postg
 
 PostgreSQL'deki memory mimarisi Local ve Shared memory olarak iki temel bileşenden oluşur:
 
-{% include callout.html content=" **`Yerel bellek(Local memory)`**: Her backend process tarafından kendi kullanımı için tahsis edilmiş alandır." type="primary" %}
+{% include callout.html content=" **`Local Memory (Yerel Bellek)`**: Her backend process tarafından kendi kullanımı için tahsis edilmiş alandır." type="primary" %}
 
-{% include callout.html content=" **`Paylaşılan bellek(Shared memory)`**: PostgreSQL sunucusundaki tüm process'lerin kullanımı için ayrılan ortak alandır." type="primary" %}
+{% include callout.html content=" **`Shared Memory (Paylaşımlı Bellek)`**: PostgreSQL sunucusundaki tüm process'lerin kullanımı için ayrılan ortak alandır." type="primary" %}
 
 {% include image.html file="process_memory_mimarisi-2.png" alt="https://www.interdb.jp/pg/img/fig-2-02.png" caption=" Şekil 3. PostgreSQL memmory mimarisi örneği. [https://www.interdb.jp/pg/img/fig-2-02.png]" %}
 
@@ -85,10 +85,10 @@ PostgreSQL başlatıldığında veritabanı tarafından shared memory alanı tah
 
 **Kaynak**:
 
-[The Internals of PostgreSQL](https://www.interdb.jp/pg/pgsql02.html)
+[1]. [The Internals of PostgreSQL](https://www.interdb.jp/pg/pgsql02.html)
 
-[https://www.interdb.jp/pg/pgsql02.html](https://severalnines.com/database-blog/understanding-postgresql-architecture)
+[2]. [Severalnines: Understanding the PostgreSQL Architecture](https://severalnines.com/database-blog/understanding-postgresql-architecture)
 
-[PostgreSQL/Architecture](https://en.wikibooks.org/wiki/PostgreSQL/Architecture)
+[3]. [wikibooks.org: PostgreSQL/Architecture](https://en.wikibooks.org/wiki/PostgreSQL/Architecture)
 
 {% include links.html %}

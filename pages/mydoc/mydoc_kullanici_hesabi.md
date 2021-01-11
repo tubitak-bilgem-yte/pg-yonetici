@@ -14,4 +14,8 @@ Dış dünya tarafından erişilebilen her sunucuda olduğu gibi, PostgreSQL'in 
 
 PostgreSQL'in önceden paketlenmiş sürümleri, genellikle paket kurulumu sırasında otomatik olarak uygun bir kullanıcı hesabı oluşturur. Standart kurulumda bu **postgres** kullanıcısıdır.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/postgres-user.html)
+
 {% include links.html %}

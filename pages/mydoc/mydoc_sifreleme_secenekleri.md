@@ -30,4 +30,8 @@ Akışı şifrelemek için Stunnel ve SSH da kullanılabilir." type="primary" %}
 
 {% include callout.html content="**`Client-Side Encryption`**: Sistem yöneticisine güvenilmediğinde istemcinin verileri şifrelemesi gerekir. Veriler, sunucuya gönderilmeden önce istemcide şifrelenir. Veritabanı sonuçlarının kullanılmadan önce istemcide şifresinin çözülmesi gerekir." type="primary" %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/encryption-options.html)
+
 {% include links.html %}

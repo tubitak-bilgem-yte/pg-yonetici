@@ -61,4 +61,8 @@ Karakter seti sıralaması için işletim sisteminin collation kütüphanesi kul
 
 POSIX semantiğine sahip her dosya sistemi PostgreSQL için kullanılabilir. Kullanıcılar; satıcı desteği, performans ve aşinalık gibi çeşitli nedenlerden farklı dosya sistemlerini tercih edebilirler. Diğer tüm şeyler eşitken, yalnızca dosya sistemlerini değiştirerek veya dosya sistemi konfigürasyon değişiklikleri yaparak büyük performans veya davranış değişiklikleri beklenmemelidir.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/creating-cluster.html)
+
 {% include links.html %}

@@ -106,4 +106,8 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 {% include callout.html content="**`max_parallel_workers (integer)`**: Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar. Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-resource.html)
+
 {% include links.html %}

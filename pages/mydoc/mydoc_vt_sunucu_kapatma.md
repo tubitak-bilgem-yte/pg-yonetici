@@ -36,4 +36,6 @@ $ kill -INT `head -1 /usr/local/pgsql/data/postmaster.pid`
 
 {% include tip.html content=" Sadece ilgili oturumu sonlandırmak için, **pg_terminate_backend( )** kullanın veya oturumla ilişkili alt sürece **SIGTERM** sinyali gönderin." %}
 
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/server-shutdown.html)
+
 {% include links.html %}

@@ -144,4 +144,8 @@ Recovery varsayılan olarak WAL log'larının sonuna kadar devam edecektir. Daha
 
 Bu bölümdeki ayarların yapılmasıyla ilgili ek bilgi için [WAL Yapılandırması](https://www.postgresql.org/docs/current/wal-configuration.html) bölümüne bakın.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-wal.html)
+
 {% include links.html %}

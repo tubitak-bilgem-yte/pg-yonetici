@@ -22,4 +22,8 @@ SSL ile sahtekarlığı önlemek için sunucunun, yalnızca [`hostssl`](https://
 
 GSSAPI ile sahtekarlığı önlemek için, sunucunun yalnızca `hostgssenc` bağlantılarını kabul edecek şekilde yapılandırılması gerekir. TCP istemcisi `gssencmode = require` kullanarak bağlanmalıdır.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/preventing-server-spoofing.html)
+
 {% include links.html %}

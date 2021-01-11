@@ -166,4 +166,8 @@ rm -rf /var/lib/pgsql/11/data/*
 yum remove postgresql11-server postgresql11 postgresql11-contrib
 ```
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/upgrading.html)
+
 {% include links.html %}

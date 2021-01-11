@@ -28,4 +28,8 @@ Konfigürasyon dosyası isim ve konumları `config_file`, `hba_file`, `ident_fil
 
 Bu parametreler ayarlanırken relative path `postgres`'in başlatıldığı dizine göre yorumlanacaktır.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-file-locations.html)
+
 {% include links.html %}

@@ -182,10 +182,10 @@ En tipik erişim metodu olan sequential scan ve B-tree index scan'i özetleyecek
 
 **Kaynak:**
 
-[The Internals of PostgreSQL](https://www.interdb.jp/pg/pgsql01.html)
+[1]. [The Internals of PostgreSQL](https://www.interdb.jp/pg/pgsql01.html)
 
-[Introduction to PostgreSQL physical storage](http://rachbelaid.com/introduction-to-postgres-physical-storage/)
+[2]. [Introduction to PostgreSQL physical storage](http://rachbelaid.com/introduction-to-postgres-physical-storage/)
 
-[PostgreSQL Architecture](https://www.tutorialdba.com/p/postgresql-architecture.html)
+[3]. [PostgreSQL Architecture](https://www.tutorialdba.com/p/postgresql-architecture.html)
 
 {% include links.html %}

@@ -93,8 +93,8 @@ Executor, Buffer Manager aracılığıyla küme içerisindeki tablo ve indeksler
 
 **Kaynak**:
 
-- [The Internals of PostgreSQL](http://www.interdb.jp/pg/pgsql03.html)
+[1]. [The Internals of PostgreSQL](http://www.interdb.jp/pg/pgsql03.html)
 
-- [Understanding How PostgreSQL Executes a Query](http://etutorials.org/SQL/Postgresql/Part+I+General+PostgreSQL+Use/Chapter+4.+Performance/Understanding+How+PostgreSQL+Executes+a+Query/)
+[2]. [Understanding How PostgreSQL Executes a Query](http://etutorials.org/SQL/Postgresql/Part+I+General+PostgreSQL+Use/Chapter+4.+Performance/Understanding+How+PostgreSQL+Executes+a+Query/)
 
 {% include links.html %}

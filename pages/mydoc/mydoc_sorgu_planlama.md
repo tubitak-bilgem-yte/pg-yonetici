@@ -160,4 +160,8 @@ Bu değerin `geqo_threshold` veya daha fazlasına ayarlanması, GEQO planlayıc�
 
 {% include callout.html content="**`plan_cache_mode (enum)`**: Prepared statement'lar custom ve generic planlar kullanılarak yürütülebilir. Her bir yürütme için custom planlar, kendine özgü parametre değerleri kümesi kullanılarak baştan yapılırken; generic planlar, parametre değerlerine dayanmaz ve yürütmelerde tekrar kullanılabilir. Bu sebeple, generic bir planın kullanılması planlama süresinden tasarruf sağlar, ancak ideal plan güçlü bir şekilde parametre değerlerine bağlıysa generic bir plan verimsiz olabilir. Bu seçenekler arasındaki tercih normalde otomatik olarak yapılır, ancak `plan_cache_mode` ile geçersiz kılınabilir. Alabileceği değerler; `auto` (varsayılan), `force_custom_plan` ve `force_generic_plan`'dır. Daha fazla bilgi için bkz. [PREPARE](https://www.postgresql.org/docs/current/sql-prepare.html)." type="primary" %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-query.html)
+
 {% include links.html %}

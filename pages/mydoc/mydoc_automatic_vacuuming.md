@@ -38,4 +38,8 @@ Bu parametre devre dışı bırakıldığında bile sistemin transaction ID wrap
 
 {% include callout.html content="**`autovacuum_vacuum_cost_limit (integer)`**: Otomatik VACUUM işlemlerinde kullanılacak maliyet sınırı değerini belirtir. `-1` ayarı (varsayılan değerdir) [vacuum_cost_limit](mydoc_kaynak_tuketimi.html#maliyete-dayal%C4%B1-vacuum-gecikmesi) değerini kullanır. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir. Bu ayar, tablo depolama parametreleri değiştirilerek belirli tablolar için geçersiz kılınabilir." type="primary" %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-autovacuum.html)
+
 {% include links.html %}

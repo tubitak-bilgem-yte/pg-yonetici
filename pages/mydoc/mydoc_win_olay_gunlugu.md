@@ -32,4 +32,8 @@ regsvr32 /u [/i:event_source_name] pgsql_library_directory/pgevent.dll
 
 {% include note.html content=" Veritabanı sunucusunda olay günlüğünü etkinleştirmek için, `postgresql.conf` dosyasında `log_destination` öğesini **eventlog** içerecek şekilde değiştirin." %}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/event-log-registration.html)
+
 {% include links.html %}

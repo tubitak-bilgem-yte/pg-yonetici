@@ -119,4 +119,8 @@ openssl x509 -req -in server.csr -text -days 365 \
   -out server.crt
 ```
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/ssl-tcp.html)
+
 {% include links.html %}

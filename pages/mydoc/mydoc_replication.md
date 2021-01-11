@@ -96,4 +96,8 @@ Bu başlıkta verilen ayarlar logical replikasyon subscriber davranışını kon
 
 {% include note.html content=" **wal_receiver_timeout**, **wal_receiver_status_interval** ve **wal_retrieve_retry_interval** yapılandırma parametreleri de logical replication worker'larını etkiler."%}
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-replication.html)
+
 {% include links.html %}

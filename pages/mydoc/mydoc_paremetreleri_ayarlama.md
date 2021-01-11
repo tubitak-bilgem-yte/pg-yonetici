@@ -154,4 +154,8 @@ Dosyaları daha açıklayıcı bir şekilde adlandırmak için aşağıdaki gibi
 
 Bu tür bir düzen, yapılandırma dosyası varyasyonları için benzersiz bir isim sağlar. Bu, birden çok sunucunun yapılandırma dosyalarının bir sürüm kontrol deposu gibi tek bir noktada depolandığı kullanımlarda, belirsizliği ortadan kaldırmaya yardımcı olur.
 
+**Kaynak:**
+
+[1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/config-setting.html)
+
 {% include links.html %}
