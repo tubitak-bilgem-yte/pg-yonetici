@@ -62,7 +62,6 @@ Kelime | Anlam |
 **Wrapper** | Sarmalayıcı |
 **Escape Sequence** | Kaçış dizisi |
 **Backend** | Arka uç |
-**Bind** | Bağlamak |
 **Extended query** | Genişletilmiş sorgu |
 **Internal** | iç; içsel |
 **Wraparound** | Sarım |
@@ -98,9 +97,31 @@ Kelime | Anlam |
 **Partitioned Table** | Bölümlenmiş Tablo |
 **Partitioning Method** | Bölümleme Yöntemi |
 **Partition Keys** | Bölüm Anahtarı |
-**Partitioned Table** | Tablo alanı |
-**Partitioned Table** | Tablo alanı |
+**External Data** | Harici veri |
+**Superuser** | Süper kullanıcı |
+**Schema** | Şema |
+**Timestamp** | Zaman damgası |
+**Timezone** | zaman dilimi |
+**Audit** | Denetim |
+**Relation** | İlişki |
+**Monitoring** | İzleme, Gözetleme |
+**Deadlock** | Kilitlenme |
+**Failover** | Yük devretme |
+**Tuning** | Ayarlama |
+**Reporting** | Raporlama |
+**Extension** | Uzantı |
+**Client** | İstemci |
+**Plain text** | Düz metin |
+**Upgrade** | Yükseltme |
+**Executable** | Yürütülebilir |
+**Migration** | Göç, Taşıma |
+**Replication** | Replikasyon, Kopyalarak çoğaltma |
+**Statement** | Deyim |
 
 <div class="datatable-end"></div>
+
+**Kaynak:**
+
+[1]. [TBD BİLİŞİM TERİMLERİ KARŞILIKLAR SÖZLÜĞÜ](https://eski.tbd.org.tr/index.php?sayfa=sozluk&mi1&tipi=ara&harf=A&arama=statement)
 
 {% include links.html %}
