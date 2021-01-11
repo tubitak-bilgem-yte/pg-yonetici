@@ -4,6 +4,7 @@ tags: [PostgreSQL]
 keywords: postgres, sözlük
 last_updated: January 11, 2021
 sidebar: mydoc_sidebar
+datatable: true
 permalink: mydoc_sozluk.html
 folder: mydoc
 ---
