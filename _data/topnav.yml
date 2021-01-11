@@ -5,6 +5,8 @@ topnav:
   items:
 #    - title: Blog
 #      url: /news
+    - title: Sözlük
+      url: /mydoc_sozluk.html
     - title: Katkı Rehberi
       url: /mydoc_katki_rehberi.html
     - title: PostgreSQL Geliştirici Dokümanı
