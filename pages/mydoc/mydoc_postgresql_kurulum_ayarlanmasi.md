@@ -30,13 +30,13 @@ PostgreSQL sunucunun kurulumu:
 $ yum install postgresql13-server postgresql13-contrib
 ```
 
-Kurulumun tamamlamasından sonra PostgreSQL sunucu istemci programları ve eklentiler kurulur. Veri dizini boş olarak oluşturulmuş ve kurulum ile birlikte gelen `postgres` sistem kullanıcısına verilmiş durumdadır. Kurulumdan sonra standart ayarlarla PostgreSQL ayağa kaldırılabilir. Ancak önce DB’nin bir seferliğine ilklendirilmesi (initialize) edilmesi gerekir. İlklendirme işlemi şu şekildedir:
+Kurulumun tamamlamasından sonra PostgreSQL sunucu istemci programları ve eklentiler kurulur. Veri dizini boş olarak oluşturulmuş ve kurulum ile birlikte gelen `postgres` sistem kullanıcısına verilmiş durumdadır. Kurulumdan sonra standart ayarlarla PostgreSQL ayağa kaldırılabilir. Ancak önce VTnin bir seferliğine ilklendirilmesi (initialize) gerekir. İlklendirme işlemi şu şekildedir:
 
 ```sh
 /usr/pgsql-1/bin/postgresql-13-setup initdb
 ```
 
-İlklendirme işlemiyle **catalog cluster** (database cluster) oluşutulur. PostgreSQL’in veri dizininde dosyaların oluştuğunu görürüz:
+İlklendirme işlemiyle **catalog cluster** (database cluster) ya da veritabanı kümesi oluşutulur. PostgreSQL’in veri dizininde dosyaların oluştuğunu görürüz:
 
 ```sh
 ls -la /var/lib/pgsql/13/data
@@ -65,7 +65,7 @@ su postgres -c '/usr/pgsql-13/bin/pg_ctl start -D \
              /usr/local/pgsql/data -l serverlog'
 ```
 
-Sunucunun ayağa kalktığı loglar izlenerek takip edilir. Sunucu ilklendirme loglarını ``/var/lib/pgsql/13/initdb.log`` dosyasına yazılır. Sonraki zamanlarda ise log dosyaları log dizininde gün ekiyle tutulacaktır:
+Sunucunun ayağa kalktığı, loglar izlenerek takip edilir. Sunucu ilklendirme logları ``/var/lib/pgsql/13/initdb.log`` dosyasına yazılır. Sonraki zamanlarda ise log dosyaları log dizininde gün ekiyle tutulacaktır:
 
 ```sh
 ls -l /var/lib/pgsql/13/data/log
@@ -75,7 +75,7 @@ total 4
 
 ## PostgreSQL Sunucu Ayarları
 
-PostgreSQL varsayılan ayarlarına dokunulmadan ayağa kaldırılabilir. Ayar değişiklikleri için oynanacak temel ayar dosyası: `/var/lib/pgsql/13/data/postgresql.conf`
+PostgreSQL varsayılan ayarlarına dokunulmadan ayağa kaldırılabilir. Ayar değişiklikleri için değiştirilecek temel ayar dosyası: `/var/lib/pgsql/13/data/postgresql.conf`
 
 Ayarların çoğu **reload** ile aktifleşir, **restart** gerektirenler dosyada belirtilmiştir. PostgreSQL *reload* edildiğinde servis kesintisi yapılmadan ayar dosyasındaki değişiklikler tekrar okunur. Mevcut bağlantıların düşmesine neden olmayacağı için *restart* gerektiren özel parametrelerin değişimi hariç tüm durumlarda *reload* tercih edilmelidir.
 
@@ -112,7 +112,7 @@ ALTER SYSTEM
 
 ### PostgreSQL Ayarları: Dosya Yerleri
 
-PostgreSQL veri dizini ile yetkilendirme ayar dosyalarının yerleri özel olarak belirtilebilir. Özel olarak belirlenmezse varsayılanda olarak PostgreSQL sürecini başlatırken verilen ``-D`` parametresinden veya **PGDATA** çevre değişkeninden alınır. Değiştirmek istenirse:
+PostgreSQL veri dizini ile yetkilendirme ayar dosyalarının yerleri özel olarak belirtilebilir. Özel olarak belirlenmezse varsayılan olarak PostgreSQL sürecini başlatırken verilen ``-D`` parametresinden veya **PGDATA** çevresel değişkeninden alınır. Değiştirmek istenirse:
 
 ```sh
 data_directory = '/srv/postgresql'
@@ -150,7 +150,7 @@ max_connections = 100
 
 ### PostgreSQL Ayarları: Zaman
 
-PostgreSQL’in sistemin zaman bilgilerini kullanması için ``--with-system-tzdata`` parametresiyle derlenmiş olması gerekir (rpm kurulumunda bu şekilde). Veritabanının kullandığı zaman ve yerellik bilgileri ilklendirme sırasında sunucudan alınır.
+PostgreSQL’in sistemin zaman bilgilerini kullanması için ``--with-system-tzdata`` parametresiyle derlenmiş olması gerekir (rpm kurulumunda bu şekildedir). Veritabanının kullandığı zaman ve yerellik bilgileri ilklendirme sırasında sunucudan alınır.
 
 ```text
 postgres=# show timezone;
