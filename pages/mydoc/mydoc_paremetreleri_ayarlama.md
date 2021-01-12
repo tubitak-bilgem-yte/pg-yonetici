@@ -20,7 +20,7 @@ Parametre isimleri büyük / küçük harfe duyarlı değildir. Her parametre Bo
 
 - **Numeric (integer ve floating point):** Numeric parametreler tamsayı (integer) ve ondalıklı (floating-point) sayı formatlarında belirtilebilir. Ondalıklı değerler, parametre integer tipindeyse en yakın tam sayıya yuvarlanır.
 
-- **Birimli Numeric:** Bazı sayısal parametreler bellek ve zaman miktarlarını tanımlayan örtük bir birime sahiptir. Birim bytes, kilobytes, blocks (tipik olarak sekiz kilobayt), milisaniye, saniye veya dakika olabilir. Bu birimlerden biriyle süslenmemiş sayısal değerler, ayarın `pg_settings.unit`'ten öğrenilen varsayılan birimini kullanır. Kolaylık sağlanması için ayarlar açıkça belirtilen bir birimle verilebilir. Örneğin bir zaman değeri '120 ms' şeklinde ifade edilebilir. Bu kullanım, mevcut parametre birimini ne olursa olsun dönüştürecektir. Değerler, string olarak tırnak işaretleriyle verilir. Birim ismi büyük / küçük harfe duyarlıdır, sayısal değer ile birim arasında boşluk olabilir.
+- **Birimli Numeric:** Bazı sayısal parametreler bellek ve zaman miktarlarını tanımlayan örtük bir birime sahiptir. Birim bytes, kilobytes, blocks (tipik olarak sekiz kilobayt), milisaniye, saniye veya dakika olabilir. Bu birimlerden herhangi birisiyle belirtilmemiş sayısal değerler, ayarın `pg_settings.unit`'ten öğrenilen varsayılan birimini kullanır. Kolaylık sağlanması için ayarlar açıkça belirtilen bir birimle verilebilir. Örneğin bir zaman değeri '120 ms' şeklinde ifade edilebilir. Bu kullanım, mevcut parametre birimini ne olursa olsun dönüştürecektir. Değerler, string olarak tırnak işaretleriyle verilir. Birim ismi büyük / küçük harfe duyarlıdır, sayısal değer ile birim arasında boşluk olabilir.
   - Geçerli bellek birimleri: B (bayt), kB (kilobayt), MB (megabayt), GB (gigabayt) ve TB (terabayt).
   - Geçerli zaman birimleri: us (mikrosaniye), ms (milisaniye), s (saniye), min (dakika), h (saat) ve d (gün).
 
@@ -30,7 +30,7 @@ Parametre isimleri büyük / küçük harfe duyarlı değildir. Her parametre Bo
 
 ### Yapılandırma Dosyası Aracılığıyla Parametre Etkileşimi
 
-Parametreleri ayarlamanın en temel yolu `postgresql.conf` dosyasını düzenlemektir. Veritabanı başlatıldığında varsayılan bir kopya veri dizininde oluşturulur. Bu dosyanın neye benzediğine dair örnek:
+Parametreleri ayarlamanın en temel yolu `postgresql.conf` dosyasını düzenlemektir. Veritabanı başlatıldığında varsayılan bir kopya, veri dizininde oluşturulur. Bu dosya aşağıdakine benzer:
 
 ```bash
 # This is a comment
@@ -40,19 +40,19 @@ search_path = '"$user", public'
 shared_buffers = 128MB
 ```
 
-Her satırda bir parametre belirtilir. Parametre ismi ve değeri arasındaki eşittir işareti isteğe bağlıdır. Parametre değerinde tırnak içindeki boşlular dışındaki boşluklar önemsizdir. Boş satırlar önemsenmez. Hash işaretleri (#), ilgili satırın yorum satırı olduğunu belirtir. Basit olmayan tanımlayıcılar ve sayısal olmayan parametre değerleri tek tırnak içerisinde verilmelidir. Dosya, aynı parametre için birden fazla giriş içeriyorsa en sonuncusu kabul edilir.
+Her satırda bir parametre belirtilir. Parametre ismi ve değeri arasındaki eşittir işareti isteğe bağlıdır. Parametre değerinde tırnak içindeki boşluklar dışındaki diğer boşluklar önemsizdir. Boş satırlar önemsenmez. Hash işaretleri (#), ilgili satırın yorum satırı olduğunu belirtir. Basit olmayan tanımlayıcılar ve sayısal olmayan parametre değerleri tek tırnak içerisinde verilmelidir. Dosya, aynı parametre için birden fazla giriş içeriyorsa en sonuncusu kabul edilir.
 
 Bu yöntemle ayarlanan parametreler, küme için varsayılan değerler olur. Geçersiz kılınmadıkları sürece aktif oturumlar tarafından görülen ayarlar bunlardır.
 
 Ana sunucu süreci SIGHUP sinyali aldığında yapılandırma dosyasını yeniden okur. SIGHUP sinyali `pg_ctl reload` komutu veya `pg_reload_conf ()` SQL işlevi ile gönderilebilir. Ana sunucu süreci bu sinyali, çalışan tüm sunucu süreçlerine yayar ve mevcut oturumlar da yeni değerlere adepte olur. Bu, o anda yürütülen istemci komutunun tamamlanmasından sonra gerçekleşir. İsteğe göre sinyal doğrudan bir sunucu sürecine gönderilebilir. Bazı parametreler yalnızca sunucu başlangıcında ayarlanabilir. Yapılandırma dosyasında yapılan herhangi bir değişiklik, sunucu yeniden başlatılıncaya kadar yok sayılır. Yapılandırma dosyasındaki geçersiz parametre ayarları benzer şekilde SIGHUP işlemi sırasında önemsenmez ancak günlüğe kaydedilir.
 
-PostgreSQL veri dizininde *postgresql.conf* ile aynı formatta, otomatik düzenlemeler için `postgresql.auto.conf` dosyasını içerir. *postgresql.auto.conf* [ALTER SYSTEM](https://www.postgresql.org/docs/current/sql-altersystem.html) komutuyla verilen ayarları içerir. Bu dosya içindeki ayarlar *postgresql.conf* içindeki ayarları geçersiz kılar. *postgresql.auto.conf* dosyası harici araçlar tarafından da değiştirilebilir. Bu araçlar ALTER SYSTEM'in yaptığı gibi, yeni ayarlar ekleyebilir veya tekrarlanan ayar ve yorumları kaldırabilir.
+PostgreSQL veri dizininde *postgresql.conf* ile aynı formatta, otomatik düzenlemeler için `postgresql.auto.conf` dosyasını içerir. *postgresql.auto.conf* [ALTER SYSTEM](https://www.postgresql.org/docs/current/sql-altersystem.html) komutuyla verilen ayarları içerir. Bu dosya içindeki ayarlar, *postgresql.conf* içindeki ayarları geçersiz kılar. *postgresql.auto.conf* dosyası harici araçlar tarafından da değiştirilebilir. Bu araçlar ALTER SYSTEM'in yaptığı gibi, yeni ayarlar ekleyebilir veya tekrarlanan ayar ve yorumları kaldırabilir.
 
-Yapılandırma dosyalarındaki değişiklikler önceden test etmek veya SIGHUP sinyalinden istenen etkiler alınmadığı durumlarda sorunları tespit etmek için [`pg_file_settings`](https://www.postgresql.org/docs/current/view-pg-file-settings.html) sistem görünümü kullanılabilir.
+Yapılandırma dosyalarındaki değişiklikleri önceden test etmek veya SIGHUP sinyalinden istenen etkiler alınmadığı durumlarda sorunları tespit etmek için [`pg_file_settings`](https://www.postgresql.org/docs/current/view-pg-file-settings.html) sistem view'ı kullanılabilir.
 
 ### SQL Aracılığıyla Parametre Etkileşimi
 
-PostgreSQL yapılandırma varsayılanları ayarlamak için üç SQL komutu sağlar. `ALTER SYSTEM` komutu, global varsayılanları değiştirmek için SQL erişilebilir bir yöntem sağlar. İşlevsel olarak *postgresql.conf*'u düzenlemekle eşdeğerdir. Bu komuta ek, herbir veritabanı ve rol için varsayılanların ayarlanabilmesi için iki komut vardır:
+PostgreSQL yapılandırma varsayılanları ayarlamak için üç SQL komutu sağlar. `ALTER SYSTEM` komutu, global varsayılanları değiştirmek için SQL erişilebilir bir yöntem sağlar. İşlevsel olarak *postgresql.conf*'u düzenlemekle eşdeğerdir. Bu komuta ek, her bir veritabanı ve rol için varsayılanların ayarlanabilmesi için iki komut vardır:
 
 - `ALTER DATABASE`, global ayarların veritabanı bazında geçersiz kılınması için kullanılır.
 - `ALTER ROLE`, kullanıcı spesifik değerlerle hem global hem de veritabanı bazında ayarların geçersiz kılınmasını sağlar.
@@ -82,7 +82,7 @@ UPDATE pg_settings SET setting = reset_val WHERE name = 'configuration_parameter
 
 ### Kabuk Aracılığıyla Parametre Etkileşimi
 
-PostgreSQL ayarları, kabuk imkanları kullanılarak verilebilir.
+PostgreSQL ayarları, kabuk kullanılarak verilebilir.
 
 - Sunucu başlatılırken, parametre ayarları `-c` komut satırı parametresi ile `postgres` komutuna verilir. Bu yolla yapılan ayarlar, *postgresql.conf* ve `ALTER SYSTEM` ile yapılan ayarlamarı geçersiz kılar. Örnek kullanım,
 
@@ -98,27 +98,27 @@ env PGOPTIONS="-c geqo=off -c statement_timeout=5min" psql
 
 ### Yapılandırma Dosyası İçeriklerini Yönetme
 
-PostgreSQL, kompleks *postgresql.conf* dosyalarını alt dosyalara bölmek için çeşitli özellikler sağlar. Bunlar özellikler, birbiriyle ilişkili farklı yapılandırma ayarlarına sahip sunucuları yönetirken kullanışlıdır.
+PostgreSQL, kompleks *postgresql.conf* dosyalarını alt dosyalara bölmek için çeşitli özellikler sağlar. Bu özellikler, birbiriyle ilişkili farklı yapılandırma ayarlarına sahip sunucuları yönetirken kullanışlıdır.
 
-*postgresql.conf* dosyası içerdiği parametre ayarlarına ek başka bir dosya belirten `include direktifleri` içerebilir. *include* yoluyla verilen dosya yapılandırma dosyasına eklenmiş gibi okunur ve işlenir. Bu, bir yapılandırma dosyasının fiziksel olarak ayrı parçalara bölünmesine olanak tanır. Basitçe direktif dahil etme:
+*postgresql.conf* dosyası içerdiği parametre ayarlarına ek başka bir dosya belirten `include` direktifleri içerebilir. *include* yoluyla verilen dosya, yapılandırma dosyasına eklenmiş gibi okunur ve işlenir. Bu, bir yapılandırma dosyasının fiziksel olarak ayrı parçalara bölünmesine olanak tanır. Basitçe direktif dahil etme şu şekildedir:
 
 ```bash
 include 'filename'
 ```
 
-{% include callout.html content=" Dosya adı mutlak bir yol değilse yapılandırma dosyasının bulunduğu dizine göre referans alınır." type="info" %}
+{% include callout.html content=" Dosya yolu mutlak bir yol değilse yapılandırma dosyasının bulunduğu dizine göre referans alınır." type="info" %}
 
-Başvurulan dosyanın mevcut olmadığı veya okunamadığı durumlar için *include direktifi* ile aynı şekilde davranan `include_if_exists` direktif de verilebilir. *include* bunu bir hata koşulu olarak kabul eder, `include_if_exists` günlüğe bir mesajı yazarak verilen yapılandırma dosyasını işlemeye devam eder.
+Başvurulan dosyanın mevcut olmadığı veya okunamadığı durumlar için *include direktifi* ile aynı şekilde davranan `include_if_exists` ile direktif de verilebilir. *include* bunu bir hata koşulu olarak kabul eder, `include_if_exists` günlüğe bir mesajı yazarak verilen yapılandırma dosyasını işlemeye devam eder.
 
-*postgresql.conf* dosyasında, dahil edilecek tüm yapılandırma dosyalarının bulunduğu bir dizini belirten `include_dir` direktifi verilebilir. Şu şekilde,
+*postgresql.conf* dosyasında, dahil edilecek tüm yapılandırma dosyalarının bulunduğu bir dizini belirten `include_dir` direktifi verilebilir. Örnek:
 
 ```bash
 include_dir 'directory'
 ```
 
-Mutlak olmayan dizin isimleri, referans yapılandırma dosyalarını içeren dizine göre ilişkilendirilir. Belirtilen dizin içindeki `.conf` sonekiyle biten dosyalar dahil edilecektir. `.` ile başlayan dosyalar bazı platformlarda gizlendiği için bu tür dosyalar hataları önlemek adına görmezden gelinir. *include_dir* içindeki dosyalar, dosya ismi sırasına göre işlenir.
+Mutlak olmayan dizin isimleri, referans yapılandırma dosyalarını içeren dizine göre ilişkilendirilir. Belirtilen dizin içindeki `.conf` son ekiyle biten dosyalar dahil edilecektir. `.` ile başlayan dosyalar bazı platformlarda gizlendiği için bu tür dosyalar hataları önlemek adına görmezden gelinir. *include_dir* içindeki dosyalar, dosya ismi sırasına göre işlenir.
 
-Dosyaları ve dizinleri dahil edip tek büyük *postgresql.conf* dosyası kullanmak yerine veritabanı yapılandırma bölümlerini mantıksal olarak ayırarak kullanılabilir. Farklı miktarda bellek kullanan iki veritabanı sunucusuna sahip bir şirket düşünün. Her ikisininde paylaşacağı yapılandırma öğeleri elbette vardır (logging gibi). Ancak sunucuların bellekle ilgili parametreleri değişiklik gösterecektir. Sunucu spesifik özelleştirmeler de olabilir. Bu durumu yönetmenin yolu; sunucunuz bazlı yapılandırma değişikliklerini üç dosyaya bölmektir. Bu dosyaları dahil etmek için *postgresql.conf* sonuna şu şekilde ekleme yapılır:
+Dosyaları ve dizinleri dahil edip tek büyük *postgresql.conf* dosyası kullanmak yerine veritabanı yapılandırma bölümlerini mantıksal olarak ayırarak kullanılabilir. Farklı miktarda bellek kullanan iki veritabanı sunucusuna sahip bir şirket düşünün. Her ikisininde paylaşacağı yapılandırma öğeleri elbette vardır (logging gibi). Ancak sunucuların bellekle ilgili parametreleri değişiklik gösterecektir. Sunucu spesifik özelleştirmeler de olabilir. Bu durumu yönetmenin yolu; sunucu bazlı yapılandırma değişikliklerini üç dosyaya bölmektir. Bu dosyaları dahil etmek için *postgresql.conf* sonuna şu şekilde ekleme yapılır:
 
 ```bash
 include 'shared.conf'
@@ -144,7 +144,7 @@ Ardından, `conf.d` dizinindeki dosyaları şu şekilde adlandırılabilir:
 
 Bu adlandırma düzeni, dosyaların yükleneceği sırayı belirtir. Sunucu, yapılandırma dosyalarını okurken bir parametre için karşılaşılan son ayarı kullanacağından bu önemlidir. Verilen örnekte, `conf.d/02server.conf` içerisinde ayarlanan bir parametre, `conf.d/01memory.conf` içinde ayarlanan aynı parametreyi geçersiz kılar.
 
-Dosyaları daha açıklayıcı bir şekilde adlandırmak için aşağıdaki gibi bir kullanım tercih edilebilir,
+Dosyaları daha açıklayıcı bir şekilde adlandırmak için aşağıdaki gibi bir kullanım tercih edilebilir:
 
 ```bash
 00shared.conf
@@ -152,7 +152,7 @@ Dosyaları daha açıklayıcı bir şekilde adlandırmak için aşağıdaki gibi
 02server-foo.conf
 ```
 
-Bu tür bir düzen, yapılandırma dosyası varyasyonları için benzersiz bir isim sağlar. Bu, birden çok sunucunun yapılandırma dosyalarının bir sürüm kontrol deposu gibi tek bir noktada depolandığı kullanımlarda, belirsizliği ortadan kaldırmaya yardımcı olur.
+Bu şekilde yapılmış bir düzen, yapılandırma dosyası varyasyonları için benzersiz bir isim sağlar. Bu, birden çok sunucunun yapılandırma dosyalarının bir sürüm kontrol deposu gibi tek bir noktada depolandığı kullanımlarda, belirsizliği ortadan kaldırmaya yardımcı olur.
 
 **Kaynak:**
 
