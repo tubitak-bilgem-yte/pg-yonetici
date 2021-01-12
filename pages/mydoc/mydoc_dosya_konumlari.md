@@ -10,7 +10,7 @@ folder: mydoc
 
 ## Dosya Konumları
 
-PostgreSQL; *postgresql.conf* dosyasına ek olarak, istemci kimlik doğrulamasını kontrol eden iki yapılandırma dosyası daha kullanır. Bu yapılandırma dosyaları varsayılan olarak veritabanı kümesinin veri dizininde depolanır. Bu bölümde ele alınan parametreler, yapılandırma dosyalarının başka bir yerde konumlandırılmasına olanak tanır. Bu, bazı durumlarda yönetimi kolaylaştırır. Yapılandırma dosyaları ayrı tutulması yedeklenmesini kolaylaşırır.
+PostgreSQL; *postgresql.conf* dosyasına ek olarak, istemci kimlik doğrulamasını kontrol eden iki yapılandırma dosyası daha kullanır. Bu yapılandırma dosyaları varsayılan olarak veritabanı kümesinin veri dizininde depolanır. Bu bölümde ele alınan parametreler, yapılandırma dosyalarının başka bir yerde konumlandırılmasına olanak tanır. Bu, bazı durumlarda yönetimi kolaylaştırır. Yapılandırma dosyalarının ayrı tutulması yedeklenmesini kolaylaşırır.
 
 {% include callout.html content=" **`data_directory (string)`**: Verilerin depolanacağı dizini belirtir. Bu parametre yalnızca sunucu başlangıcında ayarlanabilir." type="primary" %}
 
