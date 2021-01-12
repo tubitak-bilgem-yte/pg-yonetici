@@ -118,7 +118,7 @@ mydoc_dosya_konumlari.md --> /mydoc_dosya_konumlari.html
 3. Metin editörü açıldıktan sonra istenilen değişiklikler yapılır. Bu değişikliklerin önizlemesi üstte bulunan **`Preview Changes`** kısmında görülebilir. Değişiklikler yapıldıktan sonra açıklayıcı bir mesaj yazılır ve **`Propose Changes`** butonuna basılır.
 ![Preview Changes](/images/contribution-3.png)
 
-4. Açılan sayfada *Create Pull Request" butonuna basılır.
+4. Açılan sayfada **`Create Pull Request`** butonuna basılır.
 ![Create Pull Request](/images/contribution-4.png)
 
 5. Açılan pull request sayfasında **`Create Pull Request`** butonuna basılır ve değişiklikler proje yöneticisine gönderilir.
