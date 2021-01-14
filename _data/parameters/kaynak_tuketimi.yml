@@ -1,0 +1,7 @@
+max_parallel_workers:
+  Tip: integer
+  Varsayılan: 8
+  Min: 0
+  Max: 1024
+  context: user
+  restart: Gerektirmez
