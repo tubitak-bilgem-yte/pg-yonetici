@@ -365,7 +365,7 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 <span class="label label-default">Tip: `integer`</span>
 <span class="label label-primary">Varsayılan: `8`</span>
 <span class="label label-success">Min: `0`</span>
-<span class="label label-max">Max: `1024`</span>
+<span class="label label-info">Max: `1024`</span>
 <span class="label label-warning">Bağlam: `user`</span>
 <span class="label label-danger">Yeniden başlatma: `Gerektirmez`</span>
 {% include callout.html content="**`max_parallel_workers`**<br/><br/>
