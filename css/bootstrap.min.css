@@ -5671,12 +5671,22 @@ a.label:hover {
     background-color: #31b0d5
 }
 
-.label-max {
-    background-color: #5bc0de
+.label-warning {
+    background-color: #f0ad4e
 }
-.label-max[href]:focus,
-.label-max[href]:hover {
-    background-color: #d53175
+
+.label-warning[href]:focus,
+.label-warning[href]:hover {
+    background-color: #ec971f
+}
+
+.label-danger {
+    background-color: #d9534f
+}
+
+.label-danger[href]:focus,
+.label-danger[href]:hover {
+    background-color: #c9302c
 }
 
 .badge {
