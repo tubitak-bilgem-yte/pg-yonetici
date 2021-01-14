@@ -5689,6 +5689,53 @@ a.label:hover {
     background-color: #c9302c
 }
 
+.label-type {
+    background-color: #5e5e5e
+}
+
+.label-type[href]:focus,
+.label-type[href]:hover {
+    background-color: #5e5e5e
+}
+
+.label-varsayilan {
+    background-color: #286090
+}
+
+.label-varsayilan[href]:focus,
+.label-varsayilan[href]:hover {
+    background-color: #286090
+}
+
+
+.label-min {
+    background-color: #449d44
+}
+
+.label-min[href]:focus,
+.label-min[href]:hover {
+    background-color: #449d44
+}
+
+
+.label-context {
+    background-color: #ec971f
+}
+
+.label-context[href]:focus,
+.label-context[href]:hover {
+    background-color: #ec971f
+}
+
+.label-restart {
+    background-color: #c9302c
+}
+
+.label-restart[href]:focus,
+.label-restart[href]:hover {
+    background-color: #c9302c
+}
+
 .badge {
     display: inline-block;
     min-width: 10px;
