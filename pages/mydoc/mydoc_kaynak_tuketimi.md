@@ -364,12 +364,12 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_workers`
 
-<span class="label label-type">Tip: `{{data.kaynak_tuketimi.max_parallel_workers.tip}}`</span>
-<span class="label label-varsayilan">Varsayılan: `{{site.data.kaynak_tuketimi.max_parallel_workers.varsayilan}}`</span>
-<span class="label label-min">Min: {{site.data.kaynak_tuketimi.max_parallel_workers.Min}}</span>
-<span class="label label-max">Max: {{site.data.kaynak_tuketimi.max_parallel_workers.Max}}</span>
-<span class="label label-context">Bağlam: `{{site.data.kaynak_tuketimi.max_parallel_workers.restart}}`</span>
-<span class="label label-restart">Yeniden başlatma: `{{site.data.kaynak_tuketimi.max_parallel_workers.restart}}`</span>
+<span class="label label-type">Tip: `integer`</span>
+<span class="label label-varsayilan">Varsayılan: `8`</span>
+<span class="label label-min">Min: `0`</span>
+<span class="label label-max">Max: `1024`</span>
+<span class="label label-context">Bağlam: `user`</span>
+<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
 {% include callout.html content=" **Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar.** Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
 
 **Kaynak:**
