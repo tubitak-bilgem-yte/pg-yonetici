@@ -338,16 +338,16 @@ Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafı
 
 Bu değer değiştirilirken `max_parallel_workers`, `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerinin ayarlanması düşünülebilir." type="primary" %}
 
-{% include callout.html content="**`max_parallel_workers_per_gather`**<br/><br/>
+#### max_parallel_workers_per_gather
 
-- Tip: `integer`<br/><br/>
-- Varsayılan: `2`<br/><br/>
-- Min: `0`<br/><br/>
-- Max: `1024`<br/><br/>
-- Bağlam: `user`<br/><br/>
-- Yeniden başlatma: `Gerektirmez`<br/><br/>
+<span class="label label-type">Tip: `integer`</span>
+<span class="label label-varsayilan">Varsayılan: `2`</span>
+<span class="label label-min">Min: `0`</span>
+<span class="label label-max">Max: `1024`</span>
+<span class="label label-context">Bağlam: `user`</span>
+<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
 
-**Yürütme düğümü başına maksimum paralel işlem sayısını ayarlar.** Tek bir `Gather` veya `Gather Merge` düğümü tarafından başlatılabilecek maksimum worker sayısını ayarlar. Paralel worker'lar `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olmadığında, plan beklenenden daha az sayıda worker ile çalışarak verimsiz olabilir. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması paralel sorgu yürütmeyi devre dışı bırakır.<br/><br/>
+{% include callout.html content=" **Yürütme düğümü başına maksimum paralel işlem sayısını ayarlar.** Tek bir `Gather` veya `Gather Merge` düğümü tarafından başlatılabilecek maksimum worker sayısını ayarlar. Paralel worker'lar `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olmadığında, plan beklenenden daha az sayıda worker ile çalışarak verimsiz olabilir. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması paralel sorgu yürütmeyi devre dışı bırakır.<br/><br/>
 
 Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebilir. Çünkü her worker süreci sistem üzerinde ek bir kullanıcı oturumuyla hemen hemen aynı etkiye sahip olan tamamen ayrı bir süreçtir. `work_mem` gibi kaynak limitleri her bir worker için ayrı ayrı uygulanır. Paralel sorgu hakkında daha fazla bilgi için bkz [](https://www.postgresql.org/docs/current/parallel-query.html)." type="primary" %}
 
@@ -364,7 +364,7 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_workers`
 
-<span class="label label-type">Tip: `integer`</span>
+<span class="label label-type">Tip: {{site.}}</span>
 <span class="label label-varsayilan">Varsayılan: `8`</span>
 <span class="label label-min">Min: `0`</span>
 <span class="label label-max">Max: `1024`</span>
