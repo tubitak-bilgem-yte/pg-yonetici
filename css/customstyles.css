@@ -1006,7 +1006,29 @@ span.label.label-primary {
 }
 .col-lg-12 .nav li a {background-color: white}
 
+span.label.label-type {
+    background-color: #5e5e5e;
+}
 
+span.label.label-varsayilan {
+    background-color: #286090;
+}
+
+span.label.label-min {
+    background-color: #449d44;
+}
+
+span.label.label-max {
+    background-color: #31b0d5;
+}
+
+span.label.label-context {
+    background-color: #ec971f;
+}
+
+span.label.label-restart {
+    background-color:  #c9302c;
+}
 .nav li.active > a.subfoldersTitle {
     background-color: whitesmoke;
     font-weight: bold;
