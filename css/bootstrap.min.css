@@ -5662,6 +5662,16 @@ a.label:hover {
     background-color: #449d44
 }
 
+
+.label-max {
+    background-color: #5cb85c
+}
+
+.label-max[href]:focus,
+.label-max[href]:hover {
+    background-color: #449d44
+}
+
 .label-info {
     background-color: #5bc0de
 }
