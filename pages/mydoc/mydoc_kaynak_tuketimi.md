@@ -353,7 +353,7 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_maintenance_workers`
 
-<span class="label label-type">Tip: `integer`</span>
+<span class="label label-type">Tip: integer</span>
 <span class="label label-varsayilan">Varsayılan: `2`</span>
 <span class="label label-min">Min: `0`</span>
 <span class="label label-max">Max: `1024`</span>
@@ -364,7 +364,11 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_workers`
 
-<span class="label label-type">Tip: {{site.}}</span>
+<ul>
+    <li> Tip: {{ site.data.kaynakTuketimi.max_parallel_workers.min }} </li>
+</ul>
+
+<span class="label label-type">Tip: `{{site.kaynakTuketimi.max_parallel_workers.min}}`</span>
 <span class="label label-varsayilan">Varsayılan: `8`</span>
 <span class="label label-min">Min: `0`</span>
 <span class="label label-max">Max: `1024`</span>
@@ -377,5 +381,11 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 [1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-resource.html)
 
 [2]. [postgresqlco.nf](https://postgresqlco.nf)
+
+<span class="label label-type">Tip: {{site.data.members.max_parallel_workers.tip}}</span>
+<span class="label label-varsayilan">Varsayılan: {{site.data.members.max_parallel_workers.default}}</span>
+<span class="label label-min">Min: {{site.data.members.max_parallel_workers.min}}</span>
+<span class="label label-max">Max: {{site.data.members.max_parallel_workers.max}}</span>
+<span class="label label-restart">Bağlam: {{site.data.members.max_parallel_workers.context}}</span>
 
 {% include links.html %}

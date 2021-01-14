@@ -1,0 +1,28 @@
+max_parallel_workers:
+    tip: integer
+    default: 8
+    min: 0
+    max: 1024
+    context: user
+    restart: Gerektirmez
+
+max_parallel_workers2:
+    tip: integer
+    varsayılan: 8
+    min: 0
+    max: 1024
+    context: user
+    restart: Gerektirmez
+
+
+max_parallel_workers25:
+    tip: integer
+    varsayılan: 8
+    min: 0
+    max: 1024
+    context: user
+    restart: Gerektirmez
+
+dave:
+    name: David Smith
+    twitter: DavidSilvaSmith
