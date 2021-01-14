@@ -351,33 +351,26 @@ Bu değer değiştirilirken `max_parallel_workers`, `max_parallel_maintenance_wo
 
 Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebilir. Çünkü her worker süreci sistem üzerinde ek bir kullanıcı oturumuyla hemen hemen aynı etkiye sahip olan tamamen ayrı bir süreçtir. `work_mem` gibi kaynak limitleri her bir worker için ayrı ayrı uygulanır. Paralel sorgu hakkında daha fazla bilgi için bkz [](https://www.postgresql.org/docs/current/parallel-query.html)." type="primary" %}
 
-{% include callout.html content="**`max_parallel_maintenance_workers`**<br/><br/>
+#### `max_parallel_maintenance_workers`
 
-- Tip: `integer`<br/><br/>
-- Varsayılan: `2`<br/><br/>
-- Min: `0`<br/><br/>
-- Max: `1024`<br/><br/>
-- Bağlam: `user`<br/><br/>
-- Yeniden başlatma: `Gerektirmez`<br/><br/>
+<span class="label label-type">Tip: `integer`</span>
+<span class="label label-varsayilan">Varsayılan: `2`</span>
+<span class="label label-min">Min: `0`</span>
+<span class="label label-max">Max: `1024`</span>
+<span class="label label-context">Bağlam: `user`</span>
+<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
 
-**Tek bir utility program komutuyla başlatılabilen maksimum paralel worker sayısını ayarlar.** Şu an için paralel worker kullanımını `CREATE INDEX` (B-tree indekslerde) ve `VACUUM` (FULL olmadan) işlemlerinde desteklenmektedir. Paralel workers `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olamdığında utility program operasyonu beklenenden daha az sayıda worker ile çalışacaktır. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması utility program komutlarının paralel worker kullanmasını devre dışı bırakır." type="primary" %}
+{% include callout.html content=" **Tek bir utility program komutuyla başlatılabilen maksimum paralel worker sayısını ayarlar.** Şu an için paralel worker kullanımını `CREATE INDEX` (B-tree indekslerde) ve `VACUUM` (FULL olmadan) işlemlerinde desteklenmektedir. Paralel workers `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olamdığında utility program operasyonu beklenenden daha az sayıda worker ile çalışacaktır. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması utility program komutlarının paralel worker kullanmasını devre dışı bırakır." type="primary" %}
 
-<span class="label label-default">Tip: `integer`</span>
-<span class="label label-primary">Varsayılan: `8`</span>
-<span class="label label-success">Min: `0`</span>
-<span class="label label-info">Max: `1024`</span>
-<span class="label label-warning">Bağlam: `user`</span>
-<span class="label label-danger">Yeniden başlatma: `Gerektirmez`</span>
-{% include callout.html content="**`max_parallel_workers`**<br/><br/>
+#### `max_parallel_workers`
 
-- Tip: `integer`<br/><br/>
-- Varsayılan: `8`<br/><br/>
-- Min: `0`<br/><br/>
-- Max: `1024`<br/><br/>
-- Bağlam: `user`<br/><br/>
-- Yeniden başlatma: `Gerektirmez`<br/><br/>
-
-**Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar.** Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
+<span class="label label-type">Tip: `integer`</span>
+<span class="label label-varsayilan">Varsayılan: `8`</span>
+<span class="label label-min">Min: `0`</span>
+<span class="label label-max">Max: `1024`</span>
+<span class="label label-context">Bağlam: `user`</span>
+<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
+{% include callout.html content=" **Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar.** Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
 
 **Kaynak:**
 
