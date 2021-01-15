@@ -12,6 +12,10 @@ folder: mydoc
 
 ### Memory
 
+#### `shared_buffers`
+
+{% include parameter_info.html parametre="shared_buffers" %}
+
 {% include callout.html content=" **`shared_buffers`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -26,6 +30,10 @@ folder: mydoc
 
 1 GB veya fazlası RAM'e sahip veritabanı sunucuları için sisteminizdeki belleğin %25'i makul bir `shared_buffers` başlangıç ​​değeridir. Daha büyük shared_buffers ayarlarının etkili olduğu bazı iş yükleri olabilir, ancak PostgreSQL aynı zamanda işletim sistemi önbelleğide kullandığı için RAM'in %40'ından fazlasının shared_buffers'a tahsis edilmesi daha küçük bir miktara kıyasla iyi bir performans göstermeyecektir." type="primary" %}
 
+#### `huge_pages`
+
+{% include parameter_info.html parametre="huge_pages" %}
+
 {% include callout.html content=" **`huge_pages (enum)`**<br/><br/>
 
 - Tip: `enum`<br/><br/>
@@ -35,6 +43,10 @@ folder: mydoc
 - Değerler: `[off, on, try]`<br/><br/>
 
 **Huge page kullanımını kontrol eder.** Geçerli değerler, `try` (varsayılan), `on` ve `off` şeklindedir. huge_pages `try` ayarında sunucu huge page'ler istemeye çalışır, ancak başarısız olursa varsayılana geri döner. `on` ayarında huge page'lerin istenmemesi sunucunun başlamasını engelleyecektir. `off` ayarında huge page'ler istenmez." type="primary" %}
+
+#### `temp_buffers`
+
+{% include parameter_info.html parametre="temp_buffers" %}
 
 {% include callout.html content="**`temp_buffers`**<br/><br/>
 
@@ -47,6 +59,10 @@ folder: mydoc
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 **Her veritabanı oturumunda temporary buffers için kullanılan maksimum bellek miktarını ayarlar.** Bu alanlar, yalnızca geçici tablolara erişim için kullanılan session-local arabellekleridir. Öntanımlı değeri 8 megabayttır (8MB). Bu ayar, bireysel oturumlar içinde yalnızca oturumdaki geçici tabloların ilk kullanımından önce değiştirilebilir. Değeri değiştirmeye yönelik sonraki girişimlerin o oturum üzerinde hiçbir etkisi olmayacaktır." type="primary" %}
+
+#### `max_prepared_transactions`
+
+{% include parameter_info.html parametre="max_prepared_transactions" %}
 
 {% include callout.html content=" **`max_prepared_transactions`**<br/><br/>
 
@@ -63,6 +79,10 @@ Prepared transaction kullanmayı planlamıyorsanız yanlışlıkla oluşturulmas
 
 Standby sunucuda bu parametre primary sunucudakiyle aynı veya daha yüksek bir değere ayarlanmalıdır. Aksi takdirde standby sunucuda sorgulara izin verilmez." type="primary" %}
 
+#### `work_mem`
+
+{% include parameter_info.html parametre="work_mem" %}
+
 {% include callout.html content=" **`work_mem`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -77,6 +97,10 @@ Standby sunucuda bu parametre primary sunucudakiyle aynı veya daha yüksek bir 
 
 Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre daha duyarlıdır. hash table'lar için kullanılabilir bellek `work_mem` ile `hash_mem_multiplier` çarpımından hesaplanır." type="primary" %}
 
+#### `hash_mem_multiplier`
+
+{% include parameter_info.html parametre="max_parallel_maintenance_workers" %}
+
 {% include callout.html content=" **`hash_mem_multiplier`** <br/><br/>
 
 - Tip: `real`<br/><br/>
@@ -87,6 +111,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 **Hash-based operasyonların kullanabileceği maksimum bellek miktarını hesaplamak için kullanılır.** Nihai sınır `work_mem`'in `hash_mem_multiplier` ile çarpılmasıyla belirlenir. Öntanımlı değer 1.0'dır." type="primary" %}
+
+#### `maintenance_work_mem`
+
+{% include parameter_info.html parametre="maintenance_work_mem" %}
 
 {% include callout.html content=" **`maintenance_work_mem`***<br/><br/>
 
@@ -100,6 +128,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 
 `VACUUM`**, `CREATE INDEX` ve `ALTER TABLE ADD FOREIGN KEY` gibi bakım operasyonlarında kullanılacak maksimum bellek miktarını belirtir. Bu değer birimsiz verildiğinde kilobayt olarak alınır. Öntanımlı değeri 64 megabayttır (64MB). Bir veritabanı oturumu tarafından aynı anda bu operasyonlardan yalnızca biri yürütülebilir ve normal kurulumda çoğu eşzamanlı olarak çalışmaz. Bu yüzden `work_mem`'den daha büyük ayar değeri güvenlidir. Daha büyük ayarlar vakumlama ve veritabanı dumplarından geri yükleme performansını artırır." type="primary" %}
 
+#### `autovacuum_work_mem`
+
+{% include parameter_info.html parametre="autovacuum_work_mem" %}
+
 {% include callout.html content=" **`autovacuum_work_mem`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -111,6 +143,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 **Her bir autovacuum worker process tarafından kullanılacak maksimum bellek miktarını belirtir.** Bu değer birimsiz verildiğinde kilobayt olarak alınır. Öntanımlı değeri -1'dir ve bunun yerine `maintenance_work_mem` değerinin kullanılması gerektiğini belirtir." type="primary" %}
+
+#### `logical_decoding_work_mem`
+
+{% include parameter_info.html parametre="logical_decoding_work_mem" %}
 
 {% include callout.html content="**`logical_decoding_work_mem`**<br/><br/>
 
@@ -124,6 +160,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 
 **Logical decoding tarafından kullanılacak maksimum bellek miktarını belirtir.** Bu, logical streaming replication bağlantıları tarafından kullanılan bellek miktarını sınırlar. Öntanımlı olarak 64 megabayttır (64MB). Bu değeri `work_mem`'den önemli ölçüde daha yüksek değerde ayarlamak diske yazılan decoded değişikliklerin miktarı azaltır." type="primary" %}
 
+#### `max_stack_depth`
+
+{% include parameter_info.html parametre="max_stack_depth" %}
+
 {% include callout.html content=" **`max_stack_depth`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -136,6 +176,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 
 **Sunucunun kilobayt cinsinden maksimum execution stack derinliğini ayarlar.** Bu parametre için ideal ayar çekirdek tarafından zorlanan mevcut stack boyutu sınırıdır. Bu değer birimsiz belirtilirse kilobayt olarak alınır. Öntanımlı ayar 2 megabayttır (2MB). Bu değer karmaşık fonksiyonların yürütülmesinde yeterli olmayabilir. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
 
+#### `shared_memory_type`
+
+{% include parameter_info.html parametre="shared_memory_type" %}
+
 {% include callout.html content=" **`shared_memory_type`**<br/><br/>
 
 - Tip: `enum`<br/><br/>
@@ -145,6 +189,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 - Değerler: `[sysv, mmap]`<br/><br/>
 
 **Ana shared memory alanı için sunucunun kullanması gereken shared memory implementasyonunu belirtir.** Alabileceği değerler: `mmap` (mmap kullanılarak ayrılan anonymous shared memory için), `sysv` (shmget ile ayrılan System V shared memory için) ve `windows` (Windows shared memory için)." type="primary" %}
+
+#### `dynamic_shared_memory_type`
+
+{% include parameter_info.html parametre="dynamic_shared_memory_type" %}
 
 {% include callout.html content=" **`dynamic_shared_memory_type`**<br/><br/>
 
@@ -157,6 +205,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 **Sunucunun kullanacağı dynamic shared memory implementasyonunu belirtir.** Alabileceği değerler: `posix` (shm_open kullanılarak ayrılan POSIX shared memory için), `sysv` (shmget aracılığıyla ayrılan System V shared memory için), `windows` (Windows shared memory için) ve `mmap` (veri dizinindeki memory-mapped dosyaları kullanarak shared memory'i simüle etmek için). `mmap` seçeneğinin kullanılması genellikle tavsiye edilmez." type="primary" %}
 
 ### Disk
+
+#### `temp_file_limit`
+
+{% include parameter_info.html parametre="temp_file_limit" %}
 
 {% include callout.html content="**`temp_file_limit`**<br/><br/>
 
@@ -173,6 +225,10 @@ Hash-based operasyonlar kullanılabilir belleğe sort-based operasyonlara göre 
 Bu ayarın, belirli bir PostgreSQL sürecinin kullandığı tüm geçici dosyaların herhangi bir anda kullanılan toplam alanı sınırladığına dikkat edin." type="primary" %}
 
 ### Çekirdek Kaynak Kullanımı
+
+#### `max_files_per_process`
+
+{% include parameter_info.html parametre="max_files_per_process" %}
 
 {% include callout.html content=" **`max_files_per_process`**<br/><br/>
 
@@ -193,6 +249,10 @@ Bu özelliğin amacı yöneticilere, bu komutların eşzamanlı veritabanı etki
 
 Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak devre dışı bırakılmıştır. Bunu etkinleştirmek isterseniz `vacum_cost_delay` değişkenini sıfır olmayan bir değere ayarlayın.
 
+#### `vacuum_cost_delay`
+
+{% include parameter_info.html parametre="vacuum_cost_delay" %}
+
 {% include callout.html content=" **`vacuum_cost_delay`**<br/><br/>
 
 - Tip: `real`<br/><br/>
@@ -205,6 +265,10 @@ Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak d
 
 **Maliyet sınırı aşıldığında sürecin uyuyacağı süre (Vacuum cost delay).** Bu değer birimsiz verilirse milisaniye olarak alınır. Öntanımlı değer sıfırdır ve maliyete dayalı vakum gecikmesi özelliğini devre dışı bırakır. Pozitif değerler maliyete dayalı vakumlamaya izin verir.Maliyete dayalı vacuum kullanılırken `vacuum_cost_delay` için uygun değerler genellikle 1 milisaniye ile ifade edecek kadar çok küçüktür." type="primary" %}
 
+#### `vacuum_cost_page_hit`
+
+{% include parameter_info.html parametre="vacuum_cost_page_hit" %}
+
 {% include callout.html content="**`vacuum_cost_page_hit `**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -215,6 +279,10 @@ Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak d
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
  **Shared buffer cache'de bulunan bir buffer'ı vakumlamanın tahmini maliyeti.** Öntanımlı değer 1'dir. " type="primary" %}
+
+#### `vacuum_cost_page_miss`
+
+{% include parameter_info.html parametre="vacuum_cost_page_miss" %}
 
 {% include callout.html content="**`vacuum_cost_page_miss`**<br/><br/>
 
@@ -227,6 +295,10 @@ Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak d
 
 **Diskten okunması gereken bir buffer'ı vakumlamanın tahmini maliyeti.** Öntanımlı değer 10'dur." type="primary" %}
 
+#### `vacuum_cost_page_dirty`
+
+{% include parameter_info.html parametre="vacuum_cost_page_dirty" %}
+
 {% include callout.html content=" **`vacuum_cost_page_dirty`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -237,6 +309,10 @@ Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak d
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 **Vakum önceden temiz olan bir bloğu değiştirdiğinde alınan tahmini maliyet.** Dirty bloğu tekrar diske geçirmek için gereken ekstra I / O'u temsil eder. Öntanımlı değer 20'dir." type="primary" %}
+
+#### `vacuum_cost_limit`
+
+{% include parameter_info.html parametre="vacuum_cost_limit" %}
 
 {% include callout.html content=" **`vacuum_cost_limit`**<br/><br/>
 
@@ -255,6 +331,10 @@ Bu özellik, manuel olarak verilen VACUUM komutları için öntanımlı olarak d
 
 Background Writer ayrı bir PostgreSQL sunucu sürecidir. Background Writer "dirty", yani yeni veya değiştirilmiş shared buffer'ları diske yazmakla görevlidir. Böylece, sunucu süreçlerinin kullanıcı sorgularını yazması nadiren beklenir veya hiçbir zaman beklenmez. Background Writer I / O yükünde net bir şekilde artışa neden olur, çünkü tekrar tekrar dirty olan bir page her checkpoint aralığında yalnızca bir kez yazılırken Background Writer tarafından birkaç kez yazabilir. Verilen parametreleri davranışları ihtiyaçlarınıza göre ayarlamak için kullanabilirsiniz.
 
+#### `bgwriter_delay`
+
+{% include parameter_info.html parametre="bgwriter_delay" %}
+
 {% include callout.html content=" **`bgwriter_delay`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -267,6 +347,10 @@ Background Writer ayrı bir PostgreSQL sunucu sürecidir. Background Writer "dir
 
 **Background Writer'ın aktif periyodları arasındaki süreyi belirtir.** Background Writer her turda aşağıdaki parametreler ile kontrol edilen sayıdaki dirty buffer'ları diske işlerek `bgwriter_delay` boyunca uyur. Buffer pool'da dirty buffer olmadığında bgwriter_delay'e bakmaksızın daha uzun süre uykuda kalabilir. Bu değer birimsiz belirtilirse milisaniye olarak alınır. Öntanımlı değeri 200 milisaniyedir (200 ms). Birçok sistemde etkili değer 10 milisaniye olmakla bereaber bgwriter_delay'i 10'un katı olmayan bir değere ayarlamak, 10'un bir sonraki katına ayarlamakla aynı sonuçları verebilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
+#### `bgwriter_lru_maxpages`
+
+{% include parameter_info.html parametre="bgwriter_lru_maxpages" %}
+
 {% include callout.html content="**`bgwriter_lru_maxpages`**<br/><br/>
 
 - Tip: `integer`<br/><br/>
@@ -278,6 +362,10 @@ Background Writer ayrı bir PostgreSQL sunucu sürecidir. Background Writer "dir
 
 **Her turda, Background Writer tarafından `bgwriter_lru_maxpages` değerinde buffer'dan fazlası yazılmaz.** Bunu sıfıra ayarlamak, background writing'i devre dışı bırakır (checkpoints etkilenmez). Öntanımlı değeri 100 buffer'dır. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
+#### `bgwriter_lru_multiplier`
+
+{% include parameter_info.html parametre="bgwriter_lru_multiplier" %}
+
 {% include callout.html content=" **`bgwriter_lru_multiplier`**<br/><br/>
 
 - Tip: `real`<br/><br/>
@@ -288,6 +376,10 @@ Background Writer ayrı bir PostgreSQL sunucu sürecidir. Background Writer "dir
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafından ihtiyaç duyulan yeni buffer sayısına bağlıdır. Bir sonraki turda ihtiyaç duyulacak tahmini buffer sayısı, yakın zamandaki ortalama ihtiyacın `bgwriter_lru_multiplier` değeri ile çarpımından bulunur. dirty buffer'lar çok sayıda temiz, yeniden kullanılabilir buffer bulunana kadar yazılır. 1.0 ayarı 'just in time' ilkesini yani tam olarak ihtiyaç duyulan tahmini buffer sayısını yazmayı temsil eder. Daha büyük değerler talepteki ani artışlara karşı bir miktar buffer sağlar. Küçük değerler kasıtlı olarak yazma işlemini sunucu süreçlerine bırakır. Öntanımlı değeri 2.0'dır. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
+
+#### `bgwriter_flush_after`
+
+{% include parameter_info.html parametre="bgwriter_flush_after" %}
 
 {% include callout.html content="**`bgwriter_flush_after`**<br/><br/>
 
@@ -303,6 +395,10 @@ Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafı
 
 ### Asynchronous Davranış
 
+#### `effective_io_concurrency`
+
+{% include parameter_info.html parametre="effective_io_concurrency" %}
+
 {% include callout.html content="**`effective_io_concurrency`**<br/><br/> 
 
 - Tip: `integer`<br/><br/>
@@ -313,6 +409,10 @@ Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafı
 - Yeniden başlatma: `Gerektirmez`<br/><br/>
 
 **Disk alt sistemi tarafından verimli bir şekilde işlenebilen eşzamanlı istek sayısı.** Bu değerin yükseltilmesi, herhangi bir PostgreSQL sessionının paralel olarak başlatmaya çalıştığı I / O operasyonlarının sayısını artırır. İzin verilen aralık 1 ile 1000 arasıdır. 0 asynchronous I / O isteklerini devre dışı bırakır. Şu an için bu ayar sadece bitmap heap taramalarını etkilemektedir. Varsayılan, desteklenen sistemlerde 1, diğerlerinde 0'dır." type="primary" %}
+
+#### `maintenance_io_concurrency`
+
+{% include parameter_info.html parametre="maintenance_io_concurrency" %}
 
 {% include callout.html content="**`maintenance_io_concurrency`**<br/><br/>
 
@@ -325,22 +425,17 @@ Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafı
 
 **İstemci oturumları adına yapılan bakım çalışmaları için kullanılır.** Desteklenen sistemlerde öntanımlı değeri 10'dur, diğerlerinde 0'dır." type="primary" %}
 
-{% include callout.html content="**`max_worker_processes`**<br/><br/>
+#### `max_worker_processes`
 
-- Tip: `integer`<br/><br/>
-- Varsayılan: `8`<br/><br/>
-- Min: `0`<br/><br/>
-- Max: `262143`<br/><br/>
-- Bağlam: `postmaster`<br/><br/>
-- Yeniden başlatma: `Gerektirir`<br/><br/>
+{% include parameter_info.html parametre="max_worker_processes" %}
 
-**Sistemin destekleyebileceği maksimum background süreç sayısını ayarlar.** Bu parametre yalnızca sunucu başlangıcında ayarlanabilir. Öntanımlı değeri 8'dir. Standby sunucu çalıştırırken, bu parametre primary sunucudakiyle aynı veya daha yüksek bir değere ayarlanmalıdır. Aksi takdirde, standby sunucuda sorgulara izin verilmeyecektir.<br/><br/>
+{% include callout.html content="**Sistemin destekleyebileceği maksimum background süreç sayısını ayarlar.** Bu parametre yalnızca sunucu başlangıcında ayarlanabilir. Öntanımlı değeri 8'dir. Standby sunucu çalıştırırken, bu parametre primary sunucudakiyle aynı veya daha yüksek bir değere ayarlanmalıdır. Aksi takdirde, standby sunucuda sorgulara izin verilmeyecektir.<br/><br/>
 
 Bu değer değiştirilirken `max_parallel_workers`, `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerinin ayarlanması düşünülebilir." type="primary" %}
 
 #### `max_parallel_workers_per_gather`
 
-{% include label.html parametre="max_parallel_workers_per_gather" %}
+{% include parameter_info.html parametre="max_parallel_workers_per_gather" %}
 
 {% include callout.html content=" **Yürütme düğümü başına maksimum paralel işlem sayısını ayarlar.** Tek bir `Gather` veya `Gather Merge` düğümü tarafından başlatılabilecek maksimum worker sayısını ayarlar. Paralel worker'lar `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olmadığında, plan beklenenden daha az sayıda worker ile çalışarak verimsiz olabilir. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması paralel sorgu yürütmeyi devre dışı bırakır.<br/><br/>
 
@@ -348,13 +443,14 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_maintenance_workers`
 
-{% include label.html parametre="max_parallel_maintenance_workers" %}
+{% include parameter_info.html parametre="max_parallel_maintenance_workers" %}
 
 {% include callout.html content=" **Tek bir utility program komutuyla başlatılabilen maksimum paralel worker sayısını ayarlar.** Şu an için paralel worker kullanımını `CREATE INDEX` (B-tree indekslerde) ve `VACUUM` (FULL olmadan) işlemlerinde desteklenmektedir. Paralel workers `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olamdığında utility program operasyonu beklenenden daha az sayıda worker ile çalışacaktır. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması utility program komutlarının paralel worker kullanmasını devre dışı bırakır." type="primary" %}
 
 #### `max_parallel_workers`
 
-{% include label.html parametre="max_parallel_workers" %}
+{% include parameter_info.html parametre="max_parallel_workers" %}
+
 {% include callout.html content=" **Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar.** Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
 
 **Kaynak:**
