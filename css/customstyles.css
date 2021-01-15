@@ -1027,8 +1027,13 @@ span.label.label-context {
 }
 
 span.label.label-restart {
-    background-color:  #c9302c;
+    background-color: #c9302c;
 }
+
+span.label.label-since {
+    background-color: #cf2cd4;
+}
+
 .nav li.active > a.subfoldersTitle {
     background-color: whitesmoke;
     font-weight: bold;

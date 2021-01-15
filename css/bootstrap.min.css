@@ -5736,6 +5736,15 @@ a.label:hover {
     background-color: #c9302c
 }
 
+.label-since {
+    background-color: #c9302c
+}
+
+.label-since[href]:focus,
+.label-since[href]:hover {
+    background-color: #cf2cd4
+}
+
 .badge {
     display: inline-block;
     min-width: 10px;
