@@ -1,0 +1,9 @@
+{% assign parametre = {{include.parametre}} %}
+
+<span class="label label-type">Tip: {{site.data.parameters.[parametre].Type}}</span>
+<span class="label label-varsayilan">Varsayılan: {{site.data.parameters.[parametre].Default}}</span>
+<span class="label label-min">Min: {{site.data.parameters.[parametre].Min}}</span>
+<span class="label label-max">Max: {{site.data.parameters.[parametre].Max}}</span>
+<span class="label label-context">Bağlam: {{site.data.parameters.[parametre].Context}}</span>
+<span class="label label-restart">Yeniden başlatma: {{site.data.parameters.[parametre].Restart}}</span>
+<span class="label label-since">Since: {{site.data.parameters.[parametre].Since}}</span>
