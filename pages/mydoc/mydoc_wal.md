@@ -114,7 +114,7 @@ Bu parametrenin açılması kurtarılamaz veri bozulması riskini artırmaz, WAL
 
 {% include parameter_info.html parametre="wal_writer_flush_after" %}
 
-{% include callout.html content="**`wal_writer_flush_after (integer)`**: WAL writer'ın volume cinsinden WAL'ı ne sıklıkla temizlediğini belirtir. Son temizleme, `wal_writer_delay` öncesinden gerçekleştiyse ve o zamandan beri `wal_writer_flush_after` değerinden daha az WAL üretildiyse, WAL yalnızca işletim sistemine yazılır, diske temizlenmez. `wal_writer_flush_after` 0 olarak ayarlanmışsa, WAL verileri anında temizlenir. Bu değer birim olmadan belirtilirse WAL blokları olarak alınır. (XLOG_BLCKSZ bayt -- 8kB). Öntanımlı değeri 1MB'dir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
+{% include callout.html content=" **WAL writer'ın volume cinsinden WAL'ı ne sıklıkla temizlediğini belirtir.** Son temizleme, `wal_writer_delay` öncesinden gerçekleştiyse ve o zamandan beri `wal_writer_flush_after` değerinden daha az WAL üretildiyse, WAL yalnızca işletim sistemine yazılır, diske temizlenmez. `wal_writer_flush_after` 0 olarak ayarlanmışsa, WAL verileri anında temizlenir. Bu değer birim olmadan belirtilirse WAL blokları olarak alınır. (XLOG_BLCKSZ bayt -- 8kB). Öntanımlı değeri 1MB'dir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
 #### `wal_skip_threshold`
 
@@ -140,7 +140,7 @@ Bu parametrenin açılması kurtarılamaz veri bozulması riskini artırmaz, WAL
 
 {% include parameter_info.html parametre="checkpoint_timeout" %}
 
-{% include callout.html content="**`checkpoint_timeout (integer)`**: Otomatik WAL checkpoint'leri arasında maksimum süreyi belirtir. Bu değer birimsiz belirtilirse, saniye olarak alınır. Geçerli aralık 30 saniye ile 1 gün arasındadır. Varsayılan değeri 5 dakikadır (5min). Bu parametrenin artırılması, crash recovery için gerekli süreyi artırabilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
+{% include callout.html content=" Otomatik WAL checkpoint'leri arasında maksimum süreyi belirtir. Bu değer birimsiz belirtilirse, saniye olarak alınır. Geçerli aralık 30 saniye ile 1 gün arasındadır. Varsayılan değeri 5 dakikadır (5min). Bu parametrenin artırılması, crash recovery için gerekli süreyi artırabilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
 #### `checkpoint_completion_target`
 
@@ -210,7 +210,7 @@ restore_command = 'copy "C:\\server\\archivedir\\%f" "%p"'  # Windows
 
 {% include parameter_info.html parametre="archive_cleanup_command" %}
 
-{% include callout.html content="**`archive_cleanup_command (string)`**: **İsteğe bağlı olan bu parametre, her restartpoint'de yürütülecek kabuk komutunu belirtir.** `archive_cleanup_command`'ın amacı artık standby sunucu tarafından ihtiyaç duyulmayan eski arşivlenmiş WAL dosyalarını temizlemek için bir mekanizma sağlamaktır. Her bir `%r` son geçerli restartpoint'i içeren dosyanın adıyla değiştirilir. Bu bilgiler, arşivi mevcut geri yüklemeden yeniden başlatmayı sağlamasında gereken minimum düzeye indirmek için kullanılır. [pg_archivecleanup](https://www.postgresql.org/docs/current/pgarchivecleanup.html) modülü genellikle `archive_cleanup_command`'da single-standby konfigürasyonlar için kullanılır, örneğin:" type="primary" %}
+{% include callout.html content=" **İsteğe bağlı olan bu parametre, her restartpoint'de yürütülecek kabuk komutunu belirtir.** `archive_cleanup_command`'ın amacı artık standby sunucu tarafından ihtiyaç duyulmayan eski arşivlenmiş WAL dosyalarını temizlemek için bir mekanizma sağlamaktır. Her bir `%r` son geçerli restartpoint'i içeren dosyanın adıyla değiştirilir. Bu bilgiler, arşivi mevcut geri yüklemeden yeniden başlatmayı sağlamasında gereken minimum düzeye indirmek için kullanılır. [pg_archivecleanup](https://www.postgresql.org/docs/current/pgarchivecleanup.html) modülü genellikle `archive_cleanup_command`'da single-standby konfigürasyonlar için kullanılır, örneğin:" type="primary" %}
 
 ```bash
 archive_cleanup_command = 'pg_archivecleanup /mnt/server/archivedir %r'
@@ -240,7 +240,7 @@ Recovery varsayılan olarak WAL log'larının sonuna kadar devam edecektir. Daha
 
 {% include parameter_info.html parametre="recovery_target" %}
 
-{% include callout.html content=" **Bu parametre, recovery işleminin tutarlı bir duruma ulaşılır ulaşılmaz, yani mümkün olan en kısa sürede bitmesi gerektiğini belirtir.** 'immediate' şu anda izin verilen tek değerdir." type="primary" %}
+{% include callout.html content=" Bu parametre, recovery işleminin tutarlı bir duruma ulaşılır ulaşılmaz, yani mümkün olan en kısa sürede bitmesi gerektiğini belirtir. 'immediate' şu anda izin verilen tek değerdir." type="primary" %}
 
 #### `recovery_target_name`
 
