@@ -1030,8 +1030,12 @@ span.label.label-restart {
     background-color: #c9302c;
 }
 
-span.label.label-since {
-    background-color: #cf2cd4;
+span.label.label-values {
+    background-color: #f12563
+}
+
+span.label.label-unit {
+    background-color: #25eaf1
 }
 
 .nav li.active > a.subfoldersTitle {

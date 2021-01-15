@@ -5736,13 +5736,22 @@ a.label:hover {
     background-color: #c9302c
 }
 
-.label-since {
-    background-color: #c9302c
+.label-values {
+    background-color: #f12563
 }
 
-.label-since[href]:focus,
-.label-since[href]:hover {
-    background-color: #cf2cd4
+.label-values[href]:focus,
+.label-values[href]:hover {
+    background-color: #f12563
+}
+
+.label-unit {
+    background-color: #25eaf1
+}
+
+.label-unit[href]:focus,
+.label-unit[href]:hover {
+    background-color: #25eaf1
 }
 
 .badge {
