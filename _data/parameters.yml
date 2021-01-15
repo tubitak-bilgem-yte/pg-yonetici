@@ -1,0 +1,26 @@
+max_parallel_workers:
+    Type: integer
+    Default: 1000
+    Min: 64
+    Max: 2147483647
+    Context: postmaster
+    Restart: true
+
+max_parallel_maintenance_workers:
+    Type: integer
+    Default: 2
+    Min: 0
+    Max: 1024
+    Context: user
+    Restart: false
+    Since: 11
+
+
+max_parallel_workers_per_gather:
+    Type: integer
+    Default: 2
+    Min: 0
+    Max: 1024
+    Context: user
+    Restart: false
+    Since: 9.6

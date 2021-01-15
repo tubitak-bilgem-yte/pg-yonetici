@@ -338,14 +338,9 @@ Her turda yazılan dirty buffer sayısı, son turlarda sunucu işlemleri tarafı
 
 Bu değer değiştirilirken `max_parallel_workers`, `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerinin ayarlanması düşünülebilir." type="primary" %}
 
-#### max_parallel_workers_per_gather
+#### `max_parallel_workers_per_gather`
 
-<span class="label label-type">Tip: `integer`</span>
-<span class="label label-varsayilan">Varsayılan: `2`</span>
-<span class="label label-min">Min: `0`</span>
-<span class="label label-max">Max: `1024`</span>
-<span class="label label-context">Bağlam: `user`</span>
-<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
+{% include label.html parametre="max_parallel_workers_per_gather" %}
 
 {% include callout.html content=" **Yürütme düğümü başına maksimum paralel işlem sayısını ayarlar.** Tek bir `Gather` veya `Gather Merge` düğümü tarafından başlatılabilecek maksimum worker sayısını ayarlar. Paralel worker'lar `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olmadığında, plan beklenenden daha az sayıda worker ile çalışarak verimsiz olabilir. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması paralel sorgu yürütmeyi devre dışı bırakır.<br/><br/>
 
@@ -353,27 +348,13 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 
 #### `max_parallel_maintenance_workers`
 
-<span class="label label-type">Tip: integer</span>
-<span class="label label-varsayilan">Varsayılan: `2`</span>
-<span class="label label-min">Min: `0`</span>
-<span class="label label-max">Max: `1024`</span>
-<span class="label label-context">Bağlam: `user`</span>
-<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
+{% include label.html parametre="max_parallel_maintenance_workers" %}
 
 {% include callout.html content=" **Tek bir utility program komutuyla başlatılabilen maksimum paralel worker sayısını ayarlar.** Şu an için paralel worker kullanımını `CREATE INDEX` (B-tree indekslerde) ve `VACUUM` (FULL olmadan) işlemlerinde desteklenmektedir. Paralel workers `max_worker_processes` tarafından oluşturulmuş, `max_parallel_workers` ile sınırlandırılmış süreç havuzundan alınır. İstenen worker sayısı çalışma zamanında mevcut olamdığında utility program operasyonu beklenenden daha az sayıda worker ile çalışacaktır. Öntanımlı değeri 2'dir. Bu değerin 0 olarak ayarlanması utility program komutlarının paralel worker kullanmasını devre dışı bırakır." type="primary" %}
 
 #### `max_parallel_workers`
 
-<ul>
-    <li> Tip: {{ site.data.kaynakTuketimi.max_parallel_workers.min }} </li>
-</ul>
-
-<span class="label label-type">Tip: `{{site.kaynakTuketimi.max_parallel_workers.min}}`</span>
-<span class="label label-varsayilan">Varsayılan: `8`</span>
-<span class="label label-min">Min: `0`</span>
-<span class="label label-max">Max: `1024`</span>
-<span class="label label-context">Bağlam: `user`</span>
-<span class="label label-restart">Yeniden başlatma: `Gerektirmez`</span>
+{% include label.html parametre="max_parallel_workers" %}
 {% include callout.html content=" **Paralel operasyonlar için sistemin destekleyebileceği maksimum worker sayısını ayarlar.** Varsayılan değeri 8'dir. Bu değeri artırırken veya azaltırken `max_parallel_maintenance_workers` ve `max_parallel_workers_per_gather` parametrelerini de ayarlamayı düşünün. Ayrıca, bu parametre değerinin `max_worker_processes`'ten daha yüksek olan bir ayarı, paralel worker'lar bu ayar tarafından oluşturulan havuzundan alındığı için hiçbir etkisi olmayacağını unutmayın." type="primary" %}
 
 **Kaynak:**
@@ -381,11 +362,5 @@ Paralel sorgular, paralel olmayan sorgularadan çok daha fazla kaynak tüketebil
 [1]. [PostgreSQL Documentation](https://www.postgresql.org/docs/current/runtime-config-resource.html)
 
 [2]. [postgresqlco.nf](https://postgresqlco.nf)
-
-<span class="label label-type">Tip: {{site.data.members.max_parallel_workers.tip}}</span>
-<span class="label label-varsayilan">Varsayılan: {{site.data.members.max_parallel_workers.default}}</span>
-<span class="label label-min">Min: {{site.data.members.max_parallel_workers.min}}</span>
-<span class="label label-max">Max: {{site.data.members.max_parallel_workers.max}}</span>
-<span class="label label-restart">Bağlam: {{site.data.members.max_parallel_workers.context}}</span>
 
 {% include links.html %}
