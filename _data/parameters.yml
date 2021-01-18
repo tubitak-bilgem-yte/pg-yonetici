@@ -31,7 +31,7 @@ archive_mode:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
     values: "[always, on, off]"
 
 archive_timeout:
@@ -101,7 +101,7 @@ autovacuum_freeze_max_age:
     default: 200000000
     showDefault: 200000000
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 autovacuum_max_workers:
     type: integer
@@ -112,7 +112,7 @@ autovacuum_max_workers:
     default: 3
     showDefault: 3
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 autovacuum_multixact_freeze_max_age:
     type: integer
@@ -123,7 +123,7 @@ autovacuum_multixact_freeze_max_age:
     default: 400000000
     showDefault: 400000000
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 autovacuum_naptime:
     type: integer
@@ -205,7 +205,7 @@ autovacuum_work_mem:
     short: "Sets the maximum memory to be used by each autovacuum worker process."
     description: "<p>Specifies the maximum amount of memory to be used by each autovacuum worker process. If this value is specified without units, it is taken as kilobytes. It defaults to -1, indicating that the value of <code class=\"varname\">maintenance_work_mem</code> should be used instead. The setting has no effect on the behavior of <span class=\"command\">VACUUM</span> when run in other contexts.</p>"
     min: "-1"
-    max: 2147483647
+    max: "2147483647 (2147483647 kB)"
     default: "-1"
     showDefault: "-1"
     context: sighup
@@ -261,22 +261,22 @@ bgwriter_delay:
     subtype: time
     short: "Background writer sleep time between rounds."
     description: "<p>Specifies the delay between activity rounds for the background writer. In each round the writer issues writes for some number of dirty buffers (controllable by the following parameters). It then sleeps for the length of <code class=\"varname\">bgwriter_delay</code>, and repeats. When there are no dirty buffers in the buffer pool, though, it goes into a longer sleep regardless of <code class=\"varname\">bgwriter_delay</code>. If this value is specified without units, it is taken as milliseconds. The default value is 200 milliseconds (<code class=\"literal\">200ms</code>). Note that on many systems, the effective resolution of sleep delays is 10 milliseconds; setting <code class=\"varname\">bgwriter_delay</code> to a value that is not a multiple of 10 might have the same results as setting it to the next higher multiple of 10. This parameter can only be set in the <span class=\"filename\">postgresql.conf</span> file or on the server command line.</p>"
-    min: 10
-    max: 10000
+    min: "10 (10ms)"
+    max: "1000 (10s)"
     default: 200
-    showDefault: "200 ms"
+    showDefault: "200 (200ms)"
     context: sighup
-    unit: ms
+    unit: "milliseconds (ms)"
 
 bgwriter_flush_after:
     type: integer
     subtype: memory
     short: "Number of pages after which previously performed writes are flushed to disk."
     description: "<p>Whenever more than this amount of data has been written by the background writer, attempt to force the OS to issue these writes to the underlying storage. Doing so will limit the amount of dirty data in the kernel's page cache, reducing the likelihood of stalls when an <span class=\"function\">fsync</span> is issued at the end of a checkpoint, or when the OS writes data back in larger batches in the background. Often that will result in greatly reduced transaction latency, but there also are some cases, especially with workloads that are bigger than <code class=\"varname\">shared_buffers</code>, but smaller than the OS's page cache, where performance might degrade. This setting may have no effect on some platforms. If this value is specified without units, it is taken as blocks, that is <code class=\"symbol\">BLCKSZ</code> bytes, typically 8kB. The valid range is between <code class=\"literal\">0</code>, which disables forced writeback, and <code class=\"literal\">2MB</code>. The default is <code class=\"literal\">512kB</code> on Linux, <code class=\"literal\">0</code> elsewhere. (If <code class=\"symbol\">BLCKSZ</code> is not 8kB, the default and maximum values scale proportionally to it.) This parameter can only be set in the <span class=\"filename\">postgresql.conf</span> file or on the server command line.</p>"
-    min: 0
-    max: 256
+    min: "0 (0kB)"
+    max: "256 (2MB)"
     default: 64
-    showDefault: "512 kB"
+    showDefault: "64 (512kB)"
     context: sighup
     unit: 8kB
 
@@ -307,14 +307,14 @@ bonjour:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 bonjour_name:
     type: string
     short: "Sets the Bonjour service name."
     description: "<p>Specifies the <span class=\"productname\">Bonjour</span> service name. The computer name is used if this parameter is set to the empty string <code class=\"literal\">''</code> (which is the default). This parameter is ignored if the server was not compiled with <span class=\"productname\">Bonjour</span> support. This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 vacuum_cost_page_dirty:
     type: integer
@@ -384,7 +384,7 @@ cluster_name:
     short: "Sets the name of the cluster, which is included in the process title."
     description: "<p>Sets a name that identifies this database cluster (instance) for various purposes. The cluster name appears in the process title for all server processes in this cluster. Moreover, it is the default application name for a standby connection (see <code class=\"varname\">synchronous_standby_names</code>.)</p><p>The name can be any string of less than <code class=\"symbol\">NAMEDATALEN</code> characters (64 characters in a standard build). Only printable ASCII characters may be used in the <code class=\"varname\">cluster_name</code> value. Other characters will be replaced with question marks (<code class=\"literal\">?</code>). No name is shown if this parameter is set to the empty string <code class=\"literal\">''</code> (which is the default). This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 commit_delay:
     type: integer
@@ -411,7 +411,7 @@ config_file:
     short: "Sets the server's main configuration file."
     description: "<p>Specifies the main server configuration file (customarily called <span class=\"filename\">postgresql.conf</span>). This parameter can only be set on the <span class=\"command\">postgres</span> command line.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 constraint_exclusion:
     type: enum
@@ -467,7 +467,7 @@ data_directory:
     short: "Sets the server's data directory."
     description: "<p>Specifies the directory to use for data storage. This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 data_sync_retry:
     type: bool
@@ -476,7 +476,7 @@ data_sync_retry:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 DateStyle:
     type: string
@@ -619,7 +619,7 @@ dynamic_shared_memory_type:
     showDefault: posix
     context: postmaster
     values: "[posix, sysv, mmap]"
-    restart: true
+    restart: "Gerektirir"
 
 effective_cache_size:
     type: integer
@@ -804,7 +804,7 @@ event_source:
     default: PostgreSQL
     showDefault: PostgreSQL
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 exit_on_error:
     type: bool
@@ -819,7 +819,7 @@ external_pid_file:
     short: "Writes the postmaster PID to the specified file."
     description: "<p>Specifies the name of an additional process-ID (PID) file that the server should create for use by server administration programs. This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 extra_float_digits:
     type: integer
@@ -864,7 +864,7 @@ hot_standby:
     default: on
     showDefault: "on"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 full_page_writes:
     type: bool
@@ -979,7 +979,7 @@ hba_file:
     short: "Sets the server's \"hba\" configuration file."
     description: "<p>Specifies the configuration file for host-based authentication (customarily called <span class=\"filename\">pg_hba.conf</span>). This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 hot_standby_feedback:
     type: bool
@@ -997,14 +997,14 @@ huge_pages:
     showDefault: try
     context: postmaster
     values: "[off, on, try]"
-    restart: true
+    restart: "Gerektirir"
 
 ident_file:
     type: string
     short: "Sets the server's \"ident\" configuration file."
     description: "<p>Specifies the configuration file for user name mapping (customarily called <span class=\"filename\">pg_ident.conf</span>). This parameter can only be set at server start. See also <span class=\"xref\">auth-username-maps</span>.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 idle_in_transaction_session_timeout:
     type: integer
@@ -1033,7 +1033,7 @@ ignore_invalid_pages:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 ignore_system_indexes:
     type: bool
@@ -1128,7 +1128,7 @@ jit_provider:
     default: llvmjit
     showDefault: llvmjit
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 jit_tuple_deforming:
     type: bool
@@ -1201,7 +1201,7 @@ listen_addresses:
     default: localhost
     showDefault: localhost
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 local_preload_libraries:
     type: string
@@ -1331,7 +1331,7 @@ logging_collector:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 log_hostname:
     type: bool
@@ -1346,10 +1346,10 @@ logical_decoding_work_mem:
     subtype: memory
     short: "Sets the maximum memory to be used for logical decoding."
     description: "<p>Specifies the maximum amount of memory to be used by logical decoding, before some of the decoded changes are written to local disk. This limits the amount of memory used by logical streaming replication connections. It defaults to 64 megabytes (<code class=\"literal\">64MB</code>). Since each replication connection only uses a single buffer of this size, and an installation normally doesn't have many such connections concurrently (as limited by <code class=\"varname\">max_wal_senders</code>), it's safe to set this value significantly higher than <code class=\"varname\">work_mem</code>, reducing the amount of decoded changes written to disk.</p>"
-    min: 64
-    max: 2147483647
+    min: "64 (64kB)"
+    max: "2147483647 (2147483647 kB)"
     default: 65536
-    showDefault: "64 MB"
+    showDefault: "65536 (64MB)"
     context: user
     unit: kB
 
@@ -1562,10 +1562,10 @@ maintenance_work_mem:
     subtype: memory
     short: "Sets the maximum memory to be used for maintenance operations."
     description: "<p>Specifies the maximum amount of memory to be used by maintenance operations, such as <span class=\"command\">VACUUM</span>, <span class=\"command\">CREATE INDEX</span>, and <span class=\"command\">ALTER TABLE ADD FOREIGN KEY</span>. If this value is specified without units, it is taken as kilobytes. It defaults to 64 megabytes (<code class=\"literal\">64MB</code>). Since only one of these operations can be executed at a time by a database session, and an installation normally doesn't have many of them running concurrently, it's safe to set this value significantly larger than <code class=\"varname\">work_mem</code>. Larger settings might improve performance for vacuuming and for restoring database dumps.</p><p>Note that when autovacuum runs, up to <code class=\"varname\">autovacuum_max_workers</code> times this memory may be allocated, so be careful not to set the default value too high. It may be useful to control for this by separately setting <code class=\"varname\">autovacuum_work_mem</code>.</p>"
-    min: 1024
-    max: 2147483647
+    min: "1024 (1MB)"
+    max: "2147483647 (2147483647kB)"
     default: 65536
-    showDefault: "64 MB"
+    showDefault: "65536 (64MB)"
     context: user
     unit: kB
 
@@ -1578,7 +1578,7 @@ max_connections:
     default: 100
     showDefault: 100
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_files_per_process:
     type: integer
@@ -1589,7 +1589,7 @@ max_files_per_process:
     default: 1000
     showDefault: 1000
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_locks_per_transaction:
     type: integer
@@ -1600,7 +1600,7 @@ max_locks_per_transaction:
     default: 64
     showDefault: 64
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_logical_replication_workers:
     type: integer
@@ -1611,7 +1611,7 @@ max_logical_replication_workers:
     default: 4
     showDefault: 4
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_parallel_maintenance_workers:
     type: integer
@@ -1683,7 +1683,7 @@ max_pred_locks_per_transaction:
     default: 64
     showDefault: 64
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_prepared_transactions:
     type: integer
@@ -1694,7 +1694,7 @@ max_prepared_transactions:
     default: 0
     showDefault: 0
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_replication_slots:
     type: integer
@@ -1705,7 +1705,7 @@ max_replication_slots:
     default: 10
     showDefault: 10
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_slot_wal_keep_size:
     type: integer
@@ -1724,10 +1724,10 @@ max_stack_depth:
     subtype: memory
     short: "Sets the maximum stack depth, in kilobytes."
     description: "<p>Specifies the maximum safe depth of the server's execution stack. The ideal setting for this parameter is the actual stack size limit enforced by the kernel (as set by <code class=\"literal\">ulimit -s</code> or local equivalent), less a safety margin of a megabyte or so. The safety margin is needed because the stack depth is not checked in every routine in the server, but only in key potentially-recursive routines. If this value is specified without units, it is taken as kilobytes. The default setting is two megabytes (<code class=\"literal\">2MB</code>), which is conservatively small and unlikely to risk crashes. However, it might be too small to allow execution of complex functions. Only superusers can change this setting.</p><p>Setting <code class=\"varname\">max_stack_depth</code> higher than the actual kernel limit will mean that a runaway recursive function can crash an individual backend process. On platforms where <span class=\"productname\">PostgreSQL</span> can determine the kernel limit, the server will not allow this variable to be set to an unsafe value. However, not all platforms provide the information, so caution is recommended in selecting a value.</p>"
-    min: 100
-    max: 2147483647
+    min: "100 (100kB)"
+    max: "2147483647 (2147483647 kB)"
     default: 100
-    showDefault: "100 kB"
+    showDefault: "100 (100kB)"
     context: superuser
     unit: kB
 
@@ -1774,7 +1774,7 @@ max_wal_senders:
     default: 10
     showDefault: 10
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 max_wal_size:
     type: integer
@@ -1797,7 +1797,7 @@ max_worker_processes:
     default: 8
     showDefault: 8
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 min_parallel_index_scan_size:
     type: integer
@@ -1828,7 +1828,7 @@ recovery_target:
     short: "Set to \"immediate\" to end recovery as soon as a consistent state is reached."
     description: "<p>This parameter specifies that recovery should end as soon as a consistent state is reached, i.e., as early as possible. When restoring from an online backup, this means the point where taking the backup ended.</p><p>Technically, this is a string parameter, but <code class=\"literal\">'immediate'</code> is currently the only allowed value.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 old_snapshot_threshold:
     type: integer
@@ -1841,7 +1841,7 @@ old_snapshot_threshold:
     showDefault: "-1"
     context: postmaster
     unit: min
-    restart: true
+    restart: "Gerektirir"
 
 operator_precedence_warning:
     type: bool
@@ -1905,7 +1905,7 @@ port:
     default: 5432
     showDefault: 5432
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 post_auth_delay:
     type: integer
@@ -1993,7 +1993,7 @@ recovery_target_action:
     showDefault: pause
     context: postmaster
     values: "[pause, promote, shutdown]"
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_inclusive:
     type: bool
@@ -2002,28 +2002,28 @@ recovery_target_inclusive:
     default: on
     showDefault: "on"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_lsn:
     type: string
     short: "Sets the LSN of the write-ahead log location up to which recovery will proceed."
     description: "<p>This parameter specifies the LSN of the write-ahead log location up to which recovery will proceed. The precise stopping point is also influenced by <span class=\"xref\">guc-recovery-target-inclusive</span>. This parameter is parsed using the system data type <span class=\"link\"><span class=\"type\">pg_lsn</span></span>.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_name:
     type: string
     short: "Sets the named restore point up to which recovery will proceed."
     description: "<p>This parameter specifies the named restore point (created with <span class=\"function\">pg_create_restore_point()</span>) to which recovery will proceed.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_time:
     type: string
     short: "Sets the time stamp up to which recovery will proceed."
     description: "<p>This parameter specifies the time stamp up to which recovery will proceed. The precise stopping point is also influenced by <span class=\"xref\">guc-recovery-target-inclusive</span>.</p><p>The value of this parameter is a time stamp in the same format accepted by the <span class=\"type\">timestamp with time zone</span> data type, except that you cannot use a time zone abbreviation (unless the <code class=\"varname\">timezone_abbreviations</code> variable has been set earlier in the configuration file). Preferred style is to use a numeric offset from UTC, or you can write a full time zone name, e.g., <code class=\"literal\">Europe/Helsinki</code> not <code class=\"literal\">EEST</code>.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_timeline:
     type: string
@@ -2032,14 +2032,14 @@ recovery_target_timeline:
     default: latest
     showDefault: latest
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 recovery_target_xid:
     type: string
     short: "Sets the transaction ID up to which recovery will proceed."
     description: "<p>This parameter specifies the transaction ID up to which recovery will proceed. Keep in mind that while transaction IDs are assigned sequentially at transaction start, transactions can complete in a different numeric order. The transactions that will be recovered are those that committed before (and optionally including) the specified one. The precise stopping point is also influenced by <span class=\"xref\">guc-recovery-target-inclusive</span>.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 restart_after_crash:
     type: bool
@@ -2054,7 +2054,7 @@ restore_command:
     short: "Sets the shell command that will be called to retrieve an archived WAL file."
     description: "<p>The local shell command to execute to retrieve an archived segment of the WAL file series. This parameter is required for archive recovery, but optional for streaming replication. Any <code class=\"literal\">%f</code> in the string is replaced by the name of the file to retrieve from the archive, and any <code class=\"literal\">%p</code> is replaced by the copy destination path name on the server. (The path name is relative to the current working directory, i.e., the cluster's data directory.) Any <code class=\"literal\">%r</code> is replaced by the name of the file containing the last valid restart point. That is the earliest file that must be kept to allow a restore to be restartable, so this information can be used to truncate the archive to just the minimum required to support restarting from the current restore. <code class=\"literal\">%r</code> is typically only used by warm-standby configurations (see <span class=\"xref\">warm-standby</span>). Write <code class=\"literal\">%%</code> to embed an actual <code class=\"literal\">%</code> character.</p><p>It is important for the command to return a zero exit status only if it succeeds. The command <span class=\"emphasis\">will</span> be asked for file names that are not present in the archive; it must return nonzero when so asked. Examples:<span class=\"programlisting\">restore_command = 'cp /mnt/server/archivedir/%f \"%p\"'restore_command = 'copy \"C:\\\\server\\\\archivedir\\\\%f\" \"%p\"' # Windows</span> An exception is that if the command was terminated by a signal (other than <span class=\"systemitem\">SIGTERM</span>, which is used as part of a database server shutdown) or an error by the shell (such as command not found), then recovery will abort and the server will not start up.</p><p>This parameter can only be set at server start.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 row_security:
     type: bool
@@ -2116,13 +2116,13 @@ shared_buffers:
     subtype: memory
     short: "Sets the number of shared memory buffers used by the server."
     description: "<p>Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (<code class=\"literal\">128MB</code>), but might be less if your kernel settings will not support it (as determined during <span class=\"application\">initdb</span>). This setting must be at least 128 kilobytes. However, settings significantly higher than the minimum are usually needed for good performance. If this value is specified without units, it is taken as blocks, that is <code class=\"symbol\">BLCKSZ</code> bytes, typically 8kB. (Non-default values of <code class=\"symbol\">BLCKSZ</code> change the minimum value.) This parameter can only be set at server start.</p><p>If you have a dedicated database server with 1GB or more of RAM, a reasonable starting value for <code class=\"varname\">shared_buffers</code> is 25% of the memory in your system. There are some workloads where even larger settings for <code class=\"varname\">shared_buffers</code> are effective, but because <span class=\"productname\">PostgreSQL</span> also relies on the operating system cache, it is unlikely that an allocation of more than 40% of RAM to <code class=\"varname\">shared_buffers</code> will work better than a smaller amount. Larger settings for <code class=\"varname\">shared_buffers</code> usually require a corresponding increase in <code class=\"varname\">max_wal_size</code>, in order to spread out the process of writing large quantities of new or changed data over a longer period of time.</p><p>On systems with less than 1GB of RAM, a smaller percentage of RAM is appropriate, so as to leave adequate space for the operating system.</p>"
-    min: 16
-    max: 1073741823
+    min: "16 (8kB)"
+    max: "1073741823 (8589934584kB)"
     default: 1024
-    showDefault: "8 MB"
+    showDefault: "1024 (8 MB)"
     context: postmaster
     unit: 8kB
-    restart: true
+    restart: "Gerektirir"
 
 shared_memory_type:
     type: enum
@@ -2132,14 +2132,14 @@ shared_memory_type:
     showDefault: mmap
     context: postmaster
     values: "[sysv, mmap]"
-    restart: true
+    restart: "Gerektirir"
 
 shared_preload_libraries:
     type: string
     short: "Lists shared libraries to preload into server."
     description: "<p>This variable specifies one or more shared libraries to be preloaded at server start. It contains a comma-separated list of library names, where each name is interpreted as for the <span class=\"xref\">sql-load</span> command. Whitespace between entries is ignored; surround a library name with double quotes if you need to include whitespace or commas in the name. This parameter can only be set at server start. If a specified library is not found, the server will fail to start.</p><p>Some libraries need to perform certain operations that can only take place at postmaster start, such as allocating shared memory, reserving light-weight locks, or starting background workers. Those libraries must be loaded at server start through this parameter. See the documentation of each library for details.</p><p>Other libraries can also be preloaded. By preloading a shared library, the library startup time is avoided when the library is first used. However, the time to start each new server process might increase slightly, even if that process never uses the library. So this parameter is recommended only for libraries that will be used in most sessions. Also, changing this parameter requires a server restart, so this is not the right setting to use for short-term debugging tasks, say. Use <code class=\"varname\">session_preload_libraries</code> for that instead.</p><span class=\"note\"><p>On Windows hosts, preloading a library at server start will not reduce the time required to start each new server process; each server process will re-load all preload libraries. However, <span class=\"varname\">shared_preload_libraries </span> is still useful on Windows hosts for libraries that need to perform operations at postmaster start time.</p></span>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 ssl:
     type: bool
     short: "Enables SSL connections."
@@ -2259,7 +2259,7 @@ superuser_reserved_connections:
     default: 3
     showDefault: 3
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 synchronize_seqscans:
     type: bool
@@ -2368,10 +2368,10 @@ temp_buffers:
     subtype: memory
     short: "Sets the maximum number of temporary buffers used by each session."
     description: "<p>Sets the maximum amount of memory used for temporary buffers within each database session. These are session-local buffers used only for access to temporary tables. If this value is specified without units, it is taken as blocks, that is <code class=\"symbol\">BLCKSZ</code> bytes, typically 8kB. The default is eight megabytes (<code class=\"literal\">8MB</code>). (If <code class=\"symbol\">BLCKSZ</code> is not 8kB, the default value scales proportionally to it.) This setting can be changed within individual sessions, but only before the first use of temporary tables within the session; subsequent attempts to change the value will have no effect on that session.</p><p>A session will allocate temporary buffers as needed up to the limit given by <code class=\"varname\">temp_buffers</code>. The cost of setting a large value in sessions that do not actually need many temporary buffers is only a buffer descriptor, or about 64 bytes, per increment in <code class=\"varname\">temp_buffers</code>. However if a buffer is actually used an additional 8192 bytes will be consumed for it (or in general, <code class=\"symbol\">BLCKSZ</code> bytes).</p>"
-    min: 100
-    max: 1073741823
+    min: "100 (800kB)"
+    max: "1073741823 (8589934584kB)"
     default: 1024
-    showDefault: "8 MB"
+    showDefault: "1024 (8MB)"
     context: user
     unit: 8kB
 
@@ -2381,7 +2381,7 @@ temp_file_limit:
     short: "Limits the total size of all temporary files used by each process."
     description: "<p>Specifies the maximum amount of disk space that a process can use for temporary files, such as sort and hash temporary files, or the storage file for a held cursor. A transaction attempting to exceed this limit will be canceled. If this value is specified without units, it is taken as kilobytes. <code class=\"literal\">-1</code> (the default) means no limit. Only superusers can change this setting.</p><p>This setting constrains the total space used at any instant by all temporary files used by a given <span class=\"productname\">PostgreSQL</span> process. It should be noted that disk space used for explicit temporary tables, as opposed to temporary files used behind-the-scenes in query execution, does <span class=\"emphasis\">not</span> count against this limit.</p>"
     min: "-1"
-    max: 2147483647
+    max: "2147483647 (2147483647kB)"
     default: "-1"
     showDefault: "-1"
     context: superuser
@@ -2451,7 +2451,7 @@ track_activity_query_size:
     showDefault: "1 kB"
     context: postmaster
     unit: B
-    restart: true
+    restart: "Gerektirir"
 
 track_commit_timestamp:
     type: bool
@@ -2460,7 +2460,7 @@ track_commit_timestamp:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 track_counts:
     type: bool
@@ -2492,12 +2492,12 @@ vacuum_cost_delay:
     subtype: time
     short: "Vacuum cost delay in milliseconds."
     description: "<p>The amount of time that the process will sleep when the cost limit has been exceeded. If this value is specified without units, it is taken as milliseconds. The default value is zero, which disables the cost-based vacuum delay feature. Positive values enable cost-based vacuuming.</p><p>When using cost-based vacuuming, appropriate values for <code class=\"varname\">vacuum_cost_delay</code> are usually quite small, perhaps less than 1 millisecond. While <code class=\"varname\">vacuum_cost_delay</code> can be set to fractional-millisecond values, such delays may not be measured accurately on older platforms. On such platforms, increasing <span class=\"command\">VACUUM</span>'s throttled resource consumption above what you get at 1ms will require changing the other vacuum cost parameters. You should, nonetheless, keep <code class=\"varname\">vacuum_cost_delay</code> as small as your platform will consistently measure; large delays are not helpful.</p>"
-    min: 0
-    max: 100
+    min: "0 (0ms)"
+    max: "100 (100ms)"
     default: 0
-    showDefault: "0 ms"
+    showDefault: "0 (0ms)"
     context: user
-    unit: ms
+    unit: "milliseconds (ms)"
 
 vacuum_cost_limit:
     type: integer
@@ -2524,14 +2524,14 @@ unix_socket_directories:
     default: "/var/run/postgresql"
     showDefault: "/var/run/postgresql"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 unix_socket_group:
     type: string
     short: "Sets the owning group of the Unix-domain socket."
     description: "<p>Sets the owning group of the Unix-domain socket(s). (The owning user of the sockets is always the user that starts the server.) In combination with the parameter <code class=\"varname\">unix_socket_permissions</code> this can be used as an additional access control mechanism for Unix-domain connections. By default this is the empty string, which uses the default group of the server user. This parameter can only be set at server start.</p><p>This parameter is not supported on Windows. Any setting will be ignored.</p>"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 unix_socket_permissions:
     type: integer
@@ -2542,7 +2542,7 @@ unix_socket_permissions:
     default: 511
     showDefault: 777
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
     octalFormat: true
 
 update_process_title:
@@ -2634,7 +2634,7 @@ wal_buffers:
     showDefault: "-1"
     context: postmaster
     unit: 8kB
-    restart: true
+    restart: "Gerektirir"
 
 wal_compression:
     type: bool
@@ -2677,7 +2677,7 @@ wal_level:
     default: replica
     showDefault: replica
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
     values: "[minimal, replica, logical]"
 
 wal_log_hints:
@@ -2687,7 +2687,7 @@ wal_log_hints:
     default: "off"
     showDefault: "off"
     context: postmaster
-    restart: true
+    restart: "Gerektirir"
 
 wal_receiver_create_temp_slot:
     type: bool
@@ -2803,10 +2803,10 @@ work_mem:
     subtype: memory
     short: "Sets the maximum memory to be used for query workspaces."
     description: "<p>Sets the base maximum amount of memory to be used by a query operation (such as a sort or hash table) before writing to temporary disk files. If this value is specified without units, it is taken as kilobytes. The default value is four megabytes (<code class=\"literal\">4MB</code>). Note that for a complex query, several sort or hash operations might be running in parallel; each operation will generally be allowed to use as much memory as this value specifies before it starts to write data into temporary files. Also, several running sessions could be doing such operations concurrently. Therefore, the total memory used could be many times the value of <code class=\"varname\">work_mem</code>; it is necessary to keep this fact in mind when choosing the value. Sort operations are used for <code class=\"literal\">ORDER BY</code>, <code class=\"literal\">DISTINCT</code>, and merge joins. Hash tables are used in hash joins, hash-based aggregation, and hash-based processing of <code class=\"literal\">IN</code> subqueries.</p><p>Hash-based operations are generally more sensitive to memory availability than equivalent sort-based operations. The memory available for hash tables is computed by multiplying <code class=\"varname\">work_mem</code> by <code class=\"varname\">hash_mem_multiplier</code>. This makes it possible for hash-based operations to use an amount of memory that exceeds the usual <code class=\"varname\">work_mem</code> base amount.</p>"
-    min: 64
-    max: 2147483647
+    min: "64 (64kB)"
+    max: "2147483647 (2147483647kB)"
     default: 4096
-    showDefault: "4 MB"
+    showDefault: "4096 (4MB)"
     context: user
     unit: kB
 
