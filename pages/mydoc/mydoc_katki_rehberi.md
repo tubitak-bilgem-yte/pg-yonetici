@@ -130,7 +130,7 @@ mydoc_dosya_konumlari.md --> /mydoc_dosya_konumlari.html
 
 **6.** Yapılan değişiklikler **proje yöneticisi** tarafından incelenerek kabul edilir veya geri çevrilir.
 
---- 
+---
 
 ## Sayfa İçeriği Formatı
 
@@ -212,6 +212,28 @@ Bu şablonların çıktıları şu şekilde olacaktır:
 {% include callout.html content="This is my **info** type callout. It has a border on the left whose color you define by passing a type parameter." type="info" %}
 
 {% include callout.html content="This is my **warning** type callout. It has a border on the left whose color you define by passing a type parameter." type="warning" %}
+
+---
+
+### Parametre Bilgisi Ekleme
+
+PostgreSQL Yönetici Dökümantasyon Projesin'de 'Veritabanı Yapılandırması' başlığı altında verilen parametrelerin bilgileri ( type, default, context, values, restart ) [postgresqlco.nf](https://postgresqlco.nf/manage/apidocs)'den çekilmiştir. Version 13 parametre bilgileri projede `_data/parameters.yml` altında datafile olarak depolanmaktadır. Yeni eklenecek parametrelerin bilgilerine aşağıdaki yapı kullanılarak kolayca erişilebilir.
+
+```liquid
+{% raw %}{% include parameter_info.html parametre="<parametre_ismi>" %}{% endraw %}
+```
+
+Örneğin,
+
+```liquid
+{% raw %}{% include parameter_info.html parametre="track_activity_query_size" %}{% endraw %}
+```
+
+kullanımı yeni eklenen "track_activity_query_size" parametresi için size şu şekilde bir çıktı sağlar.
+
+{% include parameter_info.html parametre="track_activity_query_size" %}
+
+{% include note.html content=" İlerleyen sürümlerde güncellenen parametre bilgilerini [postgresqlco.nf](https://postgresqlco.nf/manage/apidocs) üzerinden edinip `_data/parameters.yml` ekleyerek projedeki parametre bilgilerini güncellemek mümkündür. Ayrıca ufak güncellemeler ve hatalar yine bu dosya üzerinden ilgili parametre bulunarak değiştirilebilir" %}
 
 ---
 
