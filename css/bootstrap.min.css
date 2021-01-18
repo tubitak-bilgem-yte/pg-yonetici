@@ -5698,12 +5698,12 @@ a.label:hover {
     background-color: #5e5e5e
 }
 
-.label-varsayilan {
+.label-showDefault {
     background-color: #286090
 }
 
-.label-varsayilan[href]:focus,
-.label-varsayilan[href]:hover {
+.label-showDefault[href]:focus,
+.label-showDefault[href]:hover {
     background-color: #286090
 }
 
