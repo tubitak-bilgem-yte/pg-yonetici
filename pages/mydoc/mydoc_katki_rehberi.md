@@ -233,7 +233,7 @@ kullanımı yeni eklenen "track_activity_query_size" parametresi için size şu 
 
 {% include parameter_info.html parametre="track_activity_query_size" %}
 
-{% include note.html content=" İlerleyen sürümlerde güncellenen parametre bilgilerini [postgresqlco.nf](https://postgresqlco.nf/manage/apidocs) üzerinden edinip `_data/parameters.yml` ekleyerek projedeki parametre bilgilerini güncellemek mümkündür. Ayrıca ufak güncellemeler ve hatalar yine bu dosya üzerinden ilgili parametre bulunarak değiştirilebilir" %}
+{% include note.html content=" İlerleyen sürümlerde güncellenen parametre bilgilerini [postgresqlco.nf](https://postgresqlco.nf/manage/apidocs) üzerinden edinip `_data/parameters.yml` dosyası ile değiştirerek projedeki parametre bilgilerini güncellemek mümkündür. Ayrıca ufak güncellemeler ve hatalar yine bu dosya üzerinden ilgili parametre bulunarak değiştirilebilir" %}
 
 ---
 
