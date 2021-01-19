@@ -3,7 +3,6 @@ title: "Sorgu Planlama"
 tags: [PostgreSQL]
 keywords: postgres
 last_updated: December 10, 2020
-summary: "Sorgu Planlama"
 sidebar: mydoc_sidebar
 permalink: mydoc_sorgu_planlama.html
 folder: mydoc
