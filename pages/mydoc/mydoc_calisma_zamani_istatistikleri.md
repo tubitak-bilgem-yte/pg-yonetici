@@ -18,7 +18,7 @@ Bu başlık altında açıklanan parametreler, sunucuda istatistik toplama özel
 
 {% include parameter_info.html parametre="track_activities" %}
 
-{% include callout.html content=" **Herbir oturumda komutların yürütülmesi hakkında bilgi toplar.** Bu parametre varsayılan olarak açıktır. Sağladığı bilgiler tüm kullanıcılar tarafından görülemez. Yalnızca süper kullanıcılar ve rapor edilen oturumun sahibi olan kullanıcı tarafından görülebilir. Bu nedenle bir güvenlik riski oluşturmaz. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
+{% include callout.html content=" **Her bir oturumda komutların yürütülmesi hakkında bilgi toplar.** Bu parametre varsayılan olarak açıktır. Sağladığı bilgiler tüm kullanıcılar tarafından görülemez. Yalnızca süper kullanıcılar ve rapor edilen oturumun sahibi olan kullanıcı tarafından görülebilir. Bu nedenle bir güvenlik riski oluşturmaz. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
 
 #### `track_activity_query_size`
 
@@ -42,7 +42,7 @@ Bu başlık altında açıklanan parametreler, sunucuda istatistik toplama özel
 
 {% include parameter_info.html parametre="track_functions" %}
 
-{% include callout.html content=" **İşlev çağrısı sayılarını ve kullanım zamanının izlenmesini sağlar.** Sağlanan `pl` değerini yalnızca prosedürel dil işlevlerini izlemek için, `all` değerini ise SQL ve C dili işlevlerini de izlemek kullanın. Varsayılan, işlev istatistikleri izlemeyi devre dışı bırakan `none` değeridir. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
+{% include callout.html content=" **İşlev çağrısı sayılarını ve kullanım zamanının izlenmesini sağlar.** Sağlanan `pl` değerini yalnızca prosedürel dil işlevlerini, `all` değerini ise SQL ve C dili işlevlerini izlemek için kullanın. Varsayılan, işlev istatistikleri izlemeyi devre dışı bırakan `none` değeridir. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
 
 #### `stats_temp_directory`
 
