@@ -32,8 +32,8 @@ host    alfresco         alfrescous       192.168.3.0/24        md5
 host    all                postgres        0.0.0.0/0            reject
 ```
 
-- TCP/IP üzerinden yapılacak bağlantılardan sadece SSL olanları tanımlamak ⇒ "hostssl"
-- Sadece SSL dışındakileri tanımlamak ⇒ "hostnossl"
+- TCP/IP üzerinden yapılacak bağlantılardan sadece SSL olanları tanımlamak için ⇒ "hostssl"
+- Sadece SSL dışındakileri tanımlamak için ⇒ "hostnossl"
 
 ```sql
 # TYPE         DATABASE      USER          ADDRESS               METHOD
@@ -71,7 +71,7 @@ Yetkilendirmenin hangi yöntemle yapılacağı: **METHOD**
 
 ### Veritabanına Bağlantı Yetkilendirmesi
 
-Host bazlı yetkilendirme satırlarınki `DATABASE` kısmında ne yazıldıysa sadece oralara izin verilir. Bu aşama geçildikten sonra veritabanına bağlanabilme iki koşula bağlıdır:
+Host bazlı yetkilendirme satırlarındaki `DATABASE` kısmında ne yazıldıysa sadece oralara izin verilir. Bu aşama geçildikten sonra veritabanına bağlanabilme iki koşula bağlıdır:
 
 - datallowconn’un true olması.
 - Kullanıcı/rolün veritabanı şemasını kullanma izninin olması.
@@ -125,7 +125,7 @@ GRANT komutu ile veritabanındaki nesnelere SQL erişim yetkileri ve rollere, gr
 | `USAGE` | Şema için nesnelere erişme, prosedürel dili fonksiyonda kullanma |
 | `ALL PRIVILEGES` | Tam yetki |
 
-Kullanıcılara bir tablonun tamamına değil kolon bazlı SELECT, INSERT, UPDATE ve REFERENCES gibi haklar da verilebilir.
+Kullanıcılara bir tablonun tamamına değil, sütun bazlı SELECT, INSERT, UPDATE ve REFERENCES gibi haklar da verilebilir.
 
 örnek olarak, "hodo" tablosunda PUBLIC’e (dolayısıyla tüm rollere) SELECT yetkisi verelim:
 
@@ -232,7 +232,7 @@ UPDATE 2
 
 ### SQL Erişim Yetkileri: Satır Bazlı Güvenlik Politikası
 
-Tablo içerisinde belirli satırlar için de SQL yetkileri tanımlanabilir. Bir tabloda satır bazlı politika aktif edildiyse her kullanıcı için bir politika ile izinler tanımlanmalıdır. Aksi takdirde varsayılan tablo sahibi hariç olarak herkes izinsizdir.
+Tablo içerisinde belirli satırlar için de SQL yetkileri tanımlanabilir. Bir tabloda satır bazlı politika aktif edildiyse her kullanıcı için bir politika ile izinler tanımlanmalıdır. Aksi takdirde varsayılan tablo sahibi hariç herkes izinsizdir.
 
 ```sql
 pg02=# ALTER TABLE phonebook ENABLE ROW LEVEL SECURITY;
