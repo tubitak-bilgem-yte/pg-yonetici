@@ -148,7 +148,7 @@ entries:
     output: web, pdf
     folderitems:
 
-    - title: Temel Veritabanı işlemleri
+    - title: Temel Veritabanı İşlemleri
       url: /mydoc_postgres_veritabanı_islemleri.html
       output: web, pdf
 
