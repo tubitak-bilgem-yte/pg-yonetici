@@ -33,7 +33,7 @@ csvlog log/postgresql.csv
 
 {% include callout.html content=" `current_logfiles`, rotasyonun bir etkisi olarak yeni bir günlük dosyası oluşturulduğunda ve `log_destination` yeniden yüklendiğinde tekrar oluşturulur. `current_logfiles`, `log_destination` stderr veya csvlog içermediğinde ve logging collector devre dışı bırakıldığında kaldırılır." type="primary" %}
 
-{% include note.html content=" Çoğu Unix sistemde, **log_destination**'ın 'syslog' opsiyonunu kullanırken sisteminizin syslog arka plan programının yapılandırmasını değiştirmeniz gerekir. PostgreSQL `LOCAL0`'dan `LOCAL7`'ye kadar syslog facility kullanabilir, ancak çoğu platform bu gibi mesajları discard eder. Çalışmasını sağlamak için syslog daemon yapılandırma dosyasına şu şekilde ekleme yapmanız gerekir:<br/><br/>
+{% include note.html content=" Çoğu Unix sistemde, **log_destination**'ın 'syslog' opsiyonunu kullanırken sisteminizin syslog arka plan programının yapılandırmasını değiştirmeniz gerekir. PostgreSQL `LOCAL0`'dan `LOCAL7`'ye kadar syslog facility kullanabilir, ancak çoğu platform bu gibi mesajları yok sayar. Çalışmasını sağlamak için syslog daemon yapılandırma dosyasına şu şekilde ekleme yapmanız gerekir:<br/><br/>
 **local0. */var/log/postgresql**
 "%}
 
@@ -45,19 +45,19 @@ csvlog log/postgresql.csv
 
 {% include note.html content=" Logging collector kullanmadan stderr'ı log'lamak mümkündür. Günlük mesajları sadece sunucunun stderr'ının yönlendirildiği yere gidecektir. Ancak, günlük dosyalarının rotasyonu için kullanışlı bir yol sağlamadığından, bu yöntem yalnızca düşük günlük boyutları için uygundur. Ayrıca, logging collector kullanmayan bazı platformlarda, aynı günlük dosyasına aynı anda yazan birden çok süreç birbirinin çıktısı üzerine yazabileceğinden günlük kaydının kaybolmasına veya bozulmasına neden olabilir."%}
 
-{% include note.html content=" Logging collector, mesajları asla kaybetmeyecek şekilde tasarlanmıştır. Bu, aşırı yük durumunda, collector geride kalıp ek günlük mesajları göndermeye çalıştığında sunucu süreçlerinin bloklanabileceği anlamına gelir. Bunun tersine; syslog, mesajları yazamıyorsa drop etmeyi tercih eder. Bu da bu gibi durumlarda bazı mesajları günlüğe kaydetmede başarısız olabileceği, ancak sistemin geri kalanını bloklamayacağı anlamına gelir."%}
+{% include note.html content=" Logging collector, mesajları asla kaybetmeyecek şekilde tasarlanmıştır. Bu, aşırı yük durumunda, collector geride kalıp ek günlük mesajları göndermeye çalıştığında sunucu süreçlerinin bloklanabileceği anlamına gelir. Bunun tersine; syslog, mesajları yazamıyorsa drop etmeyi tercih eder. Bu da böyle durumlarda bazı mesajları günlüğe kaydetmede başarısız olabileceği, ancak sistemin geri kalanını bloklamayacağı anlamına gelir."%}
 
 #### `log_directory`
 
 {% include parameter_info.html parametre="log_directory" %}
 
-{% include callout.html content=" **Bu parametre `logging_collector` etkinleştirildiğinde günlük dosyalarının oluşturulacağı dizini belirler.** Mutlak bir yol olarak veya küme veri dizinine ( data directory ) göre belirtilebilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırındab ayarlanabilir. Öntanımlı değeri `log`'dur." type="primary" %}
+{% include callout.html content=" **Bu parametre `logging_collector` etkinleştirildiğinde günlük dosyalarının oluşturulacağı dizini belirler.** Mutlak bir yol olarak veya küme veri dizinine ( data directory ) göre belirtilebilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir. Öntanımlı değeri `log`'dur." type="primary" %}
 
 #### `log_filename`
 
 {% include parameter_info.html parametre="log_filename" %}
 
-{% include callout.html content=" **Bu parametre `logging_collector` etkinleştirildiğinde oluşturulan günlük dosyalarının adlarını ayarlar.** Değer `strftime` kalıbı olarak işlenir. Zamanla değişen dosya adları `%` kaçışları ile belirtilir. Saat dilimine bağlı `%` kaçışları varsa, hesaplama `log_timezone` ile belirtilen bölgede yapılır. Doğrudan sistemin `strft` zamanı kullanılmadığı için platform spesifik uzantılar çalışmaz. Varsayılan, `postgresql-%Y-%m-%d_%H%M%S.log` şeklindedir.<br/><br/>
+{% include callout.html content=" **Bu parametre `logging_collector` etkinleştirildiğinde oluşturulan günlük dosyalarının adlarını ayarlar.** Değer `strftime` kalıbı olarak işlenir. Zamanla değişen dosya adları `%` kaçışları ile belirtilir. Saat dilimine bağlı `%` kaçışları varsa, hesaplama `log_timezone` ile belirtilen bölgede yapılır. Doğrudan sistemin `strft` zamanı kullanılmadığı için platform spesifik uzantıları çalışmaz. Varsayılan, `postgresql-%Y-%m-%d_%H%M%S.log` şeklindedir.<br/><br/>
 
 `log_destination`'da CSV formatında çıktı etkinleştirildiğinde zaman damgalı günlük dosyası adına `.csv` eklenir.<br/><br/>
 
@@ -69,7 +69,7 @@ Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırınd
 
 {% include callout.html content=" **Bu parametre, `logging_collector` etkinleştirildiğinde, Unix sistemlerde günlük dosyalarının izinlerini ayarlar.** (Windows'da bu parametre yoksayılır.) Parametre değerinin, `chmod` ve `umask` sistem çağrıları tarafından kabul edilen formatta sayısal bir mod olması beklenir.<br/><br/>
 
-Varsayılan izinler `0600`'dır, yani yalnızca sunucu sahibi günlük dosyalarını okuyabilir ve yazabilir. Bir diğer yaygın kullanım ayarı `0640`'tır ve sahip grubunun üyelerinin dosyaları okumasına izin verir. Böyle bir ayarı kullanmak için, dosyaları küme veri dizininin dışında bir yerde depolamak için `log_directory`'yi değiştirmeniz gerekecektir. Her durumda, hassas veriler içerdiği için günlük dosyalarını herkes tarafından okunabilir hale getirmek akıllıca değildir.<br/><br/>
+Varsayılan izinler `0600`'dır, yani yalnızca sunucu sahibi günlük dosyalarını okuyabilir ve yazabilir. Bir diğer yaygın kullanım ayarı `0640`'tır ve sahip grubunun üyelerinin dosyaları okumasına izin verir. Böyle bir ayarı kullanmak için ve dosyaları küme veri dizininin dışında bir yerde depolamak için `log_directory`'yi değiştirmeniz gerekecektir. Her durumda, hassas veriler içerdiği için günlük dosyalarını herkes tarafından okunabilir hale getirmek akıllıca değildir.<br/><br/>
 
 Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
@@ -89,11 +89,11 @@ Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırınd
 
 {% include parameter_info.html parametre="log_truncate_on_rotation" %}
 
-{% include callout.html content=" **Bu parametre, `logging_collector` etkinleştirildiğinde PostgreSQL günlük dosyalarına ekleme yapmak yerine mevcut günlük dosyasını truncate (üzerine yazmasına) eder.** Truncate yalnızca zamana dayalı rotasyon sebepli yeni dosya açılırken meydana gelir, sunucu başlangıcında veya boyuta dayalı rotasyon sırasında değil. Kapalı olduğunda, var olan dosyalara her durumda ekleme yapılacaktır. Örneğin, bu ayarı `postgresql-%H.log` gibi bir `log_filename` ile birlikte kullanılması 24 saatlik günlük dosyalarının oluşturulup ve döngüsel olarak bunların üzerine yazılmasıyla sonuçlanır. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir.<br/><br/>
+{% include callout.html content=" **Bu parametre, `logging_collector` etkinleştirildiğinde PostgreSQL günlük dosyalarına ekleme yapmak yerine mevcut günlük dosyasını truncate (üzerine yazmak) eder.** Truncate yalnızca zamana dayalı rotasyon sebepli yeni dosya açılırken meydana gelir, sunucu başlangıcında veya boyuta dayalı rotasyon sırasında değil. Kapalı olduğunda, var olan dosyalara her durumda ekleme yapılacaktır. Örneğin, bu ayarı `postgresql-%H.log` gibi bir `log_filename` ile birlikte kullanılması 24 saatlik günlük dosyalarının oluşturulup ve döngüsel olarak bunların üzerine yazılmasıyla sonuçlanır. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir.<br/><br/>
 
 Örnek: 7 günlük `server_log.Mon`, `server_log.Tue`, vb. şekilde günlük dosyaları tutmak ve geçen haftanın günlüğünün üzerine bu haftanın günlüğünü otomatik olarak yazmak için, `log_filename` değerini `server_log.%a`, `log_truncate_on_rotation = on` ve `log_rotation_age = 1440` olarak ayarlayın.<br/><br/>
 
-Örnek: Her saatte bir günlük dosyası olarak 24 saatlik günlükler ve günlük dosyası boyutu 1 GB'ı aşarsa daha erken rotasyon için `log_filename` değerini `server_log.%H%M`, `log_truncate_on_rotation = on`, `log_rotation_age = 60` ve `log_rotation_size = 1000000` olarak ayarlayın. `log_filename`'in `%M` içermesi, meydana gelebilecek boyuta dayalı rotasyonlarda mevcut saatlik dosya adından farklı bir dosya adı seçmek içindir" type="primary" %}
+Örnek: Her saatte bir günlük dosyası olarak 24 saatlik günlükler ve günlük dosyası boyutu 1 GB'ı aşarsa daha erken rotasyon için `log_filename` değerini `server_log.%H%M`, `log_truncate_on_rotation = on`, `log_rotation_age = 60` ve `log_rotation_size = 1000000` olarak ayarlayın. `log_filename`'in `%M` içermesi, meydana gelebilecek boyuta dayalı rotasyonlarda mevcut saatlik dosya adından farklı bir dosya adı seçmek içindir." type="primary" %}
 
 #### `syslog_facility`
 
@@ -161,7 +161,7 @@ Genişletilmiş sorgu protokolü kullanan istemciler için Parse, Bind ve Execut
 
 {% include parameter_info.html parametre="log_min_duration_sample" %}
 
-{% include callout.html content=" **En belirtilen süre boyunca çalışan tamamlanmış ifadelerin süresinin örneklenmesine (sampling) edilmesine izin verir.** `log_statement_sample_rate` tarafından kontrol edilen örnekleme oranıyla yürütülen ifadelerin bir alt kümesi için `log_min_duration_statement` ile aynı türden günlük girişleri üretir. Örneğin, 100 ms ayarları, 100 ms ve daha uzun süre çalışan tüm SQL ifadeleri örnekleme için dikkate alacaktır. Bu parametrenin etkinleştirilmesi, tüm sorguları günlüğe kaydedemeyecek kadar yüksek trafik olduğunda faydalı olabilir. Bu değer birimsiz belirtilirse milisaniye olarak alınır. Bunu 0 olarak ayarlamak tüm ifade sürelerini örnekler. -1 (varsayılan) örnekleme ifadesi sürelerini devre dışı bırakır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir.<br/><br/>
+{% include callout.html content=" **En az belirtilen süre boyunca çalışan tamamlanmış ifadelerin süresinin örneklenmesine (sampling) edilmesine izin verir.** `log_statement_sample_rate` tarafından kontrol edilen örnekleme oranıyla yürütülen ifadelerin bir alt kümesi için `log_min_duration_statement` ile aynı türden günlük girişleri üretir. Örneğin, 100 ms ayarları, 100 ms ve daha uzun süre çalışan tüm SQL ifadeleri örnekleme için dikkate alacaktır. Bu parametrenin etkinleştirilmesi, tüm sorguları günlüğe kaydedemeyecek kadar yüksek trafik olduğunda faydalı olabilir. Bu değer birimsiz belirtilirse milisaniye olarak alınır. Bunu 0 olarak ayarlamak tüm ifade sürelerini örnekler. -1 (varsayılan) örnekleme ifadesi sürelerini devre dışı bırakır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir.<br/><br/>
 
 Bu ayar, `log_min_duration_statement`'tan daha düşük önceliğe sahiptir. `log_min_duration_statement`'ı aşan süredeki ifadeler örneklemeye tabi değildir ve her zaman günlüğe kaydedilir.<br/><br/>
 
@@ -216,19 +216,19 @@ Aşağıda verilen tabloda, PostgreSQL tarafından kullanılan mesaj önem seviy
 
 {% include parameter_info.html parametre="debug_pretty_print" %}
 
-{% include callout.html content=" **Bu parametre ayarlandığında, `debug_pretty_print`, `debug_print_parse`, `debug_print_rewritten` ve `debug_print_plan` tarafından üretilen mesajları girintiler.** Bu parametre kapalıyken sağlanan 'kompakt' format daha okunabildir ancak çok daha uzun çıktılar verir. Varsayılan olarak açıktır." type="primary" %}
+{% include callout.html content=" **Bu parametre ayarlandığında, `debug_pretty_print`, `debug_print_parse`, `debug_print_rewritten` ve `debug_print_plan` tarafından üretilen mesajları girintiler.** Bu parametre kapalıyken sağlanan 'kompakt' format daha okunabilirdir ancak çok daha uzun çıktılar verir. Varsayılan olarak açıktır." type="primary" %}
 
 #### `log_checkpoints`
 
 {% include parameter_info.html parametre="log_checkpoints" %}
 
-{% include callout.html content=" **checkpoint ve restartpoint noktalarının sunucu günlüğüne kaydedilmesini sağlar.** Yazılan arabellek sayısı ve bunları yazmak için harcanan zaman dahil olmak üzere bazı istatistikler günlük mesajlarına dahil edilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir. Varsayılan kapalıdır." type="primary" %}
+{% include callout.html content=" **checkpoint ve restartpoint noktalarının sunucu günlüğüne kaydedilmesini sağlar.** Yazılan arabellek sayısı ve bunları yazmak için harcanan zaman dahil olmak üzere bazı istatistikler günlük mesajlarına dahil edilir. Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir. Varsayılan olarak kapalıdır." type="primary" %}
 
 #### `log_connections`
 
 {% include parameter_info.html parametre="log_connections" %}
 
-{% include callout.html content=" **Her başarılı bağlantı girişimini günlüğe kaydeder.** Bu parametre oturum başlangıcında yalnızca süper kullanıcılar tarafından ayarlanabilir ve oturum içinde değiştirilemez. Varsayılan kapalıdır." type="primary" %}
+{% include callout.html content=" **Her başarılı bağlantı girişimini günlüğe kaydeder.** Bu parametre oturum başlangıcında yalnızca süper kullanıcılar tarafından ayarlanabilir ve oturum içinde değiştirilemez. Varsayılan olarak kapalıdır." type="primary" %}
 
 {% include note.html content=" psql gibi istemci programları, parola gerekip gerekmediğini belirlerken iki kez bağlanma denemesinde bulunur. Bu nedenle, yinelenen 'connection received' mesajları bir problem olduğu anlamına gelmez."%}
 
@@ -236,13 +236,13 @@ Aşağıda verilen tabloda, PostgreSQL tarafından kullanılan mesaj önem seviy
 
 {% include parameter_info.html parametre="log_disconnections" %}
 
-{% include callout.html content=" **Oturum sonlandırmalarının günlüğe kaydedilmesini kontrol eder.** Günlük çıktısı, `log_connections` ile benzer olmakla birlikte oturum süresini de içerir. Bu parametre yalnızca süper kullanıcılar oturum başlangıcında değiştirebilir ve bir oturum içinde hiç değiştirilemez. Varsayılan kapalıdır." type="primary" %}
+{% include callout.html content=" **Oturum sonlandırmalarının günlüğe kaydedilmesini kontrol eder.** Günlük çıktısı, `log_connections` ile benzer olmakla birlikte oturum süresini de içerir. Bu parametre yalnızca süper kullanıcılar tarafından oturum başlangıcında değiştirebilir ve bir oturum içinde hiç değiştirilemez. Varsayılan olarak kapalıdır." type="primary" %}
 
 #### `log_duration`
 
 {% include parameter_info.html parametre="log_duration" %}
 
-{% include callout.html content=" **Tamamlanan ifadelerin süresinin günlüğe kaydedilmesini kontrol eder.** Varsayılan kapalıdır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir.<br/><br/>
+{% include callout.html content=" **Tamamlanan ifadelerin süresinin günlüğe kaydedilmesini kontrol eder.** Varsayılan olarak kapalıdır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir.<br/><br/>
 
 Extended sorgu protokolü kullanan istemciler için Parse, Bind ve Execute adım süreleri bağımsız olarak günlüğe kaydedilir." type="primary" %}
 
@@ -264,7 +264,7 @@ Extended sorgu protokolü kullanan istemciler için Parse, Bind ve Execute adım
 
 {% include parameter_info.html parametre="log_line_prefix" %}
 
-{% include callout.html content=" **Her günlük satırı başı çıktısı printf-style dizesidir.** `%` karakterleri, aşağıda verilen durum bilgisiyle değiştirilen 'kaçış dizileri' (escape sequences) başlar. Tanınmayan kaçışlar yok sayılır. Diğer karakterler doğrudan günlük satırına kopyalanır. Bazı kaçışlar yalnızca oturum süreçleri tarafından tanınır ve ana sunucu süreci gibi background süreçler tarafından boş olarak değerlendirilir. Durum bilgileri, `%` ve opsiyondan arasında sayısal değişmez bir değer verilerek sola ve sağa hizalanabilir. Negatif bir değer, durum bilgisinin sağını boşlukla doldurarak minimum uzunluk sağlarken, pozitif değer solu boşluklakla doldurur. Doldurma, günlük dosyalarının okunabilirliği için kullanılabilir.<br/><br/>
+{% include callout.html content=" **Her günlük satırı çıktısının başında olan printf-style dizesidir.** `%` karakterleri, aşağıda verilen durum bilgisiyle değiştirilen 'kaçış dizileri' (escape sequences) başlar. Tanınmayan kaçışlar yok sayılır. Diğer karakterler doğrudan günlük satırına kopyalanır. Bazı kaçışlar yalnızca oturum süreçleri tarafından tanınır ve ana sunucu süreci gibi background süreçler tarafından boş olarak değerlendirilir. Durum bilgileri, `%` ve opsiyondan arasında sayısal değişmez bir değer verilerek sola ve sağa hizalanabilir. Negatif bir değer, durum bilgisinin sağını boşlukla doldurarak minimum uzunluk sağlarken, pozitif değer solu boşluklarla doldurur. Doldurma, günlük dosyalarının okunabilirliği için kullanılabilir.<br/><br/>
 
 Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir. Varsayılan değer, bir zaman damgası ve süreç ID kaydeden `%m [%p]`'dir." type="primary" %}
 
@@ -301,7 +301,7 @@ FROM pg_stat_activity;
 
 {% include tip.html content=" log_line_prefix için boş olmayan bir değer ayarlarsanız, günlük satırının geri kalanından görsel ayrımı sağlamak için son karakteri boşluk yapmalısınız. Noktalama karakteri de kullanılabilir."%}
 
-{% include tip.html content=" syslog kendi zaman damgasını ve süreç ID bilgilerini üretiğinden, syslog'da loglama yapıyorsanız bu kaçışları dahil etmek istemeyebilirsiniz."%}
+{% include tip.html content=" syslog kendi zaman damgasını ve süreç ID bilgilerini ürettiğinden, syslog'da loglama yapıyorsanız bu kaçışları dahil etmek istemeyebilirsiniz."%}
 
 {% include tip.html content=" **%q** kaçışı, kullanıcı veya veritabanı adı gibi yalnızca oturum (backend) bağlamında geçerli bilgileri dahil ederken kullanışlıdır. Örnek:<br/><br/>
 
@@ -311,7 +311,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '"%}
 
 {% include parameter_info.html parametre="log_lock_waits" %}
 
-{% include callout.html content=" **Bir oturum kilit almak için [`deadlock_timeout`](https://www.postgresql.org/docs/current/runtime-config-locks.html#GUC-DEADLOCK-TIMEOUT) süresinden daha uzun süre beklediğinde bir günlük mesajı üretilip üretilmeyeceğini kontrol eder.** Bu parametre, kilit beklemelerinin düşük performansa neden olup olmadığı belirlenirken kullanışlıdır. Varsayılan kapalıdır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
+{% include callout.html content=" **Bir oturum, kilit almak için [`deadlock_timeout`](https://www.postgresql.org/docs/current/runtime-config-locks.html#GUC-DEADLOCK-TIMEOUT) süresinden daha uzun süre beklediğinde bir günlük mesajı üretilip üretilmeyeceğini kontrol eder.** Bu parametre, kilit beklemelerinin düşük performansa neden olup olmadığını belirlenirken kullanışlıdır. Varsayılan olarak kapalıdır. Bu ayarı yalnızca süper kullanıcılar değiştirebilir." type="primary" %}
 
 #### `log_parameter_max_length`
 
@@ -355,11 +355,11 @@ Bu ayarın sıfır olmayan değerleri ek yük getirir. Çünkü PostgreSQL, sonu
 
 {% include parameter_info.html parametre="log_timezone" %}
 
-{% include callout.html content=" **Sunucu günlüğüne yazılan zaman damgaları için kullanılan saat dilimini ayarlar.** Parametre değeri[TimeZone](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-TIMEZONE)'dan farklı olarak küme çapındadır. Böylece tüm oturumlar zaman damgalarını tutarlı bir şekilde rapor eder. Yerleşik varsayılan `GMT`'dir, ancak bu genellikle *postgresql.conf*'ta geçersiz kılınır; initdb, sistem ortamına karşılık gelen bir ayar kuracaktır. Daha fazla bilgi için bkz. [](https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-TIMEZONES). Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
+{% include callout.html content=" **Sunucu günlüğüne yazılan zaman damgaları için kullanılan saat dilimini ayarlar.** Parametre değeri [TimeZone](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-TIMEZONE)'dan farklı olarak küme çapındadır. Böylece tüm oturumlar zaman damgalarını tutarlı bir şekilde rapor eder. Yerleşik varsayılan `GMT`'dir, ancak bu genellikle *postgresql.conf*'ta geçersiz kılınır; initdb, sistem ortamına karşılık gelen bir ayar kuracaktır. Daha fazla bilgi için bkz. [](https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-TIMEZONES). Bu parametre yalnızca *postgresql.conf* dosyasından ve sunucu komut satırından ayarlanabilir." type="primary" %}
 
 ### CSV Formatında Log Çıktısı Kullanma
 
-`log_destination` listesine `csvlog`'un dahil edilmesi, günlük dosyalarını bir veritabanı tablosuna aktarmak için kullanışlı bir yol sağlar. Bu parametre şu sütunlarla virgülle ayrılmış değerler (CSV) biçiminde günlük satırları yıyınlar: milisaniyeli zaman damgası, kullanıcı adı, veritabanı adı, süreç ID; istemci host: bağlantı noktası numarası (port), oturum ID, herbir oturum için satır numarası, komut etiketi, oturum başlangıç ​​zamanı, sanal transaction ID, normal transaction ID, hata düzeyi, `SQLSTATE` kodu, hata mesajı, hata mesajı ayrıntısı, ipucu, hataya neden olan dahili sorgu (varsa), oradaki hata pozisyonunun karakter sayısı, hata bağlamı, hataya yol açan kullanıcı sorgusu (varsa ve `log_min_error_statement` tarafından etkinleştirilmişse), oradaki hata konumunun karakter sayısı, PostgreSQL kaynak kodundaki hatanın konumu (`log_error_verbosity` ayrıntılı olarak ayarlanmışsa), uygulama adı ve backend türü. CSV biçimli günlük çıktısını depolamak için örnek bir tablo tanımı:
+`log_destination` listesine `csvlog`'un dahil edilmesi, günlük dosyalarını bir veritabanı tablosuna aktarmak için kullanışlı bir yol sağlar. Bu parametre şu sütunlarla virgülle ayrılmış değerler (CSV) biçiminde günlük satırları yayınlar: milisaniyeli zaman damgası, kullanıcı adı, veritabanı adı, süreç ID; istemci host: bağlantı noktası numarası (port), oturum ID, herbir oturum için satır numarası, komut etiketi, oturum başlangıç ​​zamanı, sanal transaction ID, normal transaction ID, hata düzeyi, `SQLSTATE` kodu, hata mesajı, hata mesajı ayrıntısı, ipucu, hataya neden olan dahili sorgu (varsa), oradaki hata pozisyonunun karakter sayısı, hata bağlamı, hataya yol açan kullanıcı sorgusu (varsa ve `log_min_error_statement` tarafından etkinleştirilmişse), oradaki hata konumunun karakter sayısı, PostgreSQL kaynak kodundaki hatanın konumu (`log_error_verbosity` ayrıntılı olarak ayarlanmışsa), uygulama adı ve backend türü. CSV biçimli günlük çıktısını depolamak için örnek bir tablo tanımı:
 
 ```sql
 CREATE TABLE postgres_log
@@ -405,7 +405,7 @@ CSV günlük dosyalarını içe aktarmayı basitleştirmek için yapmanız gerek
 1. Günlük dosyalarınız için tutarlı, öngörülebilir bir adlandırma düzeni sağlamak için `log_filename` ve `log_rotation_age` parametrelerini ayarlayın. Bu, dosya adını öngörmenizi ve bir günlük dosyasının ne zaman tamamlandığını ve dolayısıyla içe aktarılmaya hazır olduğunu bilmenizi sağlar.
 2. Günlük dosyası adının tahmin edilmesini zorlaştıracağından boyut tabanlı günlük rotasyonunu devre dışı bırakmak için `log_rotation_size` değerini 0 olarak ayarlayın.
 3. `log_truncate_on_rotation` öğesini açık olarak ayarlayın, böylece eski günlük verileri aynı dosyadaki yenileriyle karıştırılmaz.
-4. Yukarıda verilen tablo tanımı, bir birincil anahtar spesifikasyonu içerir. Bu, aynı bilgilerin yanlışlıkla iki kez içe aktarılmasına karşı koruma sağlamak için yararlıdır. `COPY` komutu, içe aktardığı tüm verileri tek seferde işler, bu nedenle herhangi bir hata içe aktarmanın tamamının başarısız olmasına neden olur. Tam olmayan bir günlük dosyasını içe aktarırsanız daha sonra tamamlandığında dosyayı tekrar içe aktardığınızda birincil anahtar ihlali içe aktarmanın başarısız olmasına neden olur. İçe aktarmadan önce, günlük tamamlanana ve kapanana kadar bekleyin. Bu prosedür ayrıca, tamamen yazılmamış bir parçalı satırın yanlışlıkla içe aktarılmasına karşı koruma sağlarak bu da `COPY`'nın başarısız olmasına neden olur.
+4. Yukarıda verilen tablo tanımı, bir birincil anahtar spesifikasyonu içerir. Bu, aynı bilgilerin yanlışlıkla iki kez içe aktarılmasına karşı koruma sağlamak için yararlıdır. `COPY` komutu, içe aktardığı tüm verileri tek seferde işler, bu nedenle herhangi bir hata içe aktarmanın tamamının başarısız olmasına neden olur. Tam olmayan bir günlük dosyasını içe aktarırsanız daha sonra tamamlandığında dosyayı tekrar içe aktardığınızda birincil anahtar ihlali içe aktarmanın başarısız olmasına neden olur. İçe aktarmadan önce, günlük tamamlanana ve kapanana kadar bekleyin. Ayrıca bu prosedür tamamen yazılmamış bir parçalı satırın yanlışlıkla içe aktarılmasına karşı koruma sağlayarak `COPY`'nın başarısız olmasına neden olur.
 
 ### Süreç Başlığı
 
@@ -417,7 +417,7 @@ Bu başlık altında verilen ayarlar, sunucu süreçlerinin süreç başlıklar�
 
 {% include callout.html content=" **Bu parametre, veritabanı kümesini tanımlayan bir ad belirtir.** Küme adı, bu kümedeki sunucu süreçlerinin süreç başlığında görünür. Ayrıca, bir standby bağlantısı için varsayılan uygulama adıdır. bkz. [synchronous_standby_names](mydoc_replication.html#primary-server)<br/><br/>
 
-Ad, `NAMEDATALEN`'den daha az karakterde herhangi bir dize olabilir (standart build'de 64 karakter). `cluster_name` parametresi değerinde yalnızca yazdırılabilir ASCII karakterler kullanılabilir. Diğer karakterler soru işareti (?) ile değiştirilecektir. Bu parametre boş dizeye ' ' (varsayılan böyle) ayarlanırsa ad gösterilmez. Bu parametre yalnızca sunucu başlangıcında ayarlanabilir." type="primary" %}
+Ad, `NAMEDATALEN`'den daha az karakterde herhangi bir dize olabilir (standart build'de 64 karakter). `cluster_name` parametre değerinde yalnızca yazdırılabilir ASCII karakterler kullanılabilir. Diğer karakterler soru işareti (?) ile değiştirilecektir. Bu parametre boş dizeye ' ' (varsayılan böyle) ayarlanırsa ad gösterilmez. Bu parametre yalnızca sunucu başlangıcında ayarlanabilir." type="primary" %}
 
 #### `update_process_title`
 
