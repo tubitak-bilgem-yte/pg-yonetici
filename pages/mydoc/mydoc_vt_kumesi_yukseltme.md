@@ -32,7 +32,7 @@ Tamamen geçiş yapmadan önce istemci uygulamalarını yeni sürümde test etme
 
 ### pg_dumpall Yaklaşımı ile Yükseltme
 
-Yükseltme yöntemlerinden biri, PostgreSQL ana sürümünde verilerin dump'ın alıp ve başka sürümde yeniden yüklemektir. Bu işlem için [`pg_dumpall`](mydoc_postgresql_yedekleme.html#pg_dumpall) logical yedekleme aracı kullanılır. PostgreSQL'in uyumsuz bir sürümüne sahip bir veri dizinini kullanmanızı engelleyen kontroller vardır. Bu nedenle bir veri dizininde yanlış sunucu sürümünü başlatmaya çalışmak büyük bir zarara sebep olmaz.
+Yükseltme yöntemlerinden biri, PostgreSQL ana sürümünde verilerin dump'ın alıp başka sürümde yeniden yüklemektir. Bu işlem için [`pg_dumpall`](mydoc_postgresql_yedekleme.html#pg_dumpall) logical yedekleme aracı kullanılır. PostgreSQL'in uyumsuz bir sürümüne sahip bir veri dizinini kullanmanızı engelleyen kontroller vardır. Bu nedenle bir veri dizininde yanlış sunucu sürümünü başlatmaya çalışmak büyük bir zarara sebep olmaz.
 
 PostgreSQL'in yeni sürümündeki [`pg_dump`](mydoc_postgresql_yedekleme.html#pg_dump-ile-yedekleme) ve `pg_dumpall` programlarını kullanmanız önerilir. Dump programlarının mevcut sürümleri, herhangi bir sunucu sürümünden 7.0 sürüm kadar geriden veri okuyabilir.
 
@@ -46,7 +46,7 @@ Veritabanı kurulumunu yedeklemek için şunu yazın:
 pg_dumpall > outputfile
 ```
 
-Yedeklemeyi yapmak için, şu anda çalıştırmakta olduğunuz sürümde `pg_dumpall` komutunu kullanabilirsiniz. En iyi sonuçlar için PostgreSQL'in en son sürümündeki `pg_dumpall` aracını kullanmayınız önerilir. Güncel sürüm eski sürümlere göre hata düzeltmeleri ve iyileştirmeler içerir.
+Yedeklemeyi yapmak için, şu anda çalıştırmakta olduğunuz sürümde `pg_dumpall` komutunu kullanabilirsiniz. En iyi sonuçlar için PostgreSQL'in en son sürümündeki `pg_dumpall` aracını kullanmanız önerilir. Güncel sürüm eski sürümlere göre hata düzeltmeleri ve iyileştirmeler içerir.
 
 **2.** Eski sunucuyu kapatın:
 
