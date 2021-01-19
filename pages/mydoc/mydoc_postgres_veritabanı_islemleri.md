@@ -143,14 +143,14 @@ Indexes:
     "personel_pkey" PRIMARY KEY, btree (uid)
 ```
 
-Tabloyu düzenleme: Yeni kolon ekleme
+Tabloyu düzenleme: Yeni sütun ekleme
 
 ```sql
 ALTER TABLE public.personel
     ADD COLUMN pagila text;
 ```
 
-Tabloyu düzenleme: Bir kolon tipini değiştirme
+Tabloyu düzenleme: Bir sütunun tipini değiştirme
 
 ```sql
 ALTER TABLE public.personel
