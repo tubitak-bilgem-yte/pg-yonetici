@@ -64,7 +64,12 @@ Sadece `ANALYZE` çıktısında görünür.
 
 İşlemi kaç kere yaptığını gösterir. 
 
+#### Planning time
+Query Planner(sorgu planlayıcı), sorgunuzu yürütmenin en hızlı yolunu (planını) bulmaya çalışır. Bunu, çeşitli olası yolların (planların) yürütme süresini tahmin ederek yapar. Bu harcanan zamana denir.
 
+#### Execution time
+Sunucu, sorguyu en hızlı olduğu düşünülen planı kullanarak çalıştırır ve size çıktıyı döndürür. Bu harcanan zamana denir. 
+"planned [execution] time" ve "estimated execution time".
 
 ```
 # ilk sorguda tamamı disk okumasından geliyor. 
@@ -92,7 +97,7 @@ postgres=# explain (analyze, buffers) select * from foo;
  Seq Scan on foo  (cost=0.00..18334.00 rows=1000000 width=37) (actual time=0.099..86.507 rows=1000000 loops=1)
    Buffers: shared hit=224 read=8110
  Planning time: 0.055 ms
- Execution time
+ Execution time: 0.011 ms
 
 ```
 
@@ -197,24 +202,92 @@ Eğer aradığımız veri sadece indexte bulunabiliyorsa
 ```
 
 
-#### Diğer Explain Örnekleri:
+#### Nested Loop (iç içe döngü):
+Joinleri cross product olarak çalışır. Çok yavaştır. Join taraflarından birinin az satırı varsa, bu join tercih edilir. Join koşulu eşitlik operatörünü kullanmıyorsa, tek seçenek olarak kullanılır. Aşağıdaki gibi çalışır. 
 
-```sql
-EXPLAIN SELECT * FROM tenk1;
-
-                         QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Seq Scan on tenk1  (cost=0.00..458.00 rows=10000 width=244)
+```code
+for (each outer tuple)
+	for (each inner tuple)
+		if (join condition is met)
+			emit result row;
 ```
 
-```sql
-EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 7000;
+* Index kullanılamıyorsa kullanılır.
 
-                         QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Seq Scan on tenk1  (cost=0.00..483.00 rows=7001 width=244)
-   Filter: (unique1 < 7000)
+```sql
+EXPLAIN SELECT * FROM foo, bar WHERE foo.x = bar.x;
+
+ Nested Loop
+   Join Filter: (foo.x = bar.x)
+   ->  Seq Scan on bar
+   ->  Materialize
+         ->  Seq Scan on foo
 ```
+* Filter alanlarında index varsa biraz daha iyidir. 
+
+```sql
+SELECT * FROM foo, bar WHERE foo.x = bar.x;
+
+Nested Loop
+   ->  Seq Scan on foo
+   ->  Index Scan using bar_pkey on bar
+         Index Cond: (bar.x = foo.x)
+
+```
+
+#### Merge Join
+Sadece eşitlik alanlarına bakar. İndex alanlarını ya da sort ile alanları sıraya koyup paralel scan yapar ve eşitlikleri karşılaştırır. Duplicate varsa tarama işini tekrarlar.
+
+Birleştirme koşulu bir eşitlik operatörü kullanıyorsa ve birleştirmenin her iki tarafı da büyükse, ancak, birleştirme koşuluna göre verimli bir şekilde sıralanabiliyorsa (örneğin, birleştirme sütununda kullanılan ifadelerde bir index varsa) merge join tercih edilir.
+
+```sql
+
+SELECT * FROM foo, bar WHERE foo.x = bar.x;
+ 
+ Merge Join
+   Merge Cond: (foo.x = bar.x)
+   ->  Sort
+         Sort Key: foo.x
+         ->  Seq Scan on foo
+   ->  Materialize
+         ->  Sort
+               Sort Key: bar.x
+               ->  Seq Scan on bar
+
+```
+
+
+#### Hash Join
+
+Merge joine benzer. Sırayla inner ilişkiden gelen her rowu ve outer ilişkiden gelen gelen her rowu hash yaparak hash tablosuna yazar ve bunları karşılaştırır. Yeteri kadar bellek varsa oldukça hızlıdır. 
+
+Join koşulu bir eşitlik operatörü kullanıyorsa ve birleştirmenin her iki tarafı da büyükse ve hash, work_mem'e sığıyorsa, hash join tercih edilir.
+
+```sql
+
+SELECT * FROM foo, bar WHERE foo.x = bar.x
+
+ Hash Join
+   Hash Cond: (foo.x = bar.x)
+   ->  Seq Scan on foo
+   ->  Hash
+         ->  Seq Scan on bar
+
+```
+
+#### Bitmap Heap Scan
+Düz *Index Scan*, indexten bir seferde bir asıl kayıt işaretçisi getirir,
+ve hemen tablodaki o kaydı ziyaret eder. Fakat Bir *Bitmap Scan* indexteki tüm işaretçileri tek seferde getirir ve onu
+bellek içinde 'bitmap' veri yapısını kullanarak sıralar ve ardından tablo kayıtlarını 
+fiziksel sırasına göre gezer. *Bitmap Scan*, asıl tabloya yönlendiren veriyi yerelleştirir. Maliyetleri de, veriyi *bitmap* yapısına sokarak daha fazla yer kaplamasına neden olur, veriniz artık index sırasını kaybettiği için sorgunuzdaki olası *ORDER BY* için işe yararlığını kaybeder.
+
+#### Recheck Cond
+Yalnızca bitmap loosy olduğunda yeniden kontrol gerçekleştirilir.
+*work_mem*, tablo satırı başına bir bit içeren bir bitmap içerecek kadar büyük değilse, bitmap index taraması kaybolur(loosy) ve bitmap adreslemesi *page* başına bir bit'e düşecektir. Bu tür bloklardan gelen satırların yeniden kontrol edilmesi gerekecektir.
+
+#### BitmapAnd / BitmapOr
+*Bitmap Heap Scan* durumunda olan durumda, asıl tabloyu ziyaret etmeden önce birden çok indexten elde edilen sonuçlardan gelen bitmapleri AND/OR işlemleri aracılığıyla birleştirebiliriz. Bir index için bile potansiyel olarak değerlidir. 
+Temel bir kural olarak, düz *index scan*, az sayıda kayıtta işe yarar, *Bitmap Scan* daha fazla kayıtta anlamlıdır, *Sequential Scan*, eğer tablonun büyük bir yüzdesini alıyorsunuz anlamlıdır. [*](https://www.postgresql.org/message-id/12553.1135634231@sss.pgh.pa.us)
 
 ```sql
 EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 100;
@@ -225,16 +298,6 @@ EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 100;
    Recheck Cond: (unique1 < 100)
    ->  Bitmap Index Scan on tenk1_unique1  (cost=0.00..5.04 rows=101 width=0)
          Index Cond: (unique1 < 100)
-```
-
-
-```sql
-EXPLAIN SELECT * FROM tenk1 WHERE unique1 = 42;
-
-                                 QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Index Scan using tenk1_unique1 on tenk1  (cost=0.29..8.30 rows=1 width=244)
-   Index Cond: (unique1 = 42)
 ```
 
 ```sql
@@ -251,34 +314,7 @@ EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 100 AND unique2 > 9000;
                Index Cond: (unique2 > 9000)
 ```
 
-```sql
-EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 100 AND unique2 > 9000 LIMIT 2;
-
-                                     QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Limit  (cost=0.29..14.48 rows=2 width=244)
-   ->  Index Scan using tenk1_unique2 on tenk1  (cost=0.29..71.27 rows=10 width=244)
-         Index Cond: (unique2 > 9000)
-         Filter: (unique1 < 100)
-```
-
-```sql
-EXPLAIN SELECT *
-FROM tenk1 t1, tenk2 t2
-WHERE t1.unique1 < 10 AND t1.unique2 = t2.unique2;
-
-                                      QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Nested Loop  (cost=4.65..118.62 rows=10 width=488)
-   ->  Bitmap Heap Scan on tenk1 t1  (cost=4.36..39.47 rows=10 width=244)
-         Recheck Cond: (unique1 < 10)
-         ->  Bitmap Index Scan on tenk1_unique1  (cost=0.00..4.36 rows=10 width=0)
-               Index Cond: (unique1 < 10)
-   ->  Index Scan using tenk2_unique2 on tenk2 t2  (cost=0.29..7.91 rows=1 width=244)
-         Index Cond: (unique2 = t1.unique2)
-```
-
-**Sorgu Planlayıcısına Farklı Plan Yaptırmak**:
+#### Sorgu Planlayıcısına Farklı Plan Yaptırmak
 
 Normal sorgu:
 
@@ -296,48 +332,6 @@ WHERE t1.unique1 < 100 AND t1.unique2 = t2.unique2;
    ->  Sort  (cost=197.83..200.33 rows=1000 width=244)
          Sort Key: t2.unique2
          ->  Seq Scan on onek t2  (cost=0.00..148.00 rows=1000 width=244)
-```
-
-Kullandığı bir yöntemi engelleyerek sonuç:
-
-```sql
-SET enable_sort = off;
-
-EXPLAIN SELECT *
-FROM tenk1 t1, onek t2
-WHERE t1.unique1 < 100 AND t1.unique2 = t2.unique2;
-
-                                        QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Merge Join  (cost=0.56..292.65 rows=10 width=488)
-   Merge Cond: (t1.unique2 = t2.unique2)
-   ->  Index Scan using tenk1_unique2 on tenk1 t1  (cost=0.29..656.28 rows=101 width=244)
-         Filter: (unique1 < 100)
-   ->  Index Scan using onek_unique2 on onek t2  (cost=0.28..224.79 rows=1000 width=244)
-```
-
-- Sonuç olarak bu işlem bize %12 daha pahalıya mal oldu.
-
-### EXPLAIN ANALYZE
-
-``ANALYZE`` dendiğinde ``EXPLAIN`` gerçekten sorguyu gerçekleştirir ve tahminleri ile beraber gösterir.
-
-```sql
-EXPLAIN ANALYZE SELECT *
-FROM tenk1 t1, tenk2 t2
-WHERE t1.unique1 < 10 AND t1.unique2 = t2.unique2;
-
-                                                           QUERY PLAN
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Nested Loop  (cost=4.65..118.62 rows=10 width=488) (actual time=0.128..0.377 rows=10 loops=1)
-   ->  Bitmap Heap Scan on tenk1 t1  (cost=4.36..39.47 rows=10 width=244) (actual time=0.057..0.121 rows=10 loops=1)
-         Recheck Cond: (unique1 < 10)
-         ->  Bitmap Index Scan on tenk1_unique1  (cost=0.00..4.36 rows=10 width=0) (actual time=0.024..0.024 rows=10 loops=1)
-               Index Cond: (unique1 < 10)
-   ->  Index Scan using tenk2_unique2 on tenk2 t2  (cost=0.29..7.91 rows=1 width=244) (actual time=0.021..0.022 rows=1 loops=10)
-         Index Cond: (unique2 = t1.unique2)
- Planning time: 0.181 ms
- Execution time: 0.501 ms
 ```
 
 ### Log Analizi : PgBadger
