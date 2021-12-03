@@ -334,6 +334,24 @@ WHERE t1.unique1 < 100 AND t1.unique2 = t2.unique2;
          ->  Seq Scan on onek t2  (cost=0.00..148.00 rows=1000 width=244)
 ```
 
+* Bir özelliği kapatarak sonuç
+
+```sql
+SET enable_sort = off;
+
+EXPLAIN SELECT *
+FROM tenk1 t1, onek t2
+WHERE t1.unique1 < 100 AND t1.unique2 = t2.unique2;
+
+                                        QUERY PLAN
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ Merge Join  (cost=0.56..292.65 rows=10 width=488)
+   Merge Cond: (t1.unique2 = t2.unique2)
+   ->  Index Scan using tenk1_unique2 on tenk1 t1  (cost=0.29..656.28 rows=101 width=244)
+         Filter: (unique1 < 100)
+   ->  Index Scan using onek_unique2 on onek t2  (cost=0.28..224.79 rows=1000 width=244)
+```
+
 ### Log Analizi : PgBadger
 
 PgBadger öngereksinimler ve kurulum:
