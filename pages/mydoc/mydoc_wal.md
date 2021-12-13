@@ -8,9 +8,9 @@ permalink: mydoc_wal.html
 folder: mydoc
 ---
 
-## Write Ahead Log
+## Yapılandırma Parametreleri
 
-### Parametreler
+### Write Ahead Log
 
 #### `wal_level`
 
