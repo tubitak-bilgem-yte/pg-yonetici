@@ -69,6 +69,10 @@ entries:
   - title: Veritabanı Yapılandırması
     output: web, pdf
     folderitems:
+    
+    - title: Yapılandırma Paramatreleri
+      url: /mydoc_parametreler.html
+      output: web, pdf    
 
     - title: Parametreleri Ayarlama
       url: /mydoc_paremetreleri_ayarlama.html
@@ -84,10 +88,6 @@ entries:
 
     - title: Kaynak Tüketimi
       url: /mydoc_kaynak_tuketimi.html
-      output: web, pdf
-
-    - title: Write Ahead Log
-      url: /mydoc_wal.html
       output: web, pdf
 
     - title: Replication
