@@ -1,10 +1,10 @@
 ---
-title: "Write Ahead Log"
+title: "Yapılandırma Parametreleri"
 tags: [PostgreSQL]
 keywords: postgres, wal_level, fsync, synchronous_commit, wal_sync_method, full_page_writes, wal_log_hints, wal_compression,wal_init_zero,wal_recycle, wal_buffers, wal_writer_delay, wal_writer_flush_after, wal_skip_threshold, commit_delay, commit_siblings, checkpoint_timeout, checkpoint_completion_target, checkpoint_flush_after, checkpoint_warning, checkpoint_warning, archive_mode,archive_command, archive_timeout, restore_command, archive_cleanup_command, archive_cleanup_command, recovery_target_name, recovery_target, recovery_target_time, recovery_target_xid, recovery_target_timeline, recovery_target_timeline
-last_updated: January 7, 2021
+last_updated: December 14, 2021
 sidebar: mydoc_sidebar
-permalink: mydoc_wal.html
+permalink: mydoc_parametreler.html
 folder: mydoc
 ---
 
