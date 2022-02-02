@@ -67,7 +67,7 @@ Her bir mantıksal WAL, 255 tane dosyadan(fiziksel WAL) oluşan 4080 MB toplamı
 Yukarıdaki `SELECT pg_current_wal_lsn();` sorgusundan dönen _3/812FCF08_ çıktı 2 parçaya ayrılır.
 
 1.  WAL dosyasının mantıksal WAL'daki yerini söyler. 
-2.  Bu mantıksal dosyanın başından itibaren ne kadar ilerde (offset) olduğunu gösterir. Bu rakamlar birbirlerinden mantıksal ve fiziksel yeri çıkarabilmektedir. WAL'ın yeri,  wall dosyalarının recovery ve replication işlemlerinde öneminden dolayı kritiktir. 
+2.  Bu mantıksal dosyanın başından itibaren ne kadar ilerde (offset) olduğunu gösterir. Bu rakamlar birbirlerinden mantıksal ve fiziksel yeri çıkarabilmektedir. WAL'ın yeri,  WAL dosyalarının recovery ve replication işlemlerinde öneminden dolayı kritiktir. 
 
 Her biri 16MB dir. Dolunca yenisine geçer. Ellede tetiklenebilir. _"select pg_switch_wal()"_ yazılmakta olan segmenti geçerek diğer wal segment dosyasına geçer.
 
