@@ -2,7 +2,7 @@
 title: "Parametreleri Ayarlama"
 layout: default
 parent: Veritabanı Yapılandırması
-nav_order: 2
+nav_order: 0
 ---
 
 ## Parametreleri Ayarlama
